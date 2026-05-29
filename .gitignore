@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Python 字节码和构建产物
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+
+# 生成/导出的数据（重新跑即可重现）
+export/
+
+# 生成的宽表（Parquet 二进制格式）
+core/dictionary/stock_profile.parquet
+
+# 外部独立项目的 symlink
+101factor
