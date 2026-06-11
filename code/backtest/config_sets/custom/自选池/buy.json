@@ -1,0 +1,23 @@
+{
+  "_comment1": "===== 买入策略：Alpha101 因子选股 =====",
+  "factors": [
+    "alpha002",
+    "alpha006",
+    "alpha012"
+  ],
+  "factor_reverse": false,
+  "factor_weights": {},
+  "normalization": "zscore",
+  "stock_pool": {
+    "_comment": "股票池来源: industry=按板块, csv=从文件读, list=直接写列表",
+    "source": "csv",
+    "csv_path": "core/dictionary/candidates/stock_pool_2026q1.csv"
+  },
+  "selection": {
+    "_comment": "选股参数",
+    "top_n": 10,
+    "min_score": 0
+  },
+  "history_days": 60,
+  "enable_cache": false
+}

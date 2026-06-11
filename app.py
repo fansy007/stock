@@ -10,6 +10,9 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+# 回测页面组件
+from code.backtest.web import render_backtest_page
+
 BASE = Path(__file__).parent
 CACHE_PATH = BASE / "core" / "dictionary" / "stock_profile.parquet"
 
@@ -141,6 +144,14 @@ def filter_dataframe(df, filters):
 # ── 页面 ────────────────────────────────────────────
 
 st.set_page_config(page_title="A 股浏览器", layout="wide")
+
+# ── 模式切换 ──────────────────────────────────────
+
+mode = st.sidebar.radio("模式", ["📋 选股", "🔄 回测"], horizontal=True, label_visibility="collapsed")
+
+if mode == "🔄 回测":
+    render_backtest_page()
+    st.stop()
 
 st.markdown(
     "<h1 style='font-size:1.6rem;margin-bottom:0'>A 股浏览器</h1>"
@@ -757,3 +768,4 @@ with _tabs[2]:
 
     # ── 显示主图 ──
     st.plotly_chart(_fig, use_container_width=True, key="main_kline")
+

@@ -1,0 +1,16 @@
+{
+    "mode": "stop_take",
+    "hold_days_min": 1,
+    "hold_days_max": 60,
+    "stop_loss_pct": 8.0,
+    "take_profit_pct": 20.0,
+    "take_profit_mode": "all",
+    "partial_take_profit_levels": [
+        {"pct": 15, "sell_ratio": 0.3},
+        {"pct": 30, "sell_ratio": 0.3},
+        {"pct": 50, "sell_ratio": 0.4}
+    ],
+    "trailing_stop_pct": 5.0,
+    "trailing_activate_pct": 10.0,
+    "rebalance_sell": true
+}

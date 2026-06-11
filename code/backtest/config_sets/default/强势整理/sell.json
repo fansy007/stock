@@ -1,0 +1,15 @@
+{
+  "_comment1": "===== 卖出策略：移动止损（配合强势整理买点） =====",
+  "_comment2": "强势整理买入后，要么趋势延续吃大段，要么破位走人",
+  "_comment3": "用 trailing（移动止损）让利润奔跑，同时锁住回撤",
+  "mode": "trailing",
+  "_comment_days": "最小持有3天防摩擦，最长持有30天防死拿",
+  "hold_days_min": 3,
+  "hold_days_max": 30,
+  "_comment_trailing": "启动移动止损后，从最高点回撤5%卖出",
+  "trailing_stop_pct": 5.0,
+  "_comment_activate": "盈利超过8%后启动移动止损（给股价先跑一段空间）",
+  "trailing_activate_pct": 8.0,
+  "_comment_rebalance": "调仓日是否卖出不符合条件的持仓",
+  "rebalance_sell": true
+}

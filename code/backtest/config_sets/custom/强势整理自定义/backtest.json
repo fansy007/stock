@@ -1,0 +1,28 @@
+{
+  "_comment1": "===== 回测主配置 =====",
+  "capital": {
+    "_comment": "资金设置",
+    "initial": 1000000,
+    "min_buy": 50000,
+    "commission_rate": 0.0003,
+    "stamp_tax_rate": 0.001,
+    "slippage": 0.001
+  },
+  "period": {
+    "_comment": "回测区间（格式 YYYYMMDD）",
+    "start": "20260501",
+    "end": "20260601"
+  },
+  "portfolio": {
+    "_comment": "持仓规则（强势整理偏精选，10只够了）",
+    "max_positions": 10,
+    "position_sizing": "equal_weight"
+  },
+  "benchmark": "399006.SZ",
+  "strategies": {
+    "_comment": "买入策略用 timing，卖出用 trailing 配合",
+    "buy": "buy_timing_strategy",
+    "sell": "sell_trailing_strategy"
+  },
+  "rebalance_days": 0
+}

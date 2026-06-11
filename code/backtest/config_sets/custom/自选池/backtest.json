@@ -1,0 +1,28 @@
+{
+  "_comment1": "===== 回测主配置 =====",
+  "capital": {
+    "_comment": "资金设置",
+    "initial": 1000000,
+    "min_buy": 50000,
+    "commission_rate": 0.0003,
+    "stamp_tax_rate": 0.001,
+    "slippage": 0.001
+  },
+  "period": {
+    "_comment": "回测区间（格式 YYYYMMDD）",
+    "start": "20260401",
+    "end": "20260529"
+  },
+  "portfolio": {
+    "_comment": "持仓规则",
+    "max_positions": 20,
+    "position_sizing": "equal_weight"
+  },
+  "benchmark": "399006.SZ",
+  "strategies": {
+    "_comment": "策略文件（文件名必须含 strategy，class 名固定 BuyStrategy/SellStrategy）",
+    "buy": "buy_factor_strategy",
+    "sell": "sell_trailing_strategy"
+  },
+  "rebalance_days": 5
+}

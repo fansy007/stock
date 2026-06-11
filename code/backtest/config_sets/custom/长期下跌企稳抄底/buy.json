@@ -1,0 +1,45 @@
+{
+  "_comment1": "===== 买入策略：长期下跌企稳选股 =====",
+  "_comment2": "逻辑：两周前处于长期下跌（大回撤+空头排列），现已止跌企稳（均线走平+站住+放量）",
+  "_comment3": "全部条件均为硬性过滤，不评分排序，过则入选。",
+  "_comment4": "调整参数不改代码，直接改此文件即可。",
+  "_comment_decline": "===== 第一段：两周前的状态（确认处于长期下跌） =====",
+  "decline_filter": {
+    "_comment_drawdown": "从250日最高点回撤的最小百分比。低于此值的不认为处于长期下跌。例如 30.0 表示从最高点回撤超过30%才算。可调，40%更严选股更少。",
+    "min_drawdown_pct": 30.0,
+    "_comment_ma": "均线空头排列：两周前短周期均线在长周期均线下方。条件：20日线 < 60日线。",
+    "ma_death_cross": {
+      "short": [
+        5,
+        10,
+        20
+      ],
+      "long": [
+        60,
+        120
+      ]
+    }
+  },
+  "_comment_stable": "===== 第二段：今天的状态（确认已止跌企稳） =====",
+  "stabilize_filter": {
+    "_comment_window": "均线走平/上翘的判断窗口（交易日数）。14 = 对比14个交易日前，当前MA5和MA10均不低于T-14的值",
+    "ma_flat_window": 14,
+    "_comment_low": "最近N个交易日不再创新低。10 = 最近10天最低价 > T-14收盘价，说明没重新跌回两周前的位置",
+    "no_new_low_days": 10,
+    "_comment_rise": "当前收盘价比T-14收盘价高出的最小百分比。5.0 = 今天价格比两周前高至少5%，确保是真的反弹了",
+    "min_price_rise_pct": 5.0
+  },
+  "_comment_pool": "===== 股票池 =====",
+  "stock_pool": {
+    "_comment": "股票池来源: industry=按板块, csv=从文件读, list=直接写列表",
+    "source": "csv",
+    "csv_path": "core/dictionary/candidates/stock_pool_2026q1.csv"
+  },
+  "_comment_selection": "===== 选股输出 =====",
+  "selection": {
+    "_comment": "最多输出20只候选。都是硬条件通过的，排名不分先后。",
+    "top_n": 20
+  },
+  "_comment_hist": "需要的历史数据天数。500≈2年，足够计算250日最高点和均线",
+  "history_days": 500
+}

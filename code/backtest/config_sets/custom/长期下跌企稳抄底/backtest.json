@@ -1,0 +1,31 @@
+{
+  "_comment1": "===== 回测主配置：长期下跌企稳策略 =====",
+  "_comment2": "买入：buy_reversal_strategy，卖出：sell_trailing_strategy",
+  "capital": {
+    "_comment": "资金设置（默认100万，够创业板买4只票各25万）",
+    "initial": 1000000,
+    "min_buy": 50000,
+    "commission_rate": 0.0003,
+    "stamp_tax_rate": 0.001,
+    "slippage": 0.001
+  },
+  "period": {
+    "_comment": "回测区间（格式 YYYYMMDD）",
+    "start": "20250501",
+    "end": "20250603"
+  },
+  "portfolio": {
+    "_comment": "持仓上限4只，对应海宁的持仓纪律",
+    "max_positions": 4,
+    "position_sizing": "equal_weight"
+  },
+  "benchmark": "399006.SZ",
+  "strategies": {
+    "buy": "buy_reversal_strategy",
+    "sell": "sell_trailing_strategy"
+  },
+  "_comment_rebalance": "5天再平衡一次",
+  "rebalance_days": 5,
+  "_comment_buffer": "0 = 有多少天load多少天，不设上限",
+  "history_buffer_days": 0
+}

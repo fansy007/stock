@@ -1,0 +1,46 @@
+{
+  "_comment1": "===== 买入策略：强势整理买点（量价策略，非Alpha101因子） =====",
+  "_comment2": "两段式：强势熔断（硬条件）→ 整理评分（软排名）",
+
+  "strong_filter": {
+    "_comment_return": "过去N天涨幅门槛（%），低于此说明不够强，直接淘汰",
+    "return_days": 20,
+    "min_return_pct": 15.0,
+    "_comment_volume": "过去N天均量 / 更前N天均量，低于此说明没放量、无资金进场",
+    "volume_days": 20,
+    "min_volume_ratio": 1.5,
+    "_comment_new_high": "过去N天内创过X日新高（排除反弹弱鸡、V不起来那种）",
+    "new_high_days": 20,
+    "new_high_lookback": 60
+  },
+
+  "consolidation_scoring": {
+    "_comment_volume": "成交量萎缩至N日均量的比例，越低=缩量越充分=卖压衰竭",
+    "volume_shrink_pct": 0.6,
+    "_comment_volatility": "是否启用波动率收窄评分（布林带带宽越收越紧=蓄力）",
+    "volatility_contraction": true,
+    "_comment_ma": "均线支撑类型: MA20 / MA60 / BOTH / NONE",
+    "ma_support": "MA20",
+    "_comment_obv": "是否启用OBV背离评分（价格回调但OBV不新低=资金没走）",
+    "obv_divergence": true,
+    "_comment_days": "整理天数合理区间。太短（<5天）洗盘不充分，太长（>25天）强势变弱势",
+    "min_consolidation_days": 5,
+    "max_consolidation_days": 25,
+    "_comment_adx": "是否启用ADX评分（ADX低于25=无趋势=蓄力阶段，不是盘头）",
+    "adx_low": true
+  },
+
+  "_comment_pool": "===== 股票池（同因子策略，这里用自选池） =====",
+  "stock_pool": {
+    "_comment": "source: industry=按板块, csv=从文件读, list=直接写列表",
+    "source": "csv",
+    "csv_path": "core/dictionary/candidates/stock_pool_2026q1.csv"
+  },
+
+  "_comment_selection": "===== 选股输出 =====",
+  "selection": {
+    "top_n": 10,
+    "min_score": 0
+  },
+  "history_days": 90
+}

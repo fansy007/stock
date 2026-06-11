@@ -1,0 +1,9 @@
+{
+  "_comment1": "===== 卖出策略 =====",
+  "_comment2": "mode 可选: time_only(纯持有时长) | stop_take(止损止盈) | trailing(移动止损) | hybrid(组合)",
+  "mode": "stop_take",
+  "hold_days_min": 3,
+  "hold_days_max": 20,
+  "stop_loss_pct": 7.0,
+  "take_profit_pct": 15.0
+}

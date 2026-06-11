@@ -1,0 +1,15 @@
+{
+  "_comment1": "===== 卖出策略：移动止损（配合长期下跌企稳买点） =====",
+  "_comment2": "长期下跌后企稳的票，需要给足够的上涨空间，止损设宽一点",
+  "_comment3": "用 trailing（移动止损）让利润奔跑，同时锁住大部分回撤",
+  "mode": "trailing",
+  "_comment_hold": "持有期规则",
+  "hold_days_min": 5,
+  "hold_days_max": 0,
+  "_comment_trailing": "移动止损：从最高点回撤10%卖出（比强势整理的5%宽，给反转票更多空间）",
+  "trailing_stop_pct": 10.0,
+  "_comment_activate": "盈利超过15%后启动移动止损（给股价先跑一段空间再开始保护）",
+  "trailing_activate_pct": 15.0,
+  "_comment_rebalance": "再平衡日强制卖出不在新候选池的持仓，实现换股",
+  "rebalance_sell": true
+}

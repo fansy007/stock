@@ -1,0 +1,73 @@
+{
+    "_comment1": "===============================================================",
+    "_comment2": "  长期下跌企稳选股策略 — 参数配置",
+    "_comment3": "  策略文件: code/backtest/strategy/buy_reversal_strategy.py",
+    "_comment4": "  修改此文件即可调参，无需改动策略代码。",
+    "_comment5": "===============================================================",
+
+    "_comment_decline": "================================================================",
+    "_comment_decline_t": "  第一段：两周前的状态（确认处于长期下跌）",
+    "_comment_decline_b": "================================================================",
+
+    "decline_filter": {
+        "_comment_drawdown": "从250日最高点回撤的最小百分比。低于此值的股票不认为处于长期下跌。",
+        "_comment_drawdown_ex": "例如 30.0 = 从最高点跌了30%以上才算。可调，太严（如40%）可选标的大幅减少。",
+        "min_drawdown_pct": 30.0,
+
+        "_comment_ma": "均线空头排列检查：两周前的均线位置关系",
+        "_comment_ma_short": "short = 短周期均线参数列表。条件：short中最长的那条 < long中最短的那条",
+        "_comment_ma_long": "long  = 长周期均线参数列表。即两周前 20日线 < 60日线 才算空头排列",
+        "_comment_ma_ex": "如果行情整体弱势，可放宽去掉120（只要求20<60），或加强加上250。",
+        "ma_death_cross": {
+            "short": [5, 10, 20],
+            "long": [60, 120]
+        }
+    },
+
+    "_comment_stable": "================================================================",
+    "_comment_stable_t": "  第二段：今天的状态（确认已止跌企稳）",
+    "_comment_stable_b": "================================================================",
+
+    "stabilize_filter": {
+        "_comment_window": "短期均线走平/上翘的判断窗口（交易日数）。",
+        "_comment_window_ex": "14 = 对比14个交易日前（约3周）的均线值。如果当前MA5 >= T-14的MA5，且MA10同理，则判定走平/上翘。",
+        "ma_flat_window": 14,
+
+        "_comment_low": "最近N个交易日没有创新低。",
+        "_comment_low_ex": "10 = 最近10天的最低价 > T-14的收盘价，确保价格没有重新跌回两周前的位置。",
+        "no_new_low_days": 10,
+
+        "_comment_rise": "当前收盘价高于T-14收盘价的最小百分比。",
+        "_comment_rise_ex": "5.0 = 今日收盘价比两周前高5%以上，确认不是原地趴着，是真的有反弹。",
+        "min_price_rise_pct": 5.0
+    },
+
+    "_comment_pool": "================================================================",
+    "_comment_pool_t": "  股票池配置",
+    "_comment_pool_b": "================================================================",
+
+    "stock_pool": {
+        "_comment_source": "股票池来源:",
+        "_comment_source_industry": "  industry = 按板块过滤（创业板=300/301开头）",
+        "_comment_source_csv": "  csv      = 从CSV文件读股票列表",
+        "_comment_source_list": "  list     = 直接在下面list字段写股票代码",
+        "source": "industry",
+        "_comment": "板块名称，仅在 source=industry 时生效",
+        "industry": "创业板",
+        "exclude_st": true,
+        "exclude_new_stocks_days": 60,
+        "min_price": 3.0
+    },
+
+    "_comment_selection": "================================================================",
+    "_comment_selection_t": "  选股输出参数",
+    "_comment_selection_b": "================================================================",
+
+    "selection": {
+        "_comment_topn": "每次最多输出多少只候选股票。输出越多越全，但要自己筛选。",
+        "top_n": 20
+    },
+
+    "_comment_hist": "需要的历史数据天数。250日最高点需要约250个交易日 = 1年数据",
+    "history_days": 500
+}

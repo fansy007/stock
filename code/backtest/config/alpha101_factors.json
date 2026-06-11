@@ -1,0 +1,1166 @@
+[
+  {
+    "name": "alpha001",
+    "formula": "(rank(Ts_ArgMax(SignedPower(((returns < 0) ? stddev(returns, 20) : close), 2.), 5)) -0.5)",
+    "interpretation": "过去5天内，取（收益率为负时用20日波动率、为正时用收盘价）的平方的argmax排名，减0.5。衡量近期价格在哪个位置达到峰值——正值表示最近5天有正向冲顶。",
+    "category": "动量",
+    "direction": "正相关",
+    "params": {
+      "window_returns": 20,
+      "window_argmax": 5
+    }
+  },
+  {
+    "name": "alpha002",
+    "formula": "(-1 * correlation(rank(delta(log(volume), 2)), rank(((close - open) / open)), 6))",
+    "interpretation": "计算成交量2日变化率的排名与当日涨跌幅排名的6日相关性，取负值。成交量突然放大且价格上涨时值为负——负值越大意味着缩量上涨或放量下跌。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window_corr": 6,
+      "window_delta": 2
+    }
+  },
+  {
+    "name": "alpha003",
+    "formula": "(-1 * correlation(rank(open), rank(volume), 10))",
+    "interpretation": "开盘价排名与成交量排名的10日相关性取负。衡量开盘价高低与成交量大小的关系——负值表示高价开盘时缩量，低价开盘时放量。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window": 10
+    }
+  },
+  {
+    "name": "alpha004",
+    "formula": "(-1 * Ts_Rank(rank(low), 9))",
+    "interpretation": "最低价排名的9日时间序列排名，取负值。判断最低价在9日内的相对位置——负值越大表示今天最低价在9天内处于低位，可能有支撑。",
+    "category": "价格位置",
+    "direction": "负相关",
+    "params": {
+      "window": 9
+    }
+  },
+  {
+    "name": "alpha005",
+    "formula": "(rank((open - (sum(vwap, 10) / 10))) * (-1 * abs(rank((close - vwap)))))",
+    "interpretation": "开盘价减10日均价的排名，乘上（收盘价减均价）的绝对排名的负值。综合判断开盘偏离程度和收盘偏离程度——值越大表示开盘低于均线且收盘远离均线。",
+    "category": "反转",
+    "direction": "非单调",
+    "params": {
+      "window": 10
+    }
+  },
+  {
+    "name": "alpha006",
+    "formula": "(-1 * correlation(open, volume, 10))",
+    "interpretation": "开盘价与成交量的10日相关性取负。与alpha003类似但直接用价格而非排名——负值意味着高开缩量、低开放量，常出现在底部反转区域。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window": 10
+    }
+  },
+  {
+    "name": "alpha007",
+    "formula": "((adv20 < volume) ? ((-1 * ts_rank(abs(delta(close, 7)), 60)) * sign(delta(close, 7))) : (-1* 1))",
+    "interpretation": "当日成交量大于20日均量时，取（7日收盘变化的绝对值的60日排名负值 × 涨跌方向）；否则取-1。放量时判断动量方向——上涨放量得正值、下跌放量得负值。",
+    "category": "量价关系",
+    "direction": "正相关",
+    "params": {
+      "adv_window": 20,
+      "delta_window": 7,
+      "rank_window": 60
+    }
+  },
+  {
+    "name": "alpha008",
+    "formula": "(-1 * rank(((sum(open, 5) * sum(returns, 5)) - delay((sum(open, 5) * sum(returns, 5)),10))))",
+    "interpretation": "计算（5日开盘和 × 5日收益和）相比10天前该值的变化的排名取负。捕捉开盘价和收益率的综合动量的加速度变化。",
+    "category": "动量",
+    "direction": "负相关",
+    "params": {
+      "window_sum": 5,
+      "window_delay": 10
+    }
+  },
+  {
+    "name": "alpha009",
+    "formula": "((0 < ts_min(delta(close, 1), 5)) ? delta(close, 1) : ((ts_max(delta(close, 1), 5) < 0) ? delta(close, 1) : (-1 * delta(close, 1))))",
+    "interpretation": "如果过去5天每天涨，取当日涨幅；如果过去5天每天跌，也取当日涨幅；否则取涨幅的负值。即：连续上涨或连续下跌时顺势看多，震荡时逆向——一个趋势跟踪+震荡过滤的混合信号。",
+    "category": "动量/反转混合",
+    "direction": "非单调",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha010",
+    "formula": "rank(((0 < ts_min(delta(close, 1), 4)) ? delta(close, 1) : ((ts_max(delta(close, 1), 4) < 0) ? delta(close, 1) : (-1 * delta(close, 1)))))",
+    "interpretation": "与alpha009逻辑相同，但窗口缩短为4天，且输出取排名。趋势跟踪+震荡过滤，窗口更短对变化更敏感。",
+    "category": "动量/反转混合",
+    "direction": "非单调",
+    "params": {
+      "window": 4
+    }
+  },
+  {
+    "name": "alpha011",
+    "formula": "((rank(ts_max((vwap - close), 3)) + rank(ts_min((vwap - close), 3))) * rank(delta(volume, 3)))",
+    "interpretation": "计算过去3天（均价减收盘价）的最大值和最小值的排名之和，乘上成交量3日变化的排名。当价格在均线附近波动且成交量变化大时值大——识别均线纠缠后的放量突破。",
+    "category": "量价关系",
+    "direction": "非单调",
+    "params": {
+      "window": 3
+    }
+  },
+  {
+    "name": "alpha012",
+    "formula": "(sign(delta(volume, 1)) * (-1 * delta(close, 1)))",
+    "interpretation": "成交量方向（增为+1减为-1）乘上收盘价变化的负值。量增价跌时得正值、量缩价涨时也得正值——识别放量下跌（恐慌）和缩量上涨（惜售），两者都是积极信号。简单但有效的反转因子。",
+    "category": "量价关系",
+    "direction": "正相关",
+    "params": {
+      "window": 1
+    }
+  },
+  {
+    "name": "alpha013",
+    "formula": "(-1 * rank(covariance(rank(close), rank(volume), 5)))",
+    "interpretation": "收盘价排名与成交量排名的5日协方差的排名取负。衡量价格和成交量在5天内同向变动的程度——正值表示价量协方差小（不同步），常见于趋势转折点。",
+    "category": "量价关系",
+    "direction": "正相关",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha014",
+    "formula": "((-1 * rank(delta(returns, 3))) * correlation(open, volume, 10))",
+    "interpretation": "3日收益率变化排名的负值，乘上开盘价与成交量的10日相关性。综合短期收益加速度和量价关系——收益减速时（delta为负）结合特定的量价关系给出信号。",
+    "category": "动量/量价混合",
+    "direction": "非单调",
+    "params": {
+      "window_delta": 3,
+      "window_corr": 10
+    }
+  },
+  {
+    "name": "alpha015",
+    "formula": "(-1 * sum(rank(correlation(rank(high), rank(volume), 3)), 3))",
+    "interpretation": "最高价排名与成交量排名的3日相关性的排名，求和3日取负。衡量高价配合高量的持续性——负值越大说明过去3天持续出现价量同步。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window_corr": 3,
+      "window_sum": 3
+    }
+  },
+  {
+    "name": "alpha016",
+    "formula": "(-1 * rank(covariance(rank(high), rank(volume), 5)))",
+    "interpretation": "与alpha013类似但用最高价代替收盘价。最高价排名与成交量排名的5日协方差排名取负。",
+    "category": "量价关系",
+    "direction": "正相关",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha017",
+    "formula": "(((-1 * rank(ts_rank(close, 10))) * rank(delta(delta(close, 1), 1))) * rank(ts_rank((volume / adv20), 5)))",
+    "interpretation": "三部分相乘：（收盘价10日排名负值）×（收盘价加速度的排名）×（成交量相对20日均量的5日排名的排名）。当价格处于低位但出现加速拐点且成交量温和放大时值大——底部启动信号。",
+    "category": "趋势反转",
+    "direction": "正相关",
+    "params": {
+      "window_rank": 10,
+      "adv_window": 20,
+      "window_vol": 5
+    }
+  },
+  {
+    "name": "alpha018",
+    "formula": "(-1 * rank(((stddev(abs((close - open)), 5) + (close - open)) + correlation(close, open, 10))))",
+    "interpretation": "5日振幅标准差 + 当日涨跌幅 + 收盘开盘10日相关性，综合排名取负。衡量近期K线实体大小和方向的一致性——负值大表示近期K线实体小且方向不一致（震荡格局）。",
+    "category": "波动率",
+    "direction": "负相关",
+    "params": {
+      "window_std": 5,
+      "window_corr": 10
+    }
+  },
+  {
+    "name": "alpha019",
+    "formula": "((-1 * sign(((close - delay(close, 7)) + delta(close, 7)))) * (1 + rank((1 + sum(returns, 250)))))",
+    "interpretation": "7日涨跌幅的方向判断 ×（1 + 250日累计收益排名的修正）。当长期趋势向上且7日方向为正时值大——长期趋势确认下的短期买入信号。",
+    "category": "动量/趋势",
+    "direction": "正相关",
+    "params": {
+      "window_short": 7,
+      "window_long": 250
+    }
+  },
+  {
+    "name": "alpha020",
+    "formula": "(((-1 * rank((open - delay(high, 1)))) * rank((open - delay(close, 1)))) * rank((open - delay(low, 1))))",
+    "interpretation": "今日开盘价相对昨日高/收/低三个位置的偏离度排名乘积，取负值。当今日开盘在昨日区间内时乘积较小——捕捉跳空缺口的反向信号。",
+    "category": "缺口/反转",
+    "direction": "负相关",
+    "params": {
+      "window": 1
+    }
+  },
+  {
+    "name": "alpha021",
+    "formula": "((((sum(close, 8) / 8) + stddev(close, 8)) < (sum(close, 2) / 2)) ? (-1 * 1) : (((sum(close,2) / 2) < ((sum(close, 8) / 8) - stddev(close, 8))) ? 1 : (((1 < (volume / adv20)) || ((volume /adv20) == 1)) ? 1 : (-1 * 1))))",
+    "interpretation": "条件判断：如果8日均线+1倍标准差 < 2日均线（短期大幅突破上方）→卖出；如果2日均线 < 8日均线-1倍标准差（短期大幅跌破下方）→买入；否则当成交量小于20日均量时买入。布林带突破的反向交易策略。",
+    "category": "均值回复",
+    "direction": "反布林带",
+    "params": {
+      "window_short": 2,
+      "window_long": 8,
+      "window_adv": 20
+    }
+  },
+  {
+    "name": "alpha022",
+    "formula": "(-1 * (delta(correlation(high, volume, 5), 5) * rank(stddev(close, 20))))",
+    "interpretation": "最高价与成交量5日相关性的5日变化，乘上收盘价20日波动率排名，取负。当价量关系发生突变且波动率放大时给出信号——可能在趋势转折点。",
+    "category": "量价关系/波动率",
+    "direction": "负相关",
+    "params": {
+      "window_corr": 5,
+      "window_delta": 5,
+      "window_std": 20
+    }
+  },
+  {
+    "name": "alpha023",
+    "formula": "(((sum(high, 20) / 20) < high) ? (-1 * delta(high, 2)) : 0)",
+    "interpretation": "如果当日最高价高于20日均线，取最高价2日变化的负值；否则为0。价格高于均线时做空短期强度——在上升趋势中捕捉短期回调机会。",
+    "category": "均值回复",
+    "direction": "负相关（均线上方时）",
+    "params": {
+      "window_ma": 20,
+      "window_delta": 2
+    }
+  },
+  {
+    "name": "alpha024",
+    "formula": "((((delta((sum(close, 100) / 100), 100) / delay(close, 100)) < 0.05) || ((delta((sum(close, 100) / 100), 100) / delay(close, 100)) == 0.05)) ? (-1 * (close - ts_min(close, 100))) : (-1 * delta(close, 3)))",
+    "interpretation": "如果100日均线的100日变化率 ≤ 5%（即近100天涨幅很小），取（收盘价 - 100日最低价）的负值——接近底部时买入；否则取3日涨跌幅负值。判断市场是否在长期横盘区间。",
+    "category": "趋势/反转",
+    "direction": "非单调",
+    "params": {
+      "window_long": 100,
+      "window_short": 3
+    }
+  },
+  {
+    "name": "alpha025",
+    "formula": "rank(((((-1 * returns) * adv20) * vwap) * (high - close)))",
+    "interpretation": "（负收益率 × 20日均量 × 均价 × 上影线长度）的排名。当收益率为负且上影线长时值大——\"冲高回落\"的度量，识别上方阻力。",
+    "category": "形态",
+    "direction": "正相关（回调信号）",
+    "params": {
+      "adv_window": 20
+    }
+  },
+  {
+    "name": "alpha026",
+    "formula": "(-1 * ts_max(correlation(ts_rank(volume, 5), ts_rank(high, 5), 5), 3))",
+    "interpretation": "（成交量排名与最高价排名的5日相关性的3日最大值）取负。当价量相关性在3天内持续高位时值为负——价量齐升后可能见顶。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window_rank": 5,
+      "window_corr": 5,
+      "window_max": 3
+    }
+  },
+  {
+    "name": "alpha027",
+    "formula": "((0.5 < rank((sum(correlation(rank(volume), rank(vwap), 6), 2) / 2.0))) ? (-1 * 1) : 1)",
+    "interpretation": "如果成交量排名与均价排名的6日相关性在2日内的均值排名大于0.5，取-1；否则取1。一个量价稳定性的开关信号——量价关系稳定时卖出（可能到顶），不稳定时买入。",
+    "category": "量价关系/开关",
+    "direction": "非单调",
+    "params": {
+      "window_corr": 6,
+      "window_sum": 2
+    }
+  },
+  {
+    "name": "alpha028",
+    "formula": "scale(((correlation(adv20, low, 5) + ((high + low) / 2)) - close))",
+    "interpretation": "（20日均量与最低价的5日相关性 + 当日中点价 - 收盘价）的标准化。当均量与大市值正相关且收盘偏低时值大——\"放量下跌到支撑位\"的度量。",
+    "category": "量价关系/支撑",
+    "direction": "正相关",
+    "params": {
+      "adv_window": 20,
+      "window_corr": 5
+    }
+  },
+  {
+    "name": "alpha029",
+    "formula": "(min(product(rank(rank(scale(log(sum(ts_min(rank(rank((-1 * rank(delta((close - 1),5))))), 2), 1))))), 1), 5) + ts_rank(delay((-1 * returns), 6), 5))",
+    "interpretation": "多层排名和尺度变换的复杂组合。核心思想是将过去5天的收益变化经过多重非线性变换后取最小值，再加6天前负收益率的5日排名。综合短期反转和中期动量。",
+    "category": "综合",
+    "direction": "非单调",
+    "params": {
+      "window_delta": 5,
+      "window_min": 2,
+      "window_ts_rank": 5,
+      "delay": 6
+    }
+  },
+  {
+    "name": "alpha030",
+    "formula": "(((1.0 - rank(((sign((close - delay(close, 1))) + sign((delay(close, 1) - delay(close, 2)))) + sign((delay(close, 2) - delay(close, 3)))))) * sum(volume, 5)) / sum(volume, 20))",
+    "interpretation": "过去3天涨跌方向之和的排名补数（1-排名）× 5日成交量 / 20日成交量。3连涨时方向和为3，3连跌时为-3。值大=连续下跌+近期放量（恐慌买入信号）；值小=连续上涨+缩量（惜售信号）。",
+    "category": "动量/成交量",
+    "direction": "正相关（反转）",
+    "params": {
+      "window_sign": 3,
+      "window_vol_short": 5,
+      "window_vol_long": 20
+    }
+  },
+  {
+    "name": "alpha031",
+    "formula": "((rank(rank(rank(decay_linear((-1 * rank(rank(delta(close, 10)))), 10)))) + rank((-1 * delta(close, 3)))) + sign(scale(correlation(adv20, low, 12))))",
+    "interpretation": "三部分相加：10日涨跌幅的多重排名衰减、3日涨跌幅负值排名、20日均量与最低价12日相关性的方向。综合了中长期价格变化、短期涨跌、量价关系三个维度。",
+    "category": "综合",
+    "direction": "非单调",
+    "params": {
+      "window_delta1": 10,
+      "window_decay": 10,
+      "window_delta2": 3,
+      "window_corr": 12,
+      "adv_window": 20
+    }
+  },
+  {
+    "name": "alpha032",
+    "formula": "(scale(((sum(close, 7) / 7) - close)) + (20 * scale(correlation(vwap, delay(close, 5), 230))))",
+    "interpretation": "7日均线偏离度 + 20倍的（均价与5天前收盘的230日相关性）。核心捕捉：价格相对于短期均线的位置 + 长期量价关系稳定性。价格低于均线且量价关系稳定时值大。",
+    "category": "均值回复",
+    "direction": "正相关（价格低于均线）",
+    "params": {
+      "window_ma": 7,
+      "window_delay": 5,
+      "window_corr": 230
+    }
+  },
+  {
+    "name": "alpha033",
+    "formula": "rank((-1 * ((1 - (open / close))^1)))",
+    "interpretation": "（开盘/收盘比的补数的负值）的排名。即rank(open/close - 1)——开盘价低于收盘价（阳线）时值为正。度量当日K线实体方向和大小。",
+    "category": "价格形态",
+    "direction": "正相关（阳线）",
+    "params": {
+      "window": 1
+    }
+  },
+  {
+    "name": "alpha034",
+    "formula": "rank(((1 - rank((stddev(returns, 2) / stddev(returns, 5)))) + (1 - rank(delta(close, 1)))))",
+    "interpretation": "（2日波动率/5日波动率的排名补数）+（当日涨跌幅的排名补数）。波动率收缩且价格下跌时值大——\"缩量下跌\"的度量，常见于底部区域。",
+    "category": "波动率/反转",
+    "direction": "正相关（底部信号）",
+    "params": {
+      "window_vol_short": 2,
+      "window_vol_long": 5
+    }
+  },
+  {
+    "name": "alpha035",
+    "formula": "((Ts_Rank(volume, 32) * (1 - Ts_Rank(((close + high) - low), 16))) * (1 - Ts_Rank(returns, 32)))",
+    "interpretation": "三因子相乘：成交量32日排名 ×（1 - 价格区间16日排名）×（1 - 收益率32日排名）。捕捉\"成交量处于高位但价格区间窄且涨幅小\"的情形——可能是吸筹行为。",
+    "category": "量价关系",
+    "direction": "正相关",
+    "params": {
+      "window_vol": 32,
+      "window_range": 16,
+      "window_ret": 32
+    }
+  },
+  {
+    "name": "alpha036",
+    "formula": "(((((2.21 * rank(correlation((close - open), delay(volume, 1), 15))) + (0.7 * rank((open- close)))) + (0.73 * rank(Ts_Rank(delay((-1 * returns), 6), 5)))) + rank(abs(correlation(vwap, adv20, 6)))) + (0.6 * rank((((sum(close, 200) / 200) - open) * (close - open)))))",
+    "interpretation": "五个子信号加权求和：①当日K线实体与前一日成交量的相关性；②当日阴线力度；③6天前负收益的5日动量；④均价与均量的相关性绝对值；⑤200日均线偏离乘当日涨跌。综合了量价、缺口、动量、中长期位置。",
+    "category": "综合",
+    "direction": "非单调",
+    "params": {
+      "window_kline": 15,
+      "window_ret": 5,
+      "delay_ret": 6,
+      "window_vwap": 6,
+      "adv_window": 20,
+      "window_long": 200
+    }
+  },
+  {
+    "name": "alpha037",
+    "formula": "(rank(correlation(delay((open - close), 1), close, 200)) + rank((open - close)))",
+    "interpretation": "（昨日K线实体与今日收盘价的200日相关性排名）+（今日K线实体排名）。当昨日阴线大小与今日收盘存在稳定的长期关系且今日阴线大时值大——类似\"跳空低开持续\"的模式。",
+    "category": "相关性/形态",
+    "direction": "正相关",
+    "params": {
+      "window_corr": 200
+    }
+  },
+  {
+    "name": "alpha038",
+    "formula": "((-1 * rank(ts_rank(close, 10))) * rank((close / open)))",
+    "interpretation": "收盘价10日时间序列排名的负值 × 收盘/开盘比的排名。价格在10日低位且收阳线时值大——短期超跌后的反弹信号。",
+    "category": "反转",
+    "direction": "正相关（超跌反弹）",
+    "params": {
+      "window_rank": 10
+    }
+  },
+  {
+    "name": "alpha039",
+    "formula": "((-1 * rank(delta(close, 7) * (1 - rank(decay_linear((volume / adv20), 9))))) * (1 + rank(sum(returns, 250))))",
+    "interpretation": "（7日涨跌幅 × （1 - 量比衰减排名）的排名负值）×（1 + 250日累计收益排名）。价格下跌+成交量温和（非恐慌放量）+长期趋势向上的组合——\"正常回调\"识别。",
+    "category": "趋势/成交量",
+    "direction": "正相关（回调买入）",
+    "params": {
+      "window_ret": 7,
+      "window_decay": 9,
+      "adv_window": 20,
+      "window_long": 250
+    }
+  },
+  {
+    "name": "alpha040",
+    "formula": "((-1 * rank(stddev(high, 10))) * correlation(high, volume, 10))",
+    "interpretation": "最高价10日波动率排名的负值 × 最高价与成交量10日相关性。波动率小且价量正相关时值大——温和上涨的量价配合形态。",
+    "category": "量价关系/波动率",
+    "direction": "正相关",
+    "params": {
+      "window_std": 10,
+      "window_corr": 10
+    }
+  },
+  {
+    "name": "alpha041",
+    "formula": "(((high * low)^0.5) - vwap)",
+    "interpretation": "最高价×最低价的平方根（近似中点价）减去均价。当日内价格偏向上轨时值大——日内走势偏强的度量。",
+    "category": "价格位置",
+    "direction": "正相关（日内偏强）",
+    "params": {}
+  },
+  {
+    "name": "alpha042",
+    "formula": "(rank((vwap - close)) / rank((vwap + close)))",
+    "interpretation": "（均价减收盘价）的排名除以（均价加收盘价）的排名。收盘价相对均价的位置——收盘低于均价时值大，且均价越高分母越大。标准化后的价格偏离度量。",
+    "category": "均值回复",
+    "direction": "正相关（价格低于均价）",
+    "params": {}
+  },
+  {
+    "name": "alpha043",
+    "formula": "(ts_rank((volume / adv20), 20) * ts_rank((-1 * delta(close, 7)), 8))",
+    "interpretation": "（成交量/20日均量）的20日排名 × （7日涨跌幅负值）的8日排名。量比大且近期跌幅大时值大——放量下跌后的超卖状态。",
+    "category": "量价关系/超卖",
+    "direction": "正相关",
+    "params": {
+      "adv_window": 20,
+      "window_vol": 20,
+      "window_ret": 7,
+      "window_rank": 8
+    }
+  },
+  {
+    "name": "alpha044",
+    "formula": "(-1 * correlation(high, rank(volume), 5))",
+    "interpretation": "最高价与成交量排名的5日相关性取负。与alpha006类似但用最高价代替开盘价。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha045",
+    "formula": "(-1 * ((rank((sum(delay(close, 5), 20) / 20)) * correlation(close, volume, 2)) * rank(correlation(sum(close, 5), sum(close, 20), 2))))",
+    "interpretation": "三部分乘积取负：①5天前收盘的20日均值排名 × ②收盘与成交量2日相关性 × ③5日累计与20日累计收盘的相关性。当长期均线位置、短期量价配合、短期与长期趋势一致性三个条件同时满足时信号强。",
+    "category": "综合/趋势",
+    "direction": "负相关",
+    "params": {
+      "window_delay": 5,
+      "window_ma": 20,
+      "window_corr1": 2,
+      "window_sum_short": 5,
+      "window_sum_long": 20,
+      "window_corr2": 2
+    }
+  },
+  {
+    "name": "alpha046",
+    "formula": "((0.25 < (((delay(close, 20) - delay(close, 10)) / 10) - ((delay(close, 10) - close) / 10))) ? (-1 * 1) : (((((delay(close, 20) - delay(close, 10)) / 10) - ((delay(close, 10) - close) / 10)) < 0) ? 1 : ((-1 * 1) * (close - delay(close, 1)))))",
+    "interpretation": "比较两个10日斜率：20日前→10日前的斜率 vs 10日前→今日的斜率。如果斜率差值大于0.25（近期加速上涨过猛）→卖出；如果斜率差为负（近期减速或下跌）→买入；否则取反方向。一种动量加速度的均值回复策略。",
+    "category": "动量/加速度",
+    "direction": "均值回复",
+    "params": {
+      "window1": 20,
+      "window2": 10
+    }
+  },
+  {
+    "name": "alpha047",
+    "formula": "((((rank((1 / close)) * volume) / adv20) * ((high * rank((high - close))) / (sum(high, 5) /5))) - rank((vwap - delay(vwap, 5))))",
+    "interpretation": "（价格倒数排名×成交量）/均量 × （最高价×上影线排名）/5日最高均值 - （均价相对5天前变化排名）。第一部分是\"低价放量加上影线\"，减去均价变化——识别低位放量冲高回落的形态。",
+    "category": "量价形态",
+    "direction": "非单调",
+    "params": {
+      "adv_window": 20,
+      "window_high": 5,
+      "window_vwap": 5
+    }
+  },
+  {
+    "name": "alpha048",
+    "formula": "(-1*((RANK(((SIGN((CLOSE - DELAY(CLOSE, 1))) + SIGN((DELAY(CLOSE, 1) - DELAY(CLOSE, 2)))) + SIGN((DELAY(CLOSE, 2) - DELAY(CLOSE, 3)))))) * SUM(VOLUME, 5)) / SUM(VOLUME, 20))",
+    "interpretation": "与alpha030逻辑相同：连续涨跌方向之和（3天）排名 × 5日量/20日量，取负。当连续下跌时方向和为负，排名低，乘上量比后取负得正值——\"连续下跌后放量\"的买入信号。",
+    "category": "动量/成交量",
+    "direction": "正相关（反转）",
+    "params": {
+      "window_sign": 3,
+      "window_vol_short": 5,
+      "window_vol_long": 20
+    }
+  },
+  {
+    "name": "alpha049",
+    "formula": "(((((delay(close, 20) - delay(close, 10)) / 10) - ((delay(close, 10) - close) / 10)) < (-1 * 0.1)) ? 1 : ((-1 * 1) * (close - delay(close, 1))))",
+    "interpretation": "与alpha046类似但是不对称版本。如果后10日斜率 - 前10日斜率 < -0.1（近期加速下跌）→买入；否则取当日涨跌幅负值。捕捉加速下跌后的反转机会。",
+    "category": "反转/加速度",
+    "direction": "正相关（加速下跌买入）",
+    "params": {
+      "window1": 20,
+      "window2": 10,
+      "threshold": 0.1
+    }
+  },
+  {
+    "name": "alpha050",
+    "formula": "(-1 * ts_max(rank(correlation(rank(volume), rank(vwap), 5)), 5))",
+    "interpretation": "成交量排名与均价排名的5日相关性的排名的5日最大值取负。当量价相关性在5天内持续处于高位时值为负——量价齐升到顶部的信号。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window_corr": 5,
+      "window_max": 5
+    }
+  },
+  {
+    "name": "alpha051",
+    "formula": "(((((delay(close, 20) - delay(close, 10)) / 10) - ((delay(close, 10) - close) / 10)) < (-1 * 0.05)) ? 1 : ((-1 * 1) * (close - delay(close, 1))))",
+    "interpretation": "alpha049的宽松版本，阈值从-0.1改为-0.05。触发买入的条件更宽松。",
+    "category": "反转/加速度",
+    "direction": "正相关",
+    "params": {
+      "window1": 20,
+      "window2": 10,
+      "threshold": 0.05
+    }
+  },
+  {
+    "name": "alpha052",
+    "formula": "((((-1 * ts_min(low, 5)) + delay(ts_min(low, 5), 5)) * rank(((sum(returns, 240) - sum(returns, 20)) / 220))) * ts_rank(volume, 5))",
+    "interpretation": "5日最低价的变化 × （240日累计收益-20日累计收益）/220的排名 × 成交量5日排名。当最低价在上升（delta为正）、短期动量弱于长期动量、成交量放大时值大——\"回调到支撑后放量\"模式。",
+    "category": "支撑/动量",
+    "direction": "正相关",
+    "params": {
+      "window_low": 5,
+      "window_ret_short": 20,
+      "window_ret_long": 240,
+      "window_vol": 5
+    }
+  },
+  {
+    "name": "alpha053",
+    "formula": "(-1 * delta((((close - low) - (high - close)) / (close - low)), 9))",
+    "interpretation": "（（收盘-最低）-（最高-收盘））/（收盘-最低）的9日变化取负。这个比率类似于COT指标——值接近1表示光头阳线，接近-1表示光脚阴线。变化率的负值表示实体位置从高位向低位移动（由强转弱）。",
+    "category": "K线形态",
+    "direction": "负相关（由强转弱）",
+    "params": {
+      "window": 9
+    }
+  },
+  {
+    "name": "alpha054",
+    "formula": "((-1 * ((low - close) * (open^5))) / ((low - high) * (close^5)))",
+    "interpretation": "（最低-收盘）× 开盘^5 / （最低-最高）× 收盘^5，取负。用高次幂放大价格效应——当收阳线且靠近最高价时值大。一个放大的\"上影线/下影线\"比率的变体。",
+    "category": "K线形态",
+    "direction": "正相关（阳线+短上影）",
+    "params": {}
+  },
+  {
+    "name": "alpha055",
+    "formula": "(-1 * correlation(rank(((close - ts_min(low, 12)) / (ts_max(high, 12) - ts_min(low, 12)))), rank(volume), 6))",
+    "interpretation": "（收盘价在12日最低最高区间内的百分位排名）与成交量排名的6日相关性取负。价格处于区间高位时缩量（正相关变负），或区间低位时放量（负相关变正）——区间边界的量价行为分析。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window_range": 12,
+      "window_corr": 6
+    }
+  },
+  {
+    "name": "alpha056",
+    "formula": "(RANK((OPEN - TSMIN(OPEN, 12))) < RANK((RANK(CORR(SUM(((HIGH + LOW) / 2), 19), SUM(MEAN(VOLUME,40), 19), 13))^5)))",
+    "interpretation": "条件判断：如果（开盘价-12日最低开盘）的排名 < （（（中点价的19日累计与均量的19日累计的相关性排名）^5）的排名），结果为1；否则为0。当开盘在近期低位且量价相关性被^5放大后排名靠前时——\"低位+量价配合确认\"的开关信号。",
+    "category": "综合/开关",
+    "direction": "二元信号",
+    "params": {
+      "window_open": 12,
+      "window_sum": 19,
+      "window_vol": 40,
+      "window_corr": 13
+    }
+  },
+  {
+    "name": "alpha057",
+    "formula": "(0 - (1 * ((close - vwap) / decay_linear(rank(ts_argmax(close, 30)), 2))))",
+    "interpretation": "（收盘价减均价）除以（30天最高价位置的排名衰减）。当收盘低于均价且30天最高价在近期（排名高×衰减后值大）时值大——\"从近期高点回落后跌破均线\"的信号。",
+    "category": "趋势/均值回复",
+    "direction": "正相关（跌破信号）",
+    "params": {
+      "window_argmax": 30,
+      "window_decay": 2
+    }
+  },
+  {
+    "name": "alpha058",
+    "formula": "COUNT(CLOSE>DELAY(CLOSE,1),20)/20*100",
+    "interpretation": "过去20天中收盘上涨的天数占比×100。即20日涨幅频率——值越大说明近期持续上涨天数多（强势），值小说明持续下跌天数多（弱势）。",
+    "category": "动量",
+    "direction": "正相关",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha059",
+    "formula": "SUM((CLOSE=DELAY(CLOSE,1)?0:CLOSE-(CLOSE>DELAY(CLOSE,1)?MIN(LOW,DELAY(CLOSE,1)):MAX(HIGH,DELAY(CLOSE,1)))),20)",
+    "interpretation": "过去20天逐日计算：如果当天涨，取收盘价减（最低价与前日收盘价的较小者）；如果跌，取收盘价减（最高价与前日收盘价的较大者）。累计这个值。自定义的\"真实下跌幅度-真实上涨幅度\"的累计和。",
+    "category": "K线形态",
+    "direction": "正相关",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha060",
+    "formula": "(0 - (1 * ((2 * scale(rank(((((close - low) - (high - close)) / (high - low)) * volume)))) - scale(rank(ts_argmax(close, 10)))))",
+    "interpretation": "2倍（（C-L）-（H-C））/（H-L）×成交量的排名标准化，减去（10天最高价位置的排名标准化），取负。当收盘靠近最高价且价格处于10日高位时值大——\"强势股创新高\"的度量。",
+    "category": "动量/价格位置",
+    "direction": "正相关",
+    "params": {
+      "window_argmax": 10
+    }
+  },
+  {
+    "name": "alpha061",
+    "formula": "(rank((vwap - ts_min(vwap, 16.1219))) < rank(correlation(vwap, adv180, 17.9282)))",
+    "interpretation": "条件判断：如果（均价-16日最低均价）的排名 < （均价与180日均量的18日相关性）的排名，结果为1；否则为0。当均价从近期低位回升但量价关系尚不稳定时触发。",
+    "category": "趋势/量价",
+    "direction": "二元信号",
+    "params": {
+      "window_vwap": 16,
+      "window_adv": 180,
+      "window_corr": 18
+    }
+  },
+  {
+    "name": "alpha062",
+    "formula": "((rank(correlation(vwap, sum(adv20, 22.4101), 9.91009)) < rank(((rank(open) + rank(open)) < (rank(((high + low) / 2)) + rank(high))))) * -1)",
+    "interpretation": "条件判断（取负值）：均价与20日均量22日累计的相关性排名是否小于（2倍开盘排名 < 中点排名+最高排名）。综合了量价关系强度和内外部价格位置的比较。",
+    "category": "综合/开关",
+    "direction": "负相关",
+    "params": {
+      "window_adv": 20,
+      "window_sum": 22,
+      "window_corr": 10
+    }
+  },
+  {
+    "name": "alpha063",
+    "formula": "SMA(MAX(CLOSE-DELAY(CLOSE,1),0),6,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),6,1)*100",
+    "interpretation": "6日RSI指标。SMA(上涨幅度,6,1) / SMA(绝对涨跌幅,6,1) × 100。值大于70超买，小于30超卖。这是标准的Relative Strength Index。",
+    "category": "动量/RSI",
+    "direction": "正相关（小于30反转向上）",
+    "params": {
+      "window": 6
+    }
+  },
+  {
+    "name": "alpha064",
+    "formula": "((rank(correlation(sum(((open * 0.178404) + (low * (1 - 0.178404))), 12.7054), sum(adv120, 12.7054), 16.6208)) < rank(delta(((((high + low) / 2) * 0.178404) + (vwap * (1 - 0.178404))), 3.69741))) * -1)",
+    "interpretation": "加权开盘/最低组合与120日均量的17日相关性排名，与加权中点/VWAP组合的4日变化排名比较取负。判断量价关系强度是否与价格变化方向一致。",
+    "category": "综合/量价",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 120,
+      "window_corr": 17,
+      "window_delta": 4
+    }
+  },
+  {
+    "name": "alpha065",
+    "formula": "((rank(correlation(((open * 0.00817205) + (vwap * (1 - 0.00817205))), sum(adv60, 8.6911), 6.40374)) < rank((open - ts_min(open, 13.635)))) * -1)",
+    "interpretation": "加权开盘/VWAP组合与60日均量9日累计的6日相关性排名，与（开盘-14日最低开盘）排名比较取负。判断开盘相对位置与量价关系的匹配度。",
+    "category": "量价/位置",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 60,
+      "window_sum": 9,
+      "window_corr": 6,
+      "window_open": 14
+    }
+  },
+  {
+    "name": "alpha066",
+    "formula": "((rank(decay_linear(delta(vwap, 3.51013), 7.23052)) + Ts_Rank(decay_linear(((((low* 0.96633) + (low * (1 - 0.96633))) - vwap) / (open - ((high + low) / 2))), 11.4157), 6.72611)) * -1)",
+    "interpretation": "均价变化率的衰减排名 + （（最低价 - 均价）/（开盘-中点价）的衰减排名的时间序列排名），取负。捕捉均价变化和日内相对位置的组合信号。",
+    "category": "综合/趋势",
+    "direction": "负相关",
+    "params": {
+      "window_delta": 4,
+      "window_decay1": 7,
+      "window_decay2": 11,
+      "window_rank": 7
+    }
+  },
+  {
+    "name": "alpha067",
+    "formula": "SMA(MAX(CLOSE-DELAY(CLOSE,1),0),24,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),24,1)*100",
+    "interpretation": "24日RSI指标。与alpha063逻辑相同但窗口更长（24天 vs 6天）。标准RSI指标，超买超卖阈值通常为70/30。",
+    "category": "动量/RSI",
+    "direction": "正相关（小于30反弹）",
+    "params": {
+      "window": 24
+    }
+  },
+  {
+    "name": "alpha068",
+    "formula": "SMA(((HIGH+LOW)/2-(DELAY(HIGH,1)+DELAY(LOW,1))/2)*(HIGH-LOW)/VOLUME,15,2)",
+    "interpretation": "（当日中点价 - 昨日中点价）× 振幅 / 成交量 的15日加权移动平均。衡量单位成交量下的价格动能——值大表示少量成交就能推动价格移动（趋势强或流动性差）。",
+    "category": "动量/成交量",
+    "direction": "正相关",
+    "params": {
+      "window": 15
+    }
+  },
+  {
+    "name": "alpha069",
+    "formula": "((SUM(DTM,20)>SUM(DBM,20)) ? (SUM(DTM,20)-SUM(DBM,20))/SUM(DTM,20) : ((SUM(DTM,20)==SUM(DBM,20)) ? 0 : (SUM(DTM,20)-SUM(DBM,20))/SUM(DBM,20)))",
+    "interpretation": "DTM = 如果开盘没涨则0，否则取（最高-开盘）和（开盘-昨日开盘）的较大值——衡量开盘后的上涨动能。DBM类似衡量下跌动能。20日累计DTM与DBM的对比——正值表示多头动能更强。类似ADX的构造思路。",
+    "category": "动量",
+    "direction": "正相关",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha070",
+    "formula": "STD(AMOUNT,6)",
+    "interpretation": "成交金额（量×价）的6日标准差。度量资金流入的稳定性——值大表示资金进出波动剧烈（可能有大单异动），值小表示成交平稳。",
+    "category": "波动率/资金",
+    "direction": "非单调",
+    "params": {
+      "window": 6
+    }
+  },
+  {
+    "name": "alpha071",
+    "formula": "max(Ts_Rank(decay_linear(correlation(Ts_Rank(close, 3.43976), Ts_Rank(adv180, 12.0647), 18.0175), 4.20501), 15.6948), Ts_Rank(decay_linear((rank(((low + open) - (vwap + vwap)))^2), 16.4662), 4.4388))",
+    "interpretation": "取两个子信号的最大值：①收盘排名与180日均量排名的18日相关性的衰减排名；②（最低+开盘-2×均价）的排名的平方的衰减排名。综合比较价格-长期均量关系与日内相对位置。",
+    "category": "综合",
+    "direction": "非单调（取两信号最大值）",
+    "params": {
+      "window_corr": 18,
+      "adv_window": 180,
+      "window_decay1": 4,
+      "window_rank1": 16,
+      "window_decay2": 16,
+      "window_rank2": 4
+    }
+  },
+  {
+    "name": "alpha072",
+    "formula": "(rank(decay_linear(correlation(((high + low) / 2), adv40, 8.93345), 10.1519)) / rank(decay_linear(correlation(Ts_Rank(vwap, 3.72469), Ts_Rank(volume, 18.5188), 6.86671), 2.95011)))",
+    "interpretation": "比值：①中点价与40日均量的9日相关性的衰减排名 / ②均价排名与成交量排名的7日相关性的衰减排名。比较两个不同维度的量价关系强度——分子大/分母小意味着价格-均量的相关性比均价-成交量的相关性更强。",
+    "category": "量价关系/比率",
+    "direction": "非单调",
+    "params": {
+      "adv_window": 40,
+      "window_corr1": 9,
+      "window_decay1": 10,
+      "window_corr2": 7,
+      "window_decay2": 3
+    }
+  },
+  {
+    "name": "alpha073",
+    "formula": "(max(rank(decay_linear(delta(vwap, 4.72775), 2.91864)), Ts_Rank(decay_linear(((delta(((open * 0.147155) + (low * (1 - 0.147155))), 2.03608) / ((open * 0.147155) + (low * (1 - 0.147155)))) * -1), 3.33829), 16.7411)) * -1)",
+    "interpretation": "取两个子信号的最大值取负：①均价变化率的衰减排名；②（加权开盘/最低价的变化率负值的衰减排名）的时间序列排名。取负后——两者中任一为正时整体值为负。",
+    "category": "趋势",
+    "direction": "负相关",
+    "params": {
+      "window_delta1": 5,
+      "window_decay1": 3,
+      "window_delta2": 2,
+      "window_decay2": 3,
+      "window_rank": 17
+    }
+  },
+  {
+    "name": "alpha074",
+    "formula": "((rank(correlation(close, sum(adv30, 37.4843), 15.1365)) < rank(correlation(rank(((high * 0.0261661) + (vwap * (1 - 0.0261661)))), rank(volume), 11.4791))) * -1)",
+    "interpretation": "比较两个相关性排名：①收盘价与30日均量37日累计的15日相关性；②加权最高/VWAP组合与成交量的11日相关性排名。低者触发信号取负。",
+    "category": "量价关系/比较",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 30,
+      "window_sum": 37,
+      "window_corr1": 15,
+      "window_corr2": 11
+    }
+  },
+  {
+    "name": "alpha075",
+    "formula": "(rank(correlation(vwap, volume, 4.24304)) < rank(correlation(rank(low), rank(adv50), 12.4413)))",
+    "interpretation": "条件判断：均价与成交量的4日相关性排名 < 最低价排名与50日均量排名的12日相关性排名。结果为0或1的二元信号。",
+    "category": "量价关系/开关",
+    "direction": "二元信号",
+    "params": {
+      "window_corr1": 4,
+      "adv_window": 50,
+      "window_corr2": 12
+    }
+  },
+  {
+    "name": "alpha076",
+    "formula": "STD(ABS((CLOSE/DELAY(CLOSE,1)-1))/VOLUME,20)/MEAN(ABS((CLOSE/DELAY(CLOSE,1)-1))/VOLUME,20)",
+    "interpretation": "（|涨跌幅|/成交量）的20日标准差 / 均值。即\"每单位成交量的价格波动的变异系数\"——值大意味着近期价格-成交量的关系不稳定，可能有异常交易行为。",
+    "category": "波动率/成交量",
+    "direction": "正相关（异常信号）",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha077",
+    "formula": "min(rank(decay_linear(((((high + low) / 2) + high) - (vwap + high)), 20.0451)), rank(decay_linear(correlation(((high + low) / 2), adv40, 3.1614), 5.64125)))",
+    "interpretation": "取两个排名的较小值：①（中点+最高-均价-最高）即（中点-均价）的20日衰减排名；②中点与40日均量的3日相关性的6日衰减排名。取最小值意味着两个条件都必须强——价格偏离均价且量价关系稳定。",
+    "category": "均值回复/量价",
+    "direction": "正相关（两个信号同时确认）",
+    "params": {
+      "window_decay1": 20,
+      "adv_window": 40,
+      "window_corr": 3,
+      "window_decay2": 6
+    }
+  },
+  {
+    "name": "alpha078",
+    "formula": "(rank(correlation(sum(((low * 0.352233) + (vwap * (1 - 0.352233))), 19.7428), sum(adv40, 19.7428), 6.83313)) ^ rank(correlation(rank(vwap), rank(volume), 5.77492)))",
+    "interpretation": "（加权最低/均价组合与40日均量的20日累计的7日相关性排名）的（均价排名与成交量排名的6日相关性排名）次方。当量价关系较强时，指数部分大，整体值被放大——一个非线性放大的量价信号。",
+    "category": "量价关系/非线性",
+    "direction": "非单调",
+    "params": {
+      "adv_window": 40,
+      "window_sum": 20,
+      "window_corr1": 7,
+      "window_corr2": 6
+    }
+  },
+  {
+    "name": "alpha079",
+    "formula": "SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)*100",
+    "interpretation": "12日RSI指标。与alpha063/alpha067逻辑相同，窗口为12天。标准RSI。",
+    "category": "动量/RSI",
+    "direction": "正相关",
+    "params": {
+      "window": 12
+    }
+  },
+  {
+    "name": "alpha080",
+    "formula": "(VOLUME-DELAY(VOLUME,5))/DELAY(VOLUME,5)*100",
+    "interpretation": "5日成交量变化率（%）。正值表示成交量相比5天前放大，负值表示缩量。——简单但有效的量能变化指标。突然放量常伴随趋势变化。",
+    "category": "成交量",
+    "direction": "正相关（放量）",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha081",
+    "formula": "((rank(Log(product(rank((rank(correlation(vwap, sum(adv10, 49.6054), 8.47743))^4)), 14.9655))) < rank(correlation(rank(vwap), rank(volume), 5.07914))) * -1)",
+    "interpretation": "均价与10日均量50日累计的8日相关性排名经过^4→product→log→rank后的值与均价排名与成交量排名的5日相关性排名比较。长期量价关系的非线性变换 vs 短期量价关系。",
+    "category": "量价关系/非线性",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 10,
+      "window_sum": 50,
+      "window_corr1": 8,
+      "window_corr2": 5
+    }
+  },
+  {
+    "name": "alpha082",
+    "formula": "SMA((TSMAX(HIGH,6)-CLOSE)/(TSMAX(HIGH,6)-TSMIN(LOW,6))*100,20,1)",
+    "interpretation": "威廉指标（Williams %R）的变体：（6日最高-收盘）/（6日最高-6日最低）×100的20日移动平均。值大表示收盘价在区间低位（超卖），值小表示在区间高位（超买）。",
+    "category": "动量/超买超卖",
+    "direction": "正相关（超卖时买入）",
+    "params": {
+      "window_range": 6,
+      "window_ma": 20
+    }
+  },
+  {
+    "name": "alpha083",
+    "formula": "((rank(delay(((high - low) / (sum(close, 5) / 5)), 2)) * rank(rank(volume))) / (((high - low) / (sum(close, 5) / 5)) / (vwap - close)))",
+    "interpretation": "（2天前的振幅/5日均价排名 × 成交量双重排名）/ （当前振幅/5日均价）/（均价-收盘）。综合了历史波动与当前波动、成交量的关系，分母部分引入均价差形成比值结构。",
+    "category": "波动率/成交量",
+    "direction": "非单调",
+    "params": {
+      "window_delay": 2,
+      "window_ma": 5
+    }
+  },
+  {
+    "name": "alpha084",
+    "formula": "SignedPower(Ts_Rank((vwap - ts_max(vwap, 15.3217)), 20.7127), delta(close, 4.96796))",
+    "interpretation": "（（均价-15日最高均价）的21日排名）的（5日涨跌幅）次方。当5日涨跌幅为正时，排名值被放大；为负时被缩小——放大了上涨趋势中的信号，抑制下跌趋势中的噪音。",
+    "category": "趋势/非线性",
+    "direction": "正相关（涨势中放大）",
+    "params": {
+      "window_max": 15,
+      "window_rank": 21,
+      "window_ret": 5
+    }
+  },
+  {
+    "name": "alpha085",
+    "formula": "(rank(correlation(((high * 0.876703) + (close * (1 - 0.876703))), adv30, 9.61331)) ^ rank(correlation(ts_rank(((high + low) / 2), 3.70596), ts_rank(volume, 10.1595), 7.11408)))",
+    "interpretation": "类似alpha078，但分子用加权最高/收盘组合代替加权最低/均价组合。一个非线性放大的量价信号。",
+    "category": "量价关系/非线性",
+    "direction": "非单调",
+    "params": {
+      "adv_window": 30,
+      "window_corr1": 10,
+      "window_rank1": 4,
+      "window_vol_rank": 10,
+      "window_corr2": 7
+    }
+  },
+  {
+    "name": "alpha086",
+    "formula": "((Ts_Rank(correlation(close, sum(adv20, 14.7444), 6.00049), 20.4195) < rank(((open + close) - (vwap + open)))) * -1)",
+    "interpretation": "收盘与20日均量15日累计的6日相关性的20日排名 < （（开盘+收盘）-（均价+开盘））=（收盘-均价）的排名时触发。当量价关系排名低于收盘-均价排名时取-1——一个量价配合确认的开关信号。",
+    "category": "量价关系/开关",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 20,
+      "window_sum": 15,
+      "window_corr": 6,
+      "window_rank": 20
+    }
+  },
+  {
+    "name": "alpha087",
+    "formula": "((RANK(DECAYLINEAR(DELTA(VWAP, 4), 7)) + TSRANK(DECAYLINEAR(((((LOW * 0.9) + (LOW * 0.1)) - VWAP) / (OPEN - ((HIGH + LOW) / 2))), 11), 7)) * -1)",
+    "interpretation": "与alpha066非常相似，但加权系数不同（0.9+0.1 vs 0.96633+0.03367）。均价变化率的衰减排名 +（最低价-均价）/（开盘-中点价）的衰减排名，取负。",
+    "category": "综合/趋势",
+    "direction": "负相关",
+    "params": {
+      "window_delta": 4,
+      "window_decay1": 7,
+      "window_decay2": 11,
+      "window_rank": 7
+    }
+  },
+  {
+    "name": "alpha088",
+    "formula": "min(rank(decay_linear(((rank(open) + rank(low)) - (rank(high) + rank(close))), 8.06882)), Ts_Rank(decay_linear(correlation(Ts_Rank(close, 8.44728), Ts_Rank(adv60, 20.6966), 8.01266), 6.65053), 2.61957))",
+    "interpretation": "取两个子信号的最小值：①（开盘排名+最低排名-最高排名-收盘排名）的8日衰减排名（即价格内部位置的相对强弱）；②收盘排名与60日均量排名的8日相关性的衰减排名。取最小值综合了价格形态和量价关系。",
+    "category": "综合",
+    "direction": "非单调（取最小值）",
+    "params": {
+      "window_decay1": 8,
+      "adv_window": 60,
+      "window_corr": 8,
+      "window_decay2": 7,
+      "window_rank2": 3
+    }
+  },
+  {
+    "name": "alpha089",
+    "formula": "2*(SMA(CLOSE,13,2)-SMA(CLOSE,27,2)-SMA(SMA(CLOSE,13,2)-SMA(CLOSE,27,2),10,2))",
+    "interpretation": "2 ×（13日EMA - 27日EMA - (13日EMA-27日EMA)的10日EMA）。即MACD柱状线（MACD Histogram）的两倍——MACD快线减慢线的值，再减去其移动平均，衡量动量的加速度。正值表示上升动能加速。",
+    "category": "动量/MACD",
+    "direction": "正相关（动能加速）",
+    "params": {
+      "window_fast": 13,
+      "window_slow": 27,
+      "window_signal": 10
+    }
+  },
+  {
+    "name": "alpha090",
+    "formula": "(RANK(CORR(RANK(VWAP), RANK(VOLUME), 5)) * -1)",
+    "interpretation": "均价排名与成交量排名的5日相关性排名取负。与alpha050类似但不取最大值——均价与成交量在5天内正相关时值为负（量价齐升），负相关时为正。",
+    "category": "量价关系",
+    "direction": "负相关",
+    "params": {
+      "window": 5
+    }
+  },
+  {
+    "name": "alpha091",
+    "formula": "((RANK((CLOSE - MAX(CLOSE, 5)))*RANK(CORR((MEAN(VOLUME,40)), LOW, 5))) * -1)",
+    "interpretation": "（收盘价-5日最高收盘）的排名 × （40日均量与最低价的5日相关性）的排名，取负。当收盘价低于5日最高且均量与最低价正相关时值为负——\"从高点回落但均量仍配合\"的模式。",
+    "category": "量价/趋势",
+    "direction": "负相关",
+    "params": {
+      "window_close": 5,
+      "adv_window": 40,
+      "window_corr": 5
+    }
+  },
+  {
+    "name": "alpha092",
+    "formula": "min(Ts_Rank(decay_linear(((((high + low) / 2) + close) < (low + open)), 14.7221), 18.8683), Ts_Rank(decay_linear(correlation(rank(low), rank(adv30), 7.58555), 6.94024), 6.80584))",
+    "interpretation": "取两个子信号的最小值：①条件（中点+收盘 < 最低+开盘）的15日衰减的19日排名；②最低价排名与30日均量排名的8日相关性的7日衰减的7日排名。综合价格位置和量价关系确认。",
+    "category": "综合",
+    "direction": "非单调（取最小值）",
+    "params": {
+      "window_decay1": 15,
+      "window_rank1": 19,
+      "adv_window": 30,
+      "window_corr": 8,
+      "window_decay2": 7,
+      "window_rank2": 7
+    }
+  },
+  {
+    "name": "alpha093",
+    "formula": "SUM((OPEN>=DELAY(OPEN,1)?0:MAX((OPEN-LOW),(OPEN-DELAY(OPEN,1)))),20)",
+    "interpretation": "20天累计的\"虚假低开\"值：如果开盘没跌则0，否则取（开盘-最低）和（开盘-昨日开盘）的较大值。类似于DBM指标的20日累计，衡量低开后的真实跌幅。值大说明近期频繁出现低开低走。",
+    "category": "K线形态/动量",
+    "direction": "负相关（低开低走天数多→弱势）",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha094",
+    "formula": "((rank((vwap - ts_min(vwap, 11.5783)))^Ts_Rank(correlation(Ts_Rank(vwap, 19.6462), Ts_Rank(adv60, 4.02992), 18.0926), 2.70756)) * -1)",
+    "interpretation": "（均价-12日最低均价）的排名 的（均价排名与60日均量排名的18日相关性的3日排名）次方，取负。当量价相关性排名高时，指数大，整体值被非线性放大。",
+    "category": "趋势/量价/非线性",
+    "direction": "负相关",
+    "params": {
+      "window_min": 12,
+      "adv_window": 60,
+      "window_rank1": 20,
+      "window_corr": 18,
+      "window_rank2": 3
+    }
+  },
+  {
+    "name": "alpha095",
+    "formula": "(rank((open - ts_min(open, 12.4105))) < Ts_Rank((rank(correlation(sum(((high + low)/ 2), 19.1351), sum(adv40, 19.1351), 12.8742))^5), 11.7584))",
+    "interpretation": "条件判断：开盘-12日最低开盘的排名 < （中点价与40日均量的19日累计的13日相关性的排名^5的12日排名）。当开盘在相对低位且量价关系的^5排名靠前时触发。开关信号。",
+    "category": "综合/开关",
+    "direction": "二元信号",
+    "params": {
+      "window_open": 12,
+      "adv_window": 40,
+      "window_sum": 19,
+      "window_corr": 13,
+      "window_rank": 12
+    }
+  },
+  {
+    "name": "alpha096",
+    "formula": "(max(Ts_Rank(decay_linear(correlation(rank(vwap), rank(volume), 3.83878), 4.16783), 8.38151), Ts_Rank(decay_linear(Ts_ArgMax(correlation(Ts_Rank(close, 7.45404), Ts_Rank(adv60, 4.13242), 3.65459), 12.6556), 14.0365), 13.4143)) * -1)",
+    "interpretation": "取2个子信号的最大值取负：①均价排名与成交量排名的4日相关性的4日衰减的8日排名；②收盘排名与60日均量排名的4日相关性的13日argmax的14日衰减的13日排名。取负后较大的正信号被压制。",
+    "category": "量价关系/综合",
+    "direction": "负相关",
+    "params": {
+      "window_corr1": 4,
+      "window_decay1": 4,
+      "window_rank1": 8,
+      "adv_window": 60,
+      "window_corr2": 4,
+      "window_argmax": 13,
+      "window_decay2": 14,
+      "window_rank2": 13
+    }
+  },
+  {
+    "name": "alpha097",
+    "formula": "STD(VOLUME,10)",
+    "interpretation": "成交量的10日标准差。衡量成交量波动——值大表示近期量能忽大忽小（可能有主力行为或消息驱动），值小表示量能平稳。",
+    "category": "成交量/波动率",
+    "direction": "非单调",
+    "params": {
+      "window": 10
+    }
+  },
+  {
+    "name": "alpha098",
+    "formula": "(rank(decay_linear(correlation(vwap, sum(adv5, 26.4719), 4.58418), 7.18088)) - rank(decay_linear(Ts_Rank(Ts_ArgMin(correlation(rank(open), rank(adv15), 20.8187), 8.62571), 6.95668), 8.07206)))",
+    "interpretation": "差：①均价与5日均量26日累计的5日相关性的7日衰减排名 - ②开盘排名与15日均量排名的21日相关性的9日argmin的7日排名衰减。比较量价关系强度和量价关系最弱的时刻。",
+    "category": "量价关系/比较",
+    "direction": "非单调（差值信号）",
+    "params": {
+      "adv_window1": 5,
+      "window_sum1": 26,
+      "window_corr1": 5,
+      "window_decay1": 7,
+      "adv_window2": 15,
+      "window_corr2": 21,
+      "window_argmin": 9,
+      "window_rank2": 7,
+      "window_decay2": 8
+    }
+  },
+  {
+    "name": "alpha099",
+    "formula": "((rank(correlation(sum(((high + low) / 2), 19.8975), sum(adv60, 19.8975), 8.8136)) < rank(correlation(low, volume, 6.28259))) * -1)",
+    "interpretation": "条件判断取负：中点价的20日累计与60日均量的20日累计的9日相关性排名 < 最低价与成交量的6日相关性排名。比较两个不同时间尺度上的量价关系。",
+    "category": "量价关系/比较",
+    "direction": "负相关",
+    "params": {
+      "adv_window": 60,
+      "window_sum": 20,
+      "window_corr1": 9,
+      "window_corr2": 6
+    }
+  },
+  {
+    "name": "alpha100",
+    "formula": "STD(VOLUME,20)",
+    "interpretation": "成交量的20日标准差。与alpha097类似但窗口更长（20天 vs 10天）。衡量中期量能波动。",
+    "category": "成交量/波动率",
+    "direction": "非单调",
+    "params": {
+      "window": 20
+    }
+  },
+  {
+    "name": "alpha101",
+    "formula": "((close - open) / ((high - low) + 0.001))",
+    "interpretation": "（收盘-开盘）/（最高-最低+0.001）。即K线实体大小占整个振幅的比例——正值表示阳线（收盘>开盘），负值表示阴线。+0.001防除零。接近1表示光头光脚大阳线，接近-1表示光头光脚大阴线。最简单的日内强弱指标。",
+    "category": "K线形态",
+    "direction": "正相关（阳线=强）",
+    "params": {}
+  }
+]
