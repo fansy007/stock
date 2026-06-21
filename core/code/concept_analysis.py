@@ -13,6 +13,88 @@ import numpy as np
 BASE = "/Users/hg26502/claude/stock"
 
 
+WIN_COLS = ["ret_1d", "ret_1w", "ret_1m", "ret_3m", "ret_1y", "ret_3y"]
+WIN_LABELS = {
+    "ret_1d": "1日", "ret_1w": "1周", "ret_1m": "1月",
+    "ret_3m": "3月", "ret_1y": "1年", "ret_3y": "3年",
+}
+
+
+def concept_ranking(min_stocks: int = 3):
+    """生成概念板块排行 DataFrame。
+
+    Parameters
+    ----------
+    min_stocks : int
+        最少成分股数量（过滤掉成分太少的概念）。
+
+    Returns
+    -------
+    pd.DataFrame with columns:
+        concept, N, {ret}_mean, {ret}_rank, momentum, divergence
+    """
+    df = pd.read_parquet(f"{BASE}/core/dictionary/stock_profile.parquet")
+
+    # 检查 ret_1d 是否存在（新加列，旧缓存可能没有）
+    has_1d = "ret_1d" in df.columns
+    cols = WIN_COLS[:] if has_1d else WIN_COLS[1:]
+
+    # 展开概念：每行一个概念
+    expanded = df[["stock_code", "name", "concepts"] + cols].copy()
+    expanded["concepts"] = expanded["concepts"].fillna("")
+    expanded = expanded[expanded["concepts"] != ""].copy()
+
+    expanded["_clist"] = expanded["concepts"].str.split(",")
+    expanded = expanded.explode("_clist")
+    expanded["_clist"] = expanded["_clist"].str.strip()
+    expanded = expanded[expanded["_clist"] != ""].copy()
+
+    # Groupby 概念
+    agg = {"stock_code": "count"}
+    for c in cols:
+        agg[c] = "mean"
+
+    result = expanded.groupby("_clist").agg(agg).reset_index()
+    result.columns = ["concept", "N"] + [f"{c}_mean" for c in cols]
+    result = result[result["N"] >= min_stocks].copy()
+
+    # 排名分位 (0~100)
+    for c in cols:
+        mc = f"{c}_mean"
+        result[f"{c}_rank"] = result[mc].rank(pct=True, ascending=True) * 100
+        # 保留4位小数
+        result[f"{c}_rank"] = result[f"{c}_rank"].round(1)
+
+    # 异动分 = 短期动量(0.5*1d + 0.3*1w + 0.2*1m) - rank(3m)
+    if has_1d:
+        result["momentum"] = (
+            0.5 * result["ret_1d_rank"]
+            + 0.3 * result["ret_1w_rank"]
+            + 0.2 * result["ret_1m_rank"]
+        )
+    else:
+        result["momentum"] = (
+            0.7 * result["ret_1w_rank"]
+            + 0.3 * result["ret_1m_rank"]
+        )
+
+    result["divergence"] = (result["momentum"] - result["ret_3m_rank"]).round(1)
+    result = result.sort_values("divergence", ascending=False).reset_index(drop=True)
+
+    return result
+
+
+def concept_ranking_with_stocks(concept_ranking_df, concept_name):
+    """返回一个概念下的成分股及其各周期涨幅明细。"""
+    df = pd.read_parquet(f"{BASE}/core/dictionary/stock_profile.parquet")
+    has_1d = "ret_1d" in df.columns
+    cols = WIN_COLS[:] if has_1d else WIN_COLS[1:]
+
+    mask = df["concepts"].str.contains(concept_name, na=False, regex=False)
+    stocks = df[mask][["stock_code", "name", "SW2"] + cols].copy()
+    return stocks.sort_values(cols[0], ascending=False, na_position="last")
+
+
 def concept_report(concept_name: str, top_n: int = 10):
     """打印一个概念的分析报告。"""
     df = pd.read_parquet(f"{BASE}/core/dictionary/stock_profile.parquet")

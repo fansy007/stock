@@ -8,10 +8,14 @@ A 股浏览器 — 5207 只股票的大表快速过滤。
 import streamlit as st
 import pandas as pd
 import numpy as np
+import json
 from pathlib import Path
 
 # 回测页面组件
 from code.backtest.web import render_backtest_page
+
+# JSON 编辑器
+from streamlit_ace import st_ace
 
 BASE = Path(__file__).parent
 CACHE_PATH = BASE / "core" / "dictionary" / "stock_profile.parquet"
@@ -298,9 +302,162 @@ if "selected_code" not in st.session_state:
 
 # ── Tabs ───────────────────────────────────────────
 
-_tabs = st.tabs(["📋 选股列表", "📊 详情", "📈 走势"])
+_tabs = st.tabs(["📊 概念板块", "📋 选股列表", "📊 详情", "📈 走势", "📡 跟踪雷达"])
+
+def render_concept_page(df):
+    """概念板块排行页面"""
+    from core.code.concept_analysis import concept_ranking, WIN_LABELS
+
+    has_1d = "ret_1d" in df.columns
+
+    with st.spinner("计算概念排行..."):
+        rdf = concept_ranking(min_stocks=3)
+
+    if rdf.empty:
+        st.warning("暂无概念板块数据（缓存可能未就绪）")
+        return
+
+    # ── 显示方式 ──
+    col1, col2, _ = st.columns([1.5, 1.5, 3])
+    with col1:
+        mode = st.radio("", ["涨幅均值", "排名分位"], horizontal=True, label_visibility="collapsed")
+    with col2:
+        sort_by = st.selectbox("", ["异动分", "1日", "1周", "1月", "3月", "1年", "3年"],
+                               label_visibility="collapsed")
+
+    if not has_1d:
+        st.caption("⚠️ 缺少 1 日涨幅数据，点击左侧「刷新数据缓存」后生效")
+
+    show_rank = (mode == "排名分位")
+
+    # ── 排序 ──
+    sort_map = {
+        "异动分": "divergence",
+        "1日": "ret_1d_mean", "1周": "ret_1w_mean", "1月": "ret_1m_mean",
+        "3月": "ret_3m_mean", "1年": "ret_1y_mean", "3年": "ret_3y_mean",
+    }
+    sc = sort_map.get(sort_by, "divergence")
+    if sc in rdf.columns:
+        rdf = rdf.sort_values(sc, ascending=False).reset_index(drop=True)
+
+    # ── 构建显示表 ──
+    all_windows = ["ret_1d", "ret_1w", "ret_1m", "ret_3m", "ret_1y", "ret_3y"]
+    if not has_1d:
+        all_windows = all_windows[1:]
+
+    display = {"概念": rdf["concept"], "N": rdf["N"].astype(int)}
+    cfg = {
+        "概念": st.column_config.TextColumn("概念"),
+        "N": st.column_config.NumberColumn("N", format="%d"),
+    }
+
+    for c in all_windows:
+        lbl = WIN_LABELS.get(c, c)
+        if show_rank:
+            display[lbl] = rdf[f"{c}_rank"].round(1)
+            cfg[lbl] = st.column_config.NumberColumn(lbl, format="%.1f")
+        else:
+            display[lbl] = rdf[f"{c}_mean"].round(2)
+            cfg[lbl] = st.column_config.NumberColumn(lbl, format="%+.2f%%")
+
+    display["🚀异动"] = rdf["divergence"]
+    cfg["🚀异动"] = st.column_config.NumberColumn(
+        "🚀异动",
+        format="%+.1f",
+        help="短期动量(=0.5×1d分位+0.3×1w分位+0.2×1m分位) − 3月排名分位",
+    )
+
+    display_df = pd.DataFrame(display)
+
+    st.markdown(f"共 {len(display_df)} 个概念板块 ≥ 3 只成分股")
+
+    # ── 排行表 ──
+    st.dataframe(
+        display_df,
+        column_config=cfg,
+        use_container_width=True,
+        hide_index=True,
+        on_select="rerun",
+        selection_mode="single-row",
+        height=600,
+        key="concept_grid",
+    )
+
+    # ── 选中概念 → 展开成分股 ──
+    sel_state = st.session_state.get("concept_grid")
+    selected_concept = None
+    if sel_state and sel_state.selection.rows:
+        idx = sel_state.selection.rows[0]
+        selected_concept = display_df.iloc[idx]["概念"]
+
+    search_c = st.text_input("或搜索概念查看成分股", placeholder="输入概念名称...", key="concept_search")
+    if search_c:
+        matches = [c for c in rdf["concept"] if search_c.strip().lower() in c.lower()]
+        if len(matches) == 1:
+            selected_concept = matches[0]
+        elif len(matches) > 1:
+            st.caption(f"找到 {len(matches)} 个，继续输入")
+        elif search_c.strip():
+            st.caption("未找到")
+
+    if selected_concept and selected_concept in rdf["concept"].values:
+        # 同步到 session_state，供选股列表 tab 使用
+        if st.session_state.get("concept_filter") != selected_concept:
+            st.session_state["concept_filter"] = selected_concept
+        st.markdown(f"**▸ {selected_concept}** — 成分股明细")
+
+        mask = df["concepts"].str.contains(selected_concept, na=False, regex=False)
+        stocks = df[mask][["stock_code", "name", "SW2"] + all_windows].copy()
+        stocks = stocks.sort_values(all_windows[0], ascending=False, na_position="last")
+
+        stock_cfg = {
+            "stock_code": st.column_config.TextColumn("代码", width="small"),
+            "name": st.column_config.TextColumn("名称", width="small"),
+            "SW2": st.column_config.TextColumn("行业"),
+        }
+        for c in all_windows:
+            lbl = WIN_LABELS.get(c, c)
+            stock_cfg[c] = st.column_config.NumberColumn(lbl, format="%+.2f%%")
+
+        st.dataframe(
+            stocks,
+            column_config=stock_cfg,
+            use_container_width=True,
+            hide_index=True,
+            height=400,
+        )
+
+        st.download_button(
+            "📥 导出成分股 CSV",
+            stocks.to_csv(index=False).encode("utf-8"),
+            f"{selected_concept}.csv",
+            "text/csv",
+        )
+
 
 with _tabs[0]:
+    render_concept_page(df)
+with _tabs[1]:
+    # 概念板块过滤（从板块tab同步过来）
+    _cf = st.session_state.get("concept_filter")
+    _show_clear = False
+    if _cf:
+        _cf_mask = filtered["concepts"].str.contains(_cf, na=False, regex=False)
+        _cf_count = _cf_mask.sum()
+        filtered = filtered[_cf_mask]
+        _show_clear = True
+
+    if _show_clear:
+        _c1, _c2, _c3 = st.columns([1.5, 2, 6])
+        with _c1:
+            if st.button("✕ 清除", type="secondary"):
+                st.session_state["concept_filter"] = None
+                st.rerun()
+        with _c2:
+            st.caption(f"📊 {_cf}")
+        with _c3:
+            st.caption(f"筛选后 {len(filtered)} 只")
+
     # ── 表格（带单选行选） ──
     _display = filtered[available].copy()
     st.dataframe(
@@ -357,8 +514,7 @@ with _tabs[0]:
         "text/csv",
     )
 
-with _tabs[1]:
-    # 搜索框
+with _tabs[2]:
     _search = st.text_input(
         "搜索股票（代码或名称）",
         placeholder="输入股票代码或名称，如 300395 或 菲利华",
@@ -567,9 +723,211 @@ def load_kline(code):
         return None
 
 
+# ── 跟踪雷达 Tab ──────────────────────────────────
+
+def render_tracking_radar(df):
+    """📡 跟踪雷达 — 配置组合管理"""
+    try:
+        from core.code.tracking_radar import (
+            list_sets, load_set, save_set, delete_set,
+            copy_set, rename_set,
+        )
+    except Exception as e:
+        import traceback
+        st.error(f"跟踪雷达模块导入失败: {e}")
+        with st.expander("错误详情"):
+            st.code(traceback.format_exc())
+        return
+
+    # ── State init ──
+    if "tr_current" not in st.session_state:
+        st.session_state.tr_current = None  # (name, kind)
+    if "tr_configs" not in st.session_state:
+        st.session_state.tr_configs = None
+    if "tr_show_path" not in st.session_state:
+        st.session_state.tr_show_path = False
+    if "tr_show_new_dialog" not in st.session_state:
+        st.session_state.tr_show_new_dialog = False
+    if "tr_show_rename_dialog" not in st.session_state:
+        st.session_state.tr_show_rename_dialog = False
+    if "tr_show_delete_confirm" not in st.session_state:
+        st.session_state.tr_show_delete_confirm = False
+
+    # ── 当前配置（在列布局前读取）──
+    configs = st.session_state.tr_configs
+    current = st.session_state.tr_current
+
+    # ── Left: 组合列表（紧凑版）──
+    left, right = st.columns([0.19, 0.81])
+
+    with left:
+        # 按钮不换行
+        st.markdown("""
+        <style>
+        div[data-testid="column"] button,
+        div[data-testid="column"] button p {
+            white-space: nowrap !important;
+            overflow: visible !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.markdown("**跟踪组合**")
+        all_sets = list_sets()
+        default_sets = [(n, k) for n, k in all_sets if k == "default"]
+        custom_sets = [(n, k) for n, k in all_sets if k == "custom"]
+        selected = current
+
+        def _load_set(name, kind):
+            st.session_state.tr_current = (name, kind)
+            st.session_state.tr_configs = load_set(name, kind)
+            st.session_state.tr_show_path = False
+            st.rerun()
+
+        if default_sets:
+            st.markdown("系统模板")
+            for name, kind in default_sets:
+                active = (selected == (name, kind))
+                if st.button(f"{'📄' if active else '  '} {name}", key=f"tr_load_{kind}_{name}",
+                             use_container_width=True, type="primary" if active else "secondary"):
+                    _load_set(name, kind)
+
+        if custom_sets:
+            st.markdown("我的组合")
+            for name, kind in custom_sets:
+                active = (selected == (name, kind))
+                if st.button(f"{'📄' if active else '  '} {name}", key=f"tr_load_{kind}_{name}",
+                             use_container_width=True, type="primary" if active else "secondary"):
+                    _load_set(name, kind)
+
+        if st.button("➕ 新建组合", use_container_width=True, key="tr_new"):
+            st.session_state.tr_show_new_dialog = True
+            st.rerun()
+
+        if st.session_state.tr_show_new_dialog:
+            with st.container(border=True):
+                new_name = st.text_input("组合名称", key="tr_new_name", placeholder="如 持仓跟踪", label_visibility="collapsed")
+                all_templates = [(n, k) for n, k in all_sets]
+                tmpl_options = [f"{'📄' if k=='default' else '📁'} {n}" for n, k in all_templates]
+                tmpl_idx = st.selectbox("从模板", range(len(tmpl_options)), format_func=lambda i: tmpl_options[i],
+                                        key="tr_new_tmpl", label_visibility="collapsed")
+                tmpl_name, tmpl_kind = all_templates[tmpl_idx]
+                c1, c2 = st.columns(2)
+                with c1:
+                    if st.button("创建", key="tr_new_confirm", use_container_width=True):
+                        if new_name.strip():
+                            try:
+                                copy_set(new_name.strip(), tmpl_name, tmpl_kind)
+                                st.session_state.tr_current = (new_name.strip(), "custom")
+                                st.session_state.tr_configs = load_set(new_name.strip(), "custom")
+                                st.session_state.tr_show_new_dialog = False
+                                st.rerun()
+                            except FileExistsError: st.error(f"组合 '{new_name}' 已存在")
+                        else: st.warning("请输入名称")
+                with c2:
+                    if st.button("取消", key="tr_new_cancel", use_container_width=True):
+                        st.session_state.tr_show_new_dialog = False; st.rerun()
+
+        # ── 操作按钮（紧凑行） ──
+        if configs is not None:
+            set_name, set_kind = current
+            is_readonly = (set_kind == "default")
+            edited_val = st.session_state.get(f"tr_ace_{set_name}") or "{}"
+
+            save_path, ops_path = st.columns([1, 1])
+
+            with save_path:
+                if not is_readonly:
+                    if st.button("💾 保存", use_container_width=True, key="tr_save"):
+                        try:
+                            parsed = json.loads(edited_val)
+                            st.session_state.tr_configs = parsed
+                            save_set(set_name, parsed)
+                            st.success("已保存"); st.rerun()
+                        except json.JSONDecodeError as e: st.error(f"JSON 格式错误: {e}")
+
+            with ops_path:
+                if st.button("📋 路径", use_container_width=True, key="tr_show_path_btn"):
+                    st.session_state.tr_show_path = not st.session_state.tr_show_path; st.rerun()
+
+            if st.session_state.tr_show_path:
+                from core.code.tracking_radar import get_path
+                st.code(get_path(set_name, set_kind) + "/tracking.json", language="text")
+                st.caption("复制路径，告诉我。我读取配置、搜索线索、生成报告写入 Obsidian。")
+
+            # 自定义组合的管理按钮（一行）
+            if selected and selected[1] == "custom" and not st.session_state.tr_show_new_dialog:
+                c1, c2 = st.columns([1, 1])
+                with c1:
+                    if st.button("✏️ 重命名", use_container_width=True, key="tr_rename_btn"):
+                        st.session_state.tr_show_rename_dialog = True; st.rerun()
+                    if st.session_state.tr_show_rename_dialog:
+                        new_name = st.text_input("新名称", value=selected[0], key="tr_rename_input", label_visibility="collapsed")
+                        c3, c4 = st.columns(2)
+                        with c3:
+                            if st.button("确认", key="tr_rename_confirm", use_container_width=True):
+                                if new_name.strip() and new_name.strip() != selected[0]:
+                                    try:
+                                        rename_set(selected[0], new_name.strip())
+                                        st.session_state.tr_current = (new_name.strip(), "custom")
+                                        st.session_state.tr_show_rename_dialog = False; st.rerun()
+                                    except FileExistsError: st.error(f"名称 '{new_name}' 已存在")
+                                else: st.session_state.tr_show_rename_dialog = False; st.rerun()
+                        with c4:
+                            if st.button("取消", key="tr_rename_cancel", use_container_width=True):
+                                st.session_state.tr_show_rename_dialog = False; st.rerun()
+                with c2:
+                    if st.button("🗑️ 删除", use_container_width=True, key="tr_delete_btn"):
+                        st.session_state.tr_show_delete_confirm = True; st.rerun()
+                    if st.session_state.tr_show_delete_confirm:
+                        st.warning(f"删除 '{selected[0]}'？")
+                        c5, c6 = st.columns(2)
+                        with c5:
+                            if st.button("确认", key="tr_delete_confirm", use_container_width=True):
+                                delete_set(selected[0])
+                                st.session_state.tr_current = None; st.session_state.tr_configs = None
+                                st.session_state.tr_show_path = False; st.session_state.tr_show_delete_confirm = False; st.rerun()
+                        with c6:
+                            if st.button("取消", key="tr_delete_cancel", use_container_width=True):
+                                st.session_state.tr_show_delete_confirm = False; st.rerun()
+
+    # ── Right: 编辑器 ──
+    with right:
+        if configs is None:
+            st.info("← 从左侧选择一个跟踪组合")
+        else:
+            set_name, set_kind = current
+            is_readonly = (set_kind == "default")
+
+            # ── JSON 编辑器 (Ace Editor) ──
+            try:
+                text = json.dumps(configs, ensure_ascii=False, indent=2)
+            except (TypeError, ValueError):
+                text = "{}"
+
+            readonly_label = "（只读预览）" if is_readonly else ""
+            edited = st_ace(
+                value=text,
+                language="json",
+                theme="chrome",
+                height=1000,
+                min_lines=30,
+                font_size=13,
+                tab_size=2,
+                wrap=False,
+                show_gutter=True,
+                readonly=is_readonly,
+                auto_update=True,
+                key=f"tr_ace_{set_name}",
+            )
+
+            # 只读提示
+            if is_readonly and edited != text:
+                st.caption("⚠️ 系统模板为只读。如需修改请「新建组合」从模板复制。")
+
 # ── 走势 Tab ───────────────────────────────────────
 
-with _tabs[2]:
+with _tabs[3]:
     st.markdown("#### 📈 走势 & 形态匹配")
 
     # 当前选中的股票
@@ -603,169 +961,146 @@ with _tabs[2]:
                 f"评分 {_v(_r.get('score'),'.1f')} {_r.get('status','')}"
             )
 
-    if not _chart_code or _chart_code not in df["stock_code"].values:
+    _can_chart = (_chart_code is not None and _chart_code in df["stock_code"].values)
+
+    if not _can_chart:
         st.info("👆 在「选股列表」中点选一支股票，或在搜索框输入")
-        st.stop()
 
-    # ── 加载 K 线 ──
-    _k = load_kline(_chart_code)
-    if _k is None or len(_k) < 60:
-        st.warning("K 线数据不足")
-        st.stop()
+    if _can_chart:
+        _k = load_kline(_chart_code)
+        if _k is None or len(_k) < 60:
+            st.warning("K 线数据不足")
+            _can_chart = False
 
-    # ── 参数区 ──
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        _w = st.number_input("匹配窗口(天)", min_value=10, max_value=60, value=20, key="pm_w")
-    with c2:
-        _k_top = st.number_input("匹配数", min_value=3, max_value=10, value=5, key="pm_k")
-    with c3:
-        _la = st.number_input("看后(天)", min_value=5, max_value=30, value=10, key="pm_la")
-    with c4:
-        _months = st.selectbox("显示范围", ["3月", "6月", "1年", "全部"], index=0, key="pm_range")
-    _days_map = {"3月": 63, "6月": 126, "1年": 252, "全部": len(_k)}
-    _lookback = _days_map.get(_months, 63)
+    if _can_chart:
+        # ── 参数区 ──
+        c1, c2, c3, c4 = st.columns(4)
+        with c1:
+            _w = st.number_input("匹配窗口(天)", min_value=10, max_value=60, value=20, key="pm_w")
+        with c2:
+            _k_top = st.number_input("匹配数", min_value=3, max_value=10, value=5, key="pm_k")
+        with c3:
+            _la = st.number_input("看后(天)", min_value=5, max_value=30, value=10, key="pm_la")
+        with c4:
+            _months = st.selectbox("显示范围", ["3月", "6月", "1年", "全部"], index=2, key="pm_range")
+        _days_map = {"3月": 63, "6月": 126, "1年": 252, "全部": len(_k)}
+        _lookback = _days_map.get(_months, 63)
 
-    _do_predict = st.button("🔍 预测未来走势", type="primary", use_container_width=True)
+        _do_predict = st.button("🔍 预测未来走势", type="primary", use_container_width=True)
 
-    # ── 构建主 K 线图（始终显示） ──
+        # ── 构建主 K 线图（始终显示） ──
 
-    _k_chart = _k.tail(_lookback).copy().reset_index(drop=True)
-    _k_chart["date_str"] = _k_chart["date"].dt.strftime("%Y-%m-%d")
+        _k_chart = _k.tail(_lookback).copy().reset_index(drop=True)
+        _k_chart["date_str"] = _k_chart["date"].dt.strftime("%Y-%m-%d")
 
-    import plotly.graph_objects as go
-    from plotly.subplots import make_subplots
-    import numpy as np
+        import plotly.graph_objects as go
+        from plotly.subplots import make_subplots
+        import numpy as np
 
-    _fig = make_subplots(
-        rows=2, cols=1, shared_xaxes=True,
-        row_heights=[0.7, 0.3], vertical_spacing=0.04,
-    )
+        _fig = make_subplots(
+            rows=2, cols=1, shared_xaxes=True,
+            row_heights=[0.7, 0.3], vertical_spacing=0.04,
+        )
 
-    _fig.add_trace(
-        go.Candlestick(
-            x=_k_chart["date"], name="",
-            open=_k_chart["open"], high=_k_chart["high"],
-            low=_k_chart["low"], close=_k_chart["close"],
-            increasing_line_color="#ef5350",
-            decreasing_line_color="#26a69a",
-            showlegend=False,
-        ),
-        row=1, col=1,
-    )
+        _fig.add_trace(
+            go.Candlestick(
+                x=_k_chart["date"], name="",
+                open=_k_chart["open"], high=_k_chart["high"],
+                low=_k_chart["low"], close=_k_chart["close"],
+                increasing_line_color="#ef5350",
+                decreasing_line_color="#26a69a",
+                showlegend=False,
+            ),
+            row=1, col=1,
+        )
 
-    _colors_vol = np.where(_k_chart["close"] >= _k_chart["open"], "#ef5350", "#26a69a")
-    _fig.add_trace(
-        go.Bar(x=_k_chart["date"], y=_k_chart["volume"], name="",
-               marker_color=_colors_vol, showlegend=False),
-        row=2, col=1,
-    )
+        _colors_vol = np.where(_k_chart["close"] >= _k_chart["open"], "#ef5350", "#26a69a")
+        _fig.add_trace(
+            go.Bar(x=_k_chart["date"], y=_k_chart["volume"], name="",
+                   marker_color=_colors_vol, showlegend=False),
+            row=2, col=1,
+        )
 
-    _fig.update_layout(
-        height=500, margin=dict(l=20, r=20, t=10, b=10),
-        xaxis_rangeslider_visible=False,
-        hovermode="x unified",
-    )
-    _fig.update_yaxes(title_text="价格", row=1, col=1)
-    _fig.update_yaxes(title_text="成交量", row=2, col=1)
+        _fig.update_layout(
+            height=500, margin=dict(l=20, r=20, t=10, b=10),
+            xaxis_rangeslider_visible=False,
+            hovermode="x unified",
+        )
+        _fig.update_yaxes(title_text="价格", row=1, col=1)
+        _fig.update_yaxes(title_text="成交量", row=2, col=1)
 
-    _MATCH_COLORS_BG = ["rgba(255,99,71,0.15)", "rgba(30,144,255,0.15)",
-                        "rgba(50,205,50,0.15)", "rgba(255,165,0,0.15)",
-                        "rgba(147,112,219,0.15)"]
-    _MATCH_LINE_COLORS = ["#ff6347", "#1e90ff", "#32cd32", "#ffa500", "#9370db"]
+        _MATCH_COLORS_BG = ["rgba(255,99,71,0.15)", "rgba(30,144,255,0.15)",
+                            "rgba(50,205,50,0.15)", "rgba(255,165,0,0.15)",
+                            "rgba(147,112,219,0.15)"]
+        _MATCH_LINE_COLORS = ["#ff6347", "#1e90ff", "#32cd32", "#ffa500", "#9370db"]
 
-    # ── 预测 ──
-    if _do_predict:
-        with st.spinner("正在进行形态匹配..."):
-            from core.code.pattern_matcher import PatternMatcher
-            _pm = PatternMatcher()
-            _result = _pm.match(
-                _chart_code, window=_w, top_k=_k_top, lookahead=_la,
-            )
-
-        if _result is None or not _result.matches:
-            st.warning("未能找到足够相似的形态（数据不足或相似度低于门槛）")
-        else:
-            # 在主图上高亮匹配段
-            _chart_start = _k_chart["date"].iloc[0]
-            _chart_end = _k_chart["date"].iloc[-1]
-
-            for _i, _m in enumerate(_result.matches):
-                _ms = pd.Timestamp(_m.start_date)
-                _me = pd.Timestamp(_m.end_date)
-                if _chart_start <= _ms <= _chart_end:
-                    _fig.add_vrect(
-                        x0=_ms, x1=_me,
-                        fillcolor=_MATCH_COLORS_BG[_i],
-                        layer="below", line_width=0,
-                    )
-
-            # 显示统计卡片
-            _s = _result.stats
-            if _s:
-                sc1, sc2, sc3, sc4, sc5 = st.columns(5)
-                sc1.metric("胜率", f"{_s['win_rate']}%", f"{_s['positive_count']}/{_s['total_count']}")
-                sc2.metric("中位数收益", f"{_s['median_return']:+.2f}%")
-                sc3.metric("平均收益", f"{_s['mean_return']:+.2f}%")
-                sc4.metric("最高", f"{_s['max_return']:+.2f}%")
-                sc5.metric("最低", f"{_s['min_return']:+.2f}%")
-
-            # ── 每个匹配的对比图 ──
-            st.markdown("##### 形态对比 & 后续走势")
-            for _i, _m in enumerate(_result.matches):
-                _c = _MATCH_LINE_COLORS[_i]
-
-                _pred_norm = []
-                _pred_x = []
-                if _m.after_close and len(_m.after_close) > 0:
-                    _after_rets = [(_m.after_close[j] / _m.after_close[0] - 1) * 100
-                                   for j in range(len(_m.after_close))]
-                    _pred_base = _m.match_norm_close[-1]
-                    _pred_norm = [_pred_base * (1 + r / 100) for r in _after_rets]
-                    _pred_x = list(range(len(_m.match_norm_close) - 1,
-                                         len(_m.match_norm_close) - 1 + len(_pred_norm)))
-
-                _cur_x = list(range(len(_result.current_norm_close)))
-                _match_x = list(range(len(_m.match_norm_close)))
-
-                _fig2 = make_subplots(rows=1, cols=1)
-                _fig2.add_trace(go.Scatter(
-                    x=_cur_x, y=_result.current_norm_close,
-                    mode="lines+markers", name="当前走势",
-                    line=dict(color="black", width=2),
-                    marker=dict(size=3),
-                ))
-                _fig2.add_trace(go.Scatter(
-                    x=_match_x, y=_m.match_norm_close,
-                    mode="lines+markers", name=f"#{_m.rank} 历史相似",
-                    line=dict(color=_c, width=2, dash="dash"),
-                    marker=dict(size=3),
-                ))
-                if _pred_norm:
-                    _fig2.add_trace(go.Scatter(
-                        x=_pred_x, y=_pred_norm,
-                        mode="lines+markers",
-                        name=f"#{_m.rank} 后续({_m.after_return:+.1f}%)",
-                        line=dict(color=_c, width=2, dash="dot"),
-                        marker=dict(size=4, symbol="triangle-up"),
-                    ))
-
-                _fig2.update_layout(
-                    height=220,
-                    margin=dict(l=10, r=10, t=25, b=10),
-                    legend=dict(orientation="h", y=1.1, font=dict(size=10)),
-                    hovermode="x unified",
-                    title=dict(
-                        text=f"#{_m.rank}  {_m.start_date}~{_m.end_date}  "
-                             f"k线相关={_m.corr_close:.3f}  量相关={_m.corr_volume:.3f}  "
-                             f"后续{_la}天:{_m.after_return:+.2f}%  "
-                             f"(高:{_m.after_high:+.1f}%  低:{_m.after_low:+.1f}%)",
-                        font=dict(size=11),
-                    ),
+        # ── 预测 ──
+        if _do_predict:
+            with st.spinner("正在进行形态匹配..."):
+                from core.code.pattern_matcher import PatternMatcher
+                _pm = PatternMatcher()
+                _result = _pm.match(
+                    _chart_code, window=_w, top_k=_k_top, lookahead=_la,
                 )
-                _fig2.update_yaxes(title_text="归一化价格")
-                st.plotly_chart(_fig2, use_container_width=True, key=f"pm_chart_{_i}")
 
-    # ── 显示主图 ──
-    st.plotly_chart(_fig, use_container_width=True, key="main_kline")
+            if _result is None or not _result.matches:
+                st.warning("未能找到足够相似的形态（数据不足或相似度低于门槛）")
+            else:
+                _chart_start = _k_chart["date"].iloc[0]
+                _chart_end = _k_chart["date"].iloc[-1]
 
+                for _i, _m in enumerate(_result.matches):
+                    _ms = pd.Timestamp(_m.start_date)
+                    _me = pd.Timestamp(_m.end_date)
+                    if _chart_start <= _ms <= _chart_end:
+                        _fig.add_vrect(
+                            x0=_ms, x1=_me,
+                            fillcolor=_MATCH_COLORS_BG[_i],
+                            layer="below", line_width=0,
+                        )
+
+                _s = _result.stats
+                if _s:
+                    sc1, sc2, sc3, sc4, sc5 = st.columns(5)
+                    sc1.metric("胜率", f"{_s['win_rate']}%", f"{_s['positive_count']}/{_s['total_count']}")
+                    sc2.metric("中位数收益", f"{_s['median_return']:+.2f}%")
+                    sc3.metric("平均收益", f"{_s['mean_return']:+.2f}%")
+                    sc4.metric("最高", f"{_s['max_return']:+.2f}%")
+                    sc5.metric("最低", f"{_s['min_return']:+.2f}%")
+
+                st.markdown("##### 形态对比 & 后续走势")
+                for _i, _m in enumerate(_result.matches):
+                    _c = _MATCH_LINE_COLORS[_i]
+                    _pred_norm, _pred_x = [], []
+                    if _m.after_close and len(_m.after_close) > 0:
+                        _after_rets = [(_m.after_close[j] / _m.after_close[0] - 1) * 100 for j in range(len(_m.after_close))]
+                        _pred_base = _m.match_norm_close[-1]
+                        _pred_norm = [_pred_base * (1 + r / 100) for r in _after_rets]
+                        _pred_x = list(range(len(_m.match_norm_close) - 1, len(_m.match_norm_close) - 1 + len(_pred_norm)))
+
+                    _cur_x = list(range(len(_result.current_norm_close)))
+                    _match_x = list(range(len(_m.match_norm_close)))
+
+                    _fig2 = make_subplots(rows=1, cols=1)
+                    _fig2.add_trace(go.Scatter(x=_cur_x, y=_result.current_norm_close, mode="lines+markers", name="当前走势", line=dict(color="black", width=2), marker=dict(size=3)))
+                    _fig2.add_trace(go.Scatter(x=_match_x, y=_m.match_norm_close, mode="lines+markers", name=f"#{_m.rank} 历史相似", line=dict(color=_c, width=2, dash="dash"), marker=dict(size=3)))
+                    if _pred_norm:
+                        _fig2.add_trace(go.Scatter(x=_pred_x, y=_pred_norm, mode="lines+markers", name=f"#{_m.rank} 后续({_m.after_return:+.1f}%)", line=dict(color=_c, width=2, dash="dot"), marker=dict(size=4, symbol="triangle-up")))
+
+                    _fig2.update_layout(height=220, margin=dict(l=10, r=10, t=25, b=10), legend=dict(orientation="h", y=1.1, font=dict(size=10)), hovermode="x unified", title=dict(text=f"#{_m.rank}  {_m.start_date}~{_m.end_date}  k线相关={_m.corr_close:.3f}  量相关={_m.corr_volume:.3f}  后续{_la}天:{_m.after_return:+.2f}%  (高:{_m.after_high:+.1f}%  低:{_m.after_low:+.1f}%)", font=dict(size=11)))
+                    _fig2.update_yaxes(title_text="归一化价格")
+                    st.plotly_chart(_fig2, use_container_width=True, key=f"pm_chart_{_i}")
+
+        # ── 显示主图 ──
+        st.plotly_chart(_fig, use_container_width=True, key="main_kline")
+
+# ── 跟踪雷达 Tab ──────────────────────────────────
+
+with _tabs[4]:
+    try:
+        render_tracking_radar(df)
+    except Exception as e:
+        import traceback
+        st.error(f"跟踪雷达错误: {e}")
+        with st.expander("错误详情"):
+            st.code(traceback.format_exc())
