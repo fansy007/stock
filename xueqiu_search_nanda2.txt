@@ -1,0 +1,349 @@
+- generic [ref=e2]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "雪球 首页" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img "雪球" [ref=e11]
+          - generic [ref=e12]: 首页
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - textbox "搜索" [ref=e15]
+          - button "" [ref=e17] [cursor=pointer]
+        - list [ref=e18]:
+          - listitem [ref=e19]:
+            - link "" [ref=e20] [cursor=pointer]:
+              - /url: /snb/web/cs?from=xq
+          - listitem [ref=e21]:
+            - link "下载App" [ref=e22] [cursor=pointer]:
+              - /url: "javascript:"
+          - listitem [ref=e23]:
+            - generic [ref=e24] [cursor=pointer]: 登录
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - link "温文的红利怒火" [ref=e29] [cursor=pointer]:
+          - /url: /8180626140
+          - img "温文的红利怒火" [ref=e30]
+        - link "温文的红利怒火" [ref=e32] [cursor=pointer]:
+          - /url: /8180626140
+        - generic [ref=e33]:
+          - link "发布于2026-06-25 10:26" [ref=e34] [cursor=pointer]:
+            - /url: /8180626140/396603424
+            - text: 发布于
+            - time [ref=e35]: 2026-06-25 10:26
+          - generic [ref=e36]:
+            - text: 来自
+            - link "Android" [ref=e37] [cursor=pointer]:
+              - /url: http://xueqiu.com/about/mobile-xueqiu
+          - text: ·
+          - generic [ref=e38]: 湖南
+        - generic [ref=e39] [cursor=pointer]: 关注
+      - article [ref=e40]:
+        - heading [level=1]
+        - generic [ref=e41]:
+          - link "$安集科技(SH688019)$" [ref=e42] [cursor=pointer]:
+            - /url: https://xueqiu.com/S/SH688019
+          - link "安集科技" [ref=e43] [cursor=pointer]:
+            - /url: https://xueqiu.com/S/SH688019?from=status_stock_match
+          - generic [ref=e45]: ，
+          - text: 你确定你不是来搞笑的
+          - generic [ref=e46]: ？
+          - text: 所有芯片半导体相关核心股都创出历史新高
+          - generic [ref=e48]: ，
+          - text: 唯独你还没睡醒
+          - generic [ref=e50]: ？
+          - generic [ref=e51]: ！
+          - generic [ref=e52]: ！
+          - generic [ref=e54]: ！
+          - text: 🙈🙈🙈😭
+      - paragraph [ref=e55]: 风险提示：用户发表的所有文章仅代表个人观点，与雪球的立场无关。投资决策需建立在独立思考之上。
+      - generic [ref=e58]:
+        - generic [ref=e59] [cursor=pointer]:
+          - generic [ref=e60]: 
+          - generic [ref=e62]: "2"
+        - generic [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]: 
+          - generic [ref=e66]: 收藏
+      - generic [ref=e68]:
+        - img "微信分享" [ref=e72] [cursor=pointer]
+        - generic [ref=e73]:
+          - link " 转发" [ref=e74] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e75]: 
+            - paragraph [ref=e76]: 转发
+          - link " 讨论" [ref=e77] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e78]: 
+            - paragraph [ref=e79]: 讨论
+        - link "投诉" [ref=e82] [cursor=pointer]:
+          - /url: ""
+          - paragraph [ref=e83]: 投诉
+      - generic [ref=e86]:
+        - img [ref=e87]
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: 回复@温文的红利怒火
+            - textbox [ref=e91]
+          - generic [ref=e93]:
+            - generic [ref=e94]
+            - link "发布" [ref=e109]:
+              - /url: ""
+    - generic [ref=e111]:
+      - generic [ref=e112]:
+        - heading "热门话题" [level=3] [ref=e113]
+        - table [ref=e115]:
+          - row "1 美光科技发布亮眼财报，美股芯片股盘后全线上涨" [ref=e116]:
+            - cell "1" [ref=e117]
+            - cell "美光科技发布亮眼财报，美股芯片股盘后全线上涨" [ref=e118]
+          - row "2 先进封装概念活跃，长电科技创新高" [ref=e120]:
+            - cell "2" [ref=e121]
+            - cell "先进封装概念活跃，长电科技创新高" [ref=e122]
+          - row "3 游戏板块拉升，巨人网络涨停" [ref=e124]:
+            - cell "3" [ref=e125]
+            - cell "游戏板块拉升，巨人网络涨停" [ref=e126]
+          - row "4 光纤概念走强，光电股份涨停" [ref=e128]:
+            - cell "4" [ref=e129]
+            - cell "光纤概念走强，光电股份涨停" [ref=e130]
+          - row "5 算力租赁概念延续强势，航锦科技2连板" [ref=e132]:
+            - cell "5" [ref=e133]
+            - cell "算力租赁概念延续强势，航锦科技2连板" [ref=e134]
+          - row "6 超级电容板块走强，黑猫股份5天4板" [ref=e136]:
+            - cell "6" [ref=e137]
+            - cell "超级电容板块走强，黑猫股份5天4板" [ref=e138]
+          - row "7 大摩：钠电成新石油，2035年占全球电池37%" [ref=e140]:
+            - cell "7" [ref=e141]
+            - cell "大摩：钠电成新石油，2035年占全球电池37%" [ref=e142]
+          - row "8 锆金属板块大涨，东方锆业4连板" [ref=e144]:
+            - cell "8" [ref=e145]
+            - cell "锆金属板块大涨，东方锆业4连板" [ref=e146]
+          - row "9 煤炭板块大跌，大有能源跌停" [ref=e148]:
+            - cell "9" [ref=e149]
+            - cell "煤炭板块大跌，大有能源跌停" [ref=e150]
+          - row "10 CRO概念逆势走强，药明康德涨停" [ref=e152]:
+            - cell "10" [ref=e153]
+            - cell "CRO概念逆势走强，药明康德涨停" [ref=e154]
+      - generic [ref=e157] [cursor=pointer]:
+        - img [ref=e158]
+        - generic [ref=e159]: 
+      - generic [ref=e160]:
+        - heading "热股榜 更多" [level=3] [ref=e161]:
+          - text: 热股榜
+          - link "更多" [ref=e162] [cursor=pointer]:
+            - /url: /hq#hot
+        - generic [ref=e163]:
+          - link "全球" [ref=e164] [cursor=pointer]:
+            - /url: ""
+          - link "沪深" [ref=e165] [cursor=pointer]:
+            - /url: ""
+          - link "港股" [ref=e166] [cursor=pointer]:
+            - /url: ""
+          - link "美股" [ref=e167] [cursor=pointer]:
+            - /url: ""
+        - generic [ref=e168]:
+          - link "1小时内最热" [ref=e169] [cursor=pointer]:
+            - /url: ""
+          - link "24小时内最热" [ref=e170] [cursor=pointer]:
+            - /url: ""
+        - generic [ref=e171]:
+          - generic [ref=e173]:
+            - generic [ref=e174]: "1"
+            - link "兆易创新" [ref=e176] [cursor=pointer]:
+              - /url: /S/SH603986
+            - generic [ref=e177]: +9.94%
+          - generic [ref=e179]:
+            - generic [ref=e180]: "2"
+            - link "美光科技" [ref=e182] [cursor=pointer]:
+              - /url: /S/MU
+            - generic [ref=e183]: "-0.31%"
+          - generic [ref=e185]:
+            - generic [ref=e186]: "3"
+            - link "京东方A" [ref=e188] [cursor=pointer]:
+              - /url: /S/SZ000725
+            - generic [ref=e189]: +6.36%
+          - generic [ref=e191]:
+            - generic [ref=e192]: "4"
+            - link "紫金矿业" [ref=e194] [cursor=pointer]:
+              - /url: /S/SH601899
+            - generic [ref=e195]: "-6.26%"
+          - generic [ref=e197]:
+            - generic [ref=e198]: "5"
+            - link "德明利" [ref=e200] [cursor=pointer]:
+              - /url: /S/SZ001309
+            - generic [ref=e201]: +10.00%
+          - generic [ref=e203]:
+            - generic [ref=e204]: "6"
+            - link "科创半导体ETF华夏" [ref=e206] [cursor=pointer]:
+              - /url: /S/SH588170
+            - generic [ref=e207]: +3.19%
+          - generic [ref=e209]:
+            - generic [ref=e210]: "7"
+            - link "信维通信" [ref=e212] [cursor=pointer]:
+              - /url: /S/SZ300136
+            - generic [ref=e213]: +13.20%
+          - generic [ref=e215]:
+            - generic [ref=e216]: "8"
+            - link "阿里巴巴-W" [ref=e218] [cursor=pointer]:
+              - /url: /S/09988
+            - generic [ref=e219]: "-4.43%"
+      - generic [ref=e220]:
+        - heading "涨跌幅榜 更多" [level=3] [ref=e221]:
+          - text: 涨跌幅榜
+          - link "更多" [ref=e222] [cursor=pointer]:
+            - /url: /hq#rank
+        - generic [ref=e223]:
+          - link "沪深" [ref=e224] [cursor=pointer]:
+            - /url: ""
+          - link "港股" [ref=e225] [cursor=pointer]:
+            - /url: ""
+          - link "美股" [ref=e226] [cursor=pointer]:
+            - /url: ""
+        - generic [ref=e227]:
+          - link "涨幅榜" [ref=e228] [cursor=pointer]:
+            - /url: ""
+          - link "跌幅榜" [ref=e229] [cursor=pointer]:
+            - /url: ""
+        - table [ref=e230]:
+          - row "1 利尔达 +29.99%" [ref=e231]:
+            - cell "1" [ref=e232]
+            - cell "利尔达" [ref=e233]
+            - cell [ref=e235]
+            - cell "+29.99%" [ref=e236]
+          - row "2 太龙股份 +20.03%" [ref=e237]:
+            - cell "2" [ref=e238]
+            - cell "太龙股份" [ref=e239]
+            - cell [ref=e241]
+            - cell "+20.03%" [ref=e242]
+          - row "3 聚杰微纤 +20.01%" [ref=e243]:
+            - cell "3" [ref=e244]
+            - cell "聚杰微纤" [ref=e245]
+            - cell [ref=e247]
+            - cell "+20.01%" [ref=e248]
+          - row "4 世华科技 +20.01%" [ref=e249]:
+            - cell "4" [ref=e250]
+            - cell "世华科技" [ref=e251]
+            - cell [ref=e253]
+            - cell "+20.01%" [ref=e254]
+          - row "5 聚石化学 +20.00%" [ref=e255]:
+            - cell "5" [ref=e256]
+            - cell "聚石化学" [ref=e257]
+            - cell [ref=e259]
+            - cell "+20.00%" [ref=e260]
+          - row "6 中微半导 +20.00%" [ref=e261]:
+            - cell "6" [ref=e262]
+            - cell "中微半导" [ref=e263]
+            - cell [ref=e265]
+            - cell "+20.00%" [ref=e266]
+          - row "7 帝奥微 +20.00%" [ref=e267]:
+            - cell "7" [ref=e268]
+            - cell "帝奥微" [ref=e269]
+            - cell [ref=e271]
+            - cell "+20.00%" [ref=e272]
+          - row "8 北京君正 +20.00%" [ref=e273]:
+            - cell "8" [ref=e274]
+            - cell "北京君正" [ref=e275]
+            - cell [ref=e277]
+            - cell "+20.00%" [ref=e278]
+          - row "9 美埃科技 +20.00%" [ref=e279]:
+            - cell "9" [ref=e280]
+            - cell "美埃科技" [ref=e281]
+            - cell [ref=e283]
+            - cell "+20.00%" [ref=e284]
+          - row "10 杰普特 +18.94%" [ref=e285]:
+            - cell "10" [ref=e286]
+            - cell "杰普特" [ref=e287]
+            - cell [ref=e289]
+            - cell "+18.94%" [ref=e290]
+      - generic [ref=e291]:
+        - heading "热门基金" [level=3] [ref=e292]
+        - table [ref=e293]:
+          - row "1 华夏中证5G通信主题ETF联接A 年化(近5年) +27.22%" [ref=e294]:
+            - cell "1" [ref=e295]
+            - cell "华夏中证5G通信主题ETF联接A" [ref=e296]
+            - cell "年化(近5年)" [ref=e298]
+            - cell "+27.22%" [ref=e299]
+          - row "2 金元顺安元启混合 年化(近5年) +24.61%" [ref=e300]:
+            - cell "2" [ref=e301]
+            - cell "金元顺安元启混合" [ref=e302]
+            - cell "年化(近5年)" [ref=e304]
+            - cell "+24.61%" [ref=e305]
+          - row "3 前海开源沪港深核心资源C 年化(近5年) +24.48%" [ref=e306]:
+            - cell "3" [ref=e307]
+            - cell "前海开源沪港深核心资源C" [ref=e308]
+            - cell "年化(近5年)" [ref=e310]
+            - cell "+24.48%" [ref=e311]
+          - row "4 华商新趋势混合 年化(近5年) +22.94%" [ref=e312]:
+            - cell "4" [ref=e313]
+            - cell "华商新趋势混合" [ref=e314]
+            - cell "年化(近5年)" [ref=e316]
+            - cell "+22.94%" [ref=e317]
+          - row "5 华商盛世成长混合 年化(近5年) +18.90%" [ref=e318]:
+            - cell "5" [ref=e319]
+            - cell "华商盛世成长混合" [ref=e320]
+            - cell "年化(近5年)" [ref=e322]
+            - cell "+18.90%" [ref=e323]
+          - row "6 中信保诚全球商品主题（QDII-FOF-LOF)A 年化(近5年) +18.36%" [ref=e324]:
+            - cell "6" [ref=e325]
+            - cell "中信保诚全球商品主题（QDII-FOF-LOF)A" [ref=e326]
+            - cell "年化(近5年)" [ref=e328]
+            - cell "+18.36%" [ref=e329]
+          - row "7 华安黄金ETF联接A 年化(近5年) +18.18%" [ref=e330]:
+            - cell "7" [ref=e331]
+            - cell "华安黄金ETF联接A" [ref=e332]
+            - cell "年化(近5年)" [ref=e334]
+            - cell "+18.18%" [ref=e335]
+          - row "8 宏利转型机遇股票A 年化(近5年) +18.16%" [ref=e336]:
+            - cell "8" [ref=e337]
+            - cell "宏利转型机遇股票A" [ref=e338]
+            - cell "年化(近5年)" [ref=e340]
+            - cell "+18.16%" [ref=e341]
+          - row "9 摩根新兴动力混合A 年化(近5年) +16.28%" [ref=e342]:
+            - cell "9" [ref=e343]
+            - cell "摩根新兴动力混合A" [ref=e344]
+            - cell "年化(近5年)" [ref=e346]
+            - cell "+16.28%" [ref=e347]
+          - row "10 广发石油指数QDII-A 年化(近5年) +16.23%" [ref=e348]:
+            - cell "10" [ref=e349]
+            - cell "广发石油指数QDII-A" [ref=e350]
+            - cell "年化(近5年)" [ref=e352]
+            - cell "+16.23%" [ref=e353]
+      - generic [ref=e354]:
+        - generic [ref=e355]:
+          - link "常见问题" [ref=e356] [cursor=pointer]:
+            - /url: /about/faq
+          - text: ｜
+          - link "关于雪球" [ref=e357] [cursor=pointer]:
+            - /url: /about/what-is-xueqiu
+          - text: ｜
+          - link "投资者教育" [ref=e358] [cursor=pointer]:
+            - /url: /edu/invest-edu
+          - text: ｜
+          - link "风险提示" [ref=e359] [cursor=pointer]:
+            - /url: /about/faq#6_0
+        - generic [ref=e360]:
+          - text: © 2026 XUEQIU.COM 北京雪球信息科技有限公司
+          - link "京公网安备 11010502040379号" [ref=e361] [cursor=pointer]:
+            - /url: https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502040379
+          - text: ·
+          - link "京ICP证100666号" [ref=e362] [cursor=pointer]:
+            - /url: https://xqdoc.imedao.com/198bc1b4fb41d6523feaace4.jpg
+          - link "京ICP备10040543" [ref=e363] [cursor=pointer]:
+            - /url: https://beian.miit.gov.cn/
+          - text: ·
+          - link "京金信备〔2022〕3号" [ref=e364] [cursor=pointer]:
+            - /url: https://fisbaobei.ifcert.cn/Home/homeIindex
+          - link "营业执照" [ref=e365] [cursor=pointer]:
+            - /url: https://xqimg.imedao.com/1798dc30dead0453fd6075d8.png
+          - text: ·
+          - link "侵权投诉指引" [ref=e366] [cursor=pointer]:
+            - /url: /law/tortreport
+          - text: ·
+          - link "出版物经营许可证" [ref=e367] [cursor=pointer]:
+            - /url: https://xqimg.imedao.com/181b337b7742caf83fee6640.png
+  - generic [ref=e369]:
+    - img [ref=e370]
+    - link "" [ref=e371] [cursor=pointer]:
+      - /url: ""
+    - generic [ref=e373] [cursor=pointer]: 立即登录/注册

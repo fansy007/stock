@@ -1,0 +1,49 @@
+- generic [ref=e2]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]
+      - generic [ref=e13]
+  - generic [ref=e25]:
+    - generic [ref=e26]:
+      - strong [ref=e27]: 公司概况
+      - list [ref=e28]
+      - strong [ref=e33]: 股权信息
+      - list [ref=e34]
+      - strong [ref=e49]: 股票交易
+      - list [ref=e50]
+      - strong [ref=e63]: 公司公告
+      - list [ref=e64]
+      - strong [ref=e69]: 公司运作
+      - list [ref=e70]
+      - strong [ref=e83]: 财务数据
+      - list [ref=e84]
+      - strong [ref=e99]: 研究分析
+      - list [ref=e100]
+      - strong [ref=e105]: APP专享
+      - list [ref=e106]
+    - generic [ref=e111]:
+      - heading "鼎龙股份(SZ:300054)" [level=1] [ref=e112]
+      - generic [ref=e113]
+      - generic [ref=e117]
+      - generic [ref=e125]
+      - generic [ref=e179]
+      - generic [ref=e203]
+      - generic [ref=e226]
+    - generic [ref=e515]:
+      - generic [ref=e516]
+      - generic [ref=e522]
+      - generic [ref=e526]
+      - generic [ref=e573]
+      - generic [ref=e613]
+  - contentinfo [ref=e668]:
+    - generic [ref=e669]:
+      - generic [ref=e670]
+      - generic [ref=e677]
+      - generic [ref=e682]: 风险提示：雪球里任何用户或者嘉宾的发言，都有其特定立场，投资决策需要建立在独立思考之上
+      - generic [ref=e683]
+      - generic [ref=e705]
+  - generic [ref=e710]:
+    - img [ref=e711]
+    - link "" [ref=e712] [cursor=pointer]:
+      - /url: ""
+    - generic [ref=e714] [cursor=pointer]: 立即登录/注册

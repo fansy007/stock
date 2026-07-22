@@ -1,0 +1,458 @@
+- generic [ref=e2] [box=0,0,1185,2448]:
+  - navigation [ref=e4] [box=0,0,1185,56]:
+    - generic [ref=e5] [box=18,0,1150,56]:
+      - generic [ref=e6] [box=18,10,190,33]:
+        - link [ref=e8] [cursor=pointer] [box=18,13,90,30]:
+          - /url: /
+        - link "雪球 首页" [ref=e10] [cursor=pointer] [box=154,18,48,20]:
+          - /url: /
+          - img "雪球" [ref=e11] [box=154,20,16,16]
+          - generic [ref=e12] [box=174,18,28,20]: 首页
+      - generic [ref=e13] [box=725,10,442,36]:
+        - generic [ref=e14] [box=725,10,240,36]:
+          - textbox "搜索" [ref=e15] [box=743,16,176,24]: "300655"
+          - button "" [ref=e17] [cursor=pointer] [box=923,16,24,24]
+        - list [ref=e18] [box=965,10,202,36]:
+          - listitem [ref=e19] [box=989,16,24,24]:
+            - link "" [ref=e20] [cursor=pointer] [box=989,16,24,24]:
+              - /url: /snb/web/cs?from=xq
+          - listitem [ref=e21] [box=1037,16,54,24]:
+            - link "下载App" [ref=e22] [cursor=pointer] [box=1037,16,54,24]:
+              - /url: "javascript:"
+          - listitem [ref=e23] [box=1116,12,52,32]:
+            - generic [ref=e24] [cursor=pointer] [box=1116,12,52,32]: 登录
+  - generic [ref=e26] [box=243,86,640,2062]:
+    - generic [ref=e27] [box=243,86,640,32]:
+      - link "综合" [ref=e28] [cursor=pointer] [box=243,86,32,32]:
+        - /url: "#/"
+      - link "讨论" [ref=e29] [cursor=pointer] [box=299,86,32,32]:
+        - /url: "#/timeline"
+      - link "股票" [ref=e30] [cursor=pointer] [box=355,86,32,32]:
+        - /url: "#/stock"
+      - link "组合" [ref=e31] [cursor=pointer] [box=411,86,32,32]:
+        - /url: "#/portfolio"
+      - link "用户" [ref=e32] [cursor=pointer] [box=467,86,32,32]:
+        - /url: "#/people"
+    - generic [ref=e33] [box=243,138,640,2010]:
+      - generic [ref=e89] [box=243,138,640,146]:
+        - generic [ref=e90] [box=243,138,640,29]:
+          - link "查看全部" [ref=e91] [cursor=pointer] [box=831,138,52,28]:
+            - /url: "#stock"
+          - paragraph [ref=e92] [box=243,138,640,29]: 股票
+        - table [ref=e94] [box=244,180,638,103]:
+          - row "名称 当前价 涨跌幅 成交量 市值" [ref=e95] [box=244,180,638,39]:
+            - columnheader "名称" [ref=e96] [box=244,180,150,39]
+            - columnheader "当前价" [ref=e97] [box=394,180,65,39]
+            - columnheader "涨跌幅" [ref=e98] [box=458,180,130,39]
+            - columnheader "成交量" [ref=e99] [box=588,180,89,39]
+            - columnheader "市值" [ref=e100] [box=677,180,89,39]
+            - columnheader [ref=e101] [box=767,180,115,39]
+          - row "晶瑞电材 SZ300655 17.77 -0.31 (-1.71%) 120.52万手 200.20亿 加自选" [ref=e102] [box=244,219,638,63]:
+            - cell "晶瑞电材 SZ300655" [ref=e103] [box=244,219,150,63]:
+              - link "晶瑞电材 SZ300655" [ref=e104] [cursor=pointer] [box=264,229,114,45]:
+                - /url: /S/SZ300655
+                - paragraph [ref=e105] [box=264,229,114,26]:
+                  - generic [ref=e106] [box=264,229,114,26]: 晶瑞电材
+                - paragraph [ref=e107] [box=264,254,114,19]:
+                  - generic [ref=e108] [box=264,254,114,19]: SZ300655
+            - cell "17.77" [ref=e109] [box=394,219,65,63]
+            - cell "-0.31 (-1.71%)" [ref=e110] [box=458,219,130,63]
+            - cell "120.52万手" [ref=e111] [box=588,219,89,63]
+            - cell "200.20亿" [ref=e112] [box=677,219,89,63]
+            - cell "加自选" [ref=e113] [box=767,219,115,63]:
+              - link "加自选" [ref=e114] [cursor=pointer] [box=800,237,66,28]:
+                - /url: ""
+                - generic [ref=e115] [box=812,240,42,22]: 加自选
+      - generic [ref=e34] [box=243,314,640,1834]:
+        - generic [ref=e35] [box=243,314,640,40]:
+          - generic [ref=e37] [cursor=pointer] [box=816,314,67,28]:
+            - text: 默认排序
+            - generic [ref=e38] [box=863,322,28,12]: 
+          - paragraph [ref=e39] [box=243,314,640,29]: 讨论
+        - generic [ref=e116] [box=243,354,640,1794]:
+          - article [ref=e117] [box=243,354,640,322]:
+            - link [ref=e118] [cursor=pointer] [box=243,369,40,40]:
+              - /url: /1803938602
+              - img [ref=e119] [box=243,369,40,40]
+            - generic [ref=e120] [box=299,369,584,302]:
+              - generic [ref=e122] [box=299,369,584,24]:
+                - link "老三的韭菜院子" [ref=e123] [cursor=pointer] [box=299,372,105,18]:
+                  - /url: /1803938602
+                - link "修改于06-22 22:40· 来自雪球" [ref=e124] [cursor=pointer] [box=412,370,181,22]:
+                  - /url: /1803938602/396030130
+              - generic [ref=e126] [cursor=pointer] [box=299,397,584,237]:
+                - heading "专栏丨 国内光刻胶产业：现状、机会与挑战并存" [level=3] [ref=e127] [box=299,397,584,25]:
+                  - strong [ref=e128] [box=299,397,74,25]: 专栏丨
+                  - text: 国内光刻胶产业：现状、机会与挑战并存
+                - generic [ref=e130] [box=299,429,583,42]: ...前，国内头部梯队（如彤程新材、晶瑞电材、南大光电、上海新阳、华懋科技等）已经开始往上游原料树脂、全流程验证...
+                - img [ref=e132] [box=299,484,139,150]
+              - generic [ref=e133] [box=299,644,584,27]:
+                - link " 2" [ref=e134] [cursor=pointer] [box=299,644,80,22]:
+                  - /url: ""
+                  - generic [ref=e135] [box=299,644,18,22]: 
+                  - generic [ref=e136] [box=321,646,8,17]: "2"
+                - link " 7" [ref=e137] [cursor=pointer] [box=379,644,80,22]:
+                  - /url: ""
+                  - generic [ref=e138] [box=379,644,18,22]: 
+                  - generic [ref=e139] [box=401,646,8,17]: "7"
+                - link " 14" [ref=e140] [cursor=pointer] [box=459,644,80,22]:
+                  - /url: ""
+                  - generic [ref=e141] [box=459,644,18,22]: 
+                  - generic [ref=e142] [box=481,646,16,17]: "14"
+                - link " 收藏" [ref=e143] [cursor=pointer] [box=539,644,68,22]:
+                  - /url: ""
+                  - generic [ref=e144] [box=539,644,18,22]: 
+                  - generic [ref=e145] [box=561,646,28,17]: 收藏
+          - article [ref=e146] [box=243,676,640,157]:
+            - link [ref=e147] [cursor=pointer] [box=243,691,40,40]:
+              - /url: /6136701273
+              - img [ref=e148] [box=243,691,40,40]
+            - generic [ref=e149] [box=299,691,584,137]:
+              - generic [ref=e151] [box=299,691,584,24]:
+                - link "心别贪" [ref=e152] [cursor=pointer] [box=299,694,45,18]:
+                  - /url: /6136701273
+                - link "昨天 11:09· 来自雪球" [ref=e153] [cursor=pointer] [box=352,692,131,22]:
+                  - /url: /6136701273/396356779
+              - generic [ref=e156] [box=299,719,584,72]:
+                - generic [ref=e157] [box=299,722,583,42]: $晶瑞电材(SZ300655)$ 日本四大光刻胶企业停止承接中国 ArF/EUV 新订单：新闻来源汇总 核心信息 ：2026 年 6 月 22 日晚间，东京应化（TOK）、JSR、信越化学、富...
+                - link "展开" [ref=e158] [cursor=pointer] [box=301,771,46,16]:
+                  - /url: ""
+              - generic [ref=e159] [box=299,801,584,27]:
+                - link " 转发" [ref=e160] [cursor=pointer] [box=299,801,80,22]:
+                  - /url: ""
+                  - generic [ref=e161] [box=299,801,18,22]: 
+                  - generic [ref=e162] [box=321,803,28,17]: 转发
+                - link " 7" [ref=e163] [cursor=pointer] [box=379,801,80,22]:
+                  - /url: ""
+                  - generic [ref=e164] [box=379,801,18,22]: 
+                  - generic [ref=e165] [box=401,803,8,17]: "7"
+                - link " 6" [ref=e166] [cursor=pointer] [box=459,801,80,22]:
+                  - /url: ""
+                  - generic [ref=e167] [box=459,801,18,22]: 
+                  - generic [ref=e168] [box=481,803,8,17]: "6"
+                - link " 收藏" [ref=e169] [cursor=pointer] [box=539,801,68,22]:
+                  - /url: ""
+                  - generic [ref=e170] [box=539,801,18,22]: 
+                  - generic [ref=e171] [box=561,803,28,17]: 收藏
+          - article [ref=e172] [box=243,832,640,285]:
+            - link [ref=e173] [cursor=pointer] [box=243,847,40,40]:
+              - /url: /6822909414
+              - img [ref=e174] [box=243,847,40,40]
+            - generic [ref=e175] [box=299,847,584,265]:
+              - generic [ref=e177] [box=299,847,584,24]:
+                - link "巅峰红满天" [ref=e178] [cursor=pointer] [box=299,850,75,18]:
+                  - /url: /6822909414
+                - link "修改于昨天 09:09· 来自iPhone" [ref=e179] [cursor=pointer] [box=382,849,188,22]:
+                  - /url: /6822909414/396301077
+              - generic [ref=e180] [box=299,875,584,201]:
+                - generic [ref=e182] [box=299,875,584,24]:
+                  - generic [ref=e183] [box=299,878,448,18]: ...电子(SZ300666)$ $晶瑞电材(SZ300655)$ $有研新材(SH600206)$
+                  - link "展开" [ref=e184] [cursor=pointer] [box=749,879,46,16]:
+                    - /url: ""
+                - img [ref=e186] [box=299,909,12,150]
+              - generic [ref=e187] [box=299,1086,584,27]:
+                - link " 转发" [ref=e188] [cursor=pointer] [box=299,1086,80,22]:
+                  - /url: ""
+                  - generic [ref=e189] [box=299,1086,18,22]: 
+                  - generic [ref=e190] [box=321,1088,28,17]: 转发
+                - link " 讨论" [ref=e191] [cursor=pointer] [box=379,1086,80,22]:
+                  - /url: ""
+                  - generic [ref=e192] [box=379,1086,18,22]: 
+                  - generic [ref=e193] [box=401,1088,28,17]: 讨论
+                - link " 9" [ref=e194] [cursor=pointer] [box=459,1086,80,22]:
+                  - /url: ""
+                  - generic [ref=e195] [box=459,1086,18,22]: 
+                  - generic [ref=e196] [box=481,1088,8,17]: "9"
+                - link " 收藏" [ref=e197] [cursor=pointer] [box=539,1086,68,22]:
+                  - /url: ""
+                  - generic [ref=e198] [box=539,1086,18,22]: 
+                  - generic [ref=e199] [box=561,1088,28,17]: 收藏
+          - article [ref=e200] [box=243,1117,640,133]:
+            - link [ref=e201] [cursor=pointer] [box=243,1132,40,40]:
+              - /url: /6136701273
+              - img [ref=e202] [box=243,1132,40,40]
+            - generic [ref=e203] [box=299,1132,584,113]:
+              - generic [ref=e205] [box=299,1132,584,24]:
+                - link "心别贪" [ref=e206] [cursor=pointer] [box=299,1135,45,18]:
+                  - /url: /6136701273
+                - link "昨天 11:39· 来自雪球" [ref=e207] [cursor=pointer] [box=352,1134,131,22]:
+                  - /url: /6136701273/396367823
+              - generic [ref=e210] [box=299,1160,584,48]:
+                - generic [ref=e211] [box=299,1163,582,42]: $晶瑞电材(SZ300655)$ 官方确认信息晶瑞电材 是长鑫存储与长江存储的核心国产供应商 ，同时提供 高纯湿电子化学品 与 光刻胶 两大品类产品，已实现稳定批量供...
+                - link "展开" [ref=e212] [cursor=pointer] [box=810,1188,46,16]:
+                  - /url: ""
+              - generic [ref=e213] [box=299,1218,584,27]:
+                - link " 转发" [ref=e214] [cursor=pointer] [box=299,1218,80,22]:
+                  - /url: ""
+                  - generic [ref=e215] [box=299,1218,18,22]: 
+                  - generic [ref=e216] [box=321,1221,28,17]: 转发
+                - link " 1" [ref=e217] [cursor=pointer] [box=379,1218,80,22]:
+                  - /url: ""
+                  - generic [ref=e218] [box=379,1218,18,22]: 
+                  - generic [ref=e219] [box=401,1221,8,17]: "1"
+                - link " 4" [ref=e220] [cursor=pointer] [box=459,1218,80,22]:
+                  - /url: ""
+                  - generic [ref=e221] [box=459,1218,18,22]: 
+                  - generic [ref=e222] [box=481,1221,8,17]: "4"
+                - link " 收藏" [ref=e223] [cursor=pointer] [box=539,1218,68,22]:
+                  - /url: ""
+                  - generic [ref=e224] [box=539,1218,18,22]: 
+                  - generic [ref=e225] [box=561,1221,28,17]: 收藏
+          - article [ref=e226] [box=243,1250,640,157]:
+            - link [ref=e227] [cursor=pointer] [box=243,1265,40,40]:
+              - /url: /2885107273
+              - img [ref=e228] [box=243,1265,40,40]
+            - generic [ref=e229] [box=299,1265,584,137]:
+              - generic [ref=e231] [box=299,1265,584,24]:
+                - link "阳光201808" [ref=e232] [cursor=pointer] [box=299,1268,80,18]:
+                  - /url: /2885107273
+                - link "06-23 18:13· 来自Android" [ref=e233] [cursor=pointer] [box=387,1266,160,22]:
+                  - /url: /2885107273/396221614
+              - generic [ref=e236] [box=299,1293,584,72]:
+                - generic [ref=e237] [box=299,1296,574,66]: 行情总结（6 月 23 日）晶瑞电材 电子 G5 硫酸：全线暴涨，同比翻倍、月度环比涨 8%–12.5%，现货货源紧缺，短期价格易涨难跌； 电子高纯双氧水：独立走强，同比涨近...
+                - link "展开" [ref=e238] [cursor=pointer] [box=328,1345,46,16]:
+                  - /url: ""
+              - generic [ref=e239] [box=299,1375,584,27]:
+                - link " 转发" [ref=e240] [cursor=pointer] [box=299,1375,80,22]:
+                  - /url: ""
+                  - generic [ref=e241] [box=299,1375,18,22]: 
+                  - generic [ref=e242] [box=321,1377,28,17]: 转发
+                - link " 1" [ref=e243] [cursor=pointer] [box=379,1375,80,22]:
+                  - /url: ""
+                  - generic [ref=e244] [box=379,1375,18,22]: 
+                  - generic [ref=e245] [box=401,1377,8,17]: "1"
+                - link " 4" [ref=e246] [cursor=pointer] [box=459,1375,80,22]:
+                  - /url: ""
+                  - generic [ref=e247] [box=459,1375,18,22]: 
+                  - generic [ref=e248] [box=481,1377,8,17]: "4"
+                - link " 收藏" [ref=e249] [cursor=pointer] [box=539,1375,68,22]:
+                  - /url: ""
+                  - generic [ref=e250] [box=539,1375,18,22]: 
+                  - generic [ref=e251] [box=561,1377,28,17]: 收藏
+          - article [ref=e252] [box=243,1406,640,157]:
+            - link [ref=e253] [cursor=pointer] [box=243,1421,40,40]:
+              - /url: /6136701273
+              - img [ref=e254] [box=243,1421,40,40]
+            - generic [ref=e255] [box=299,1421,584,137]:
+              - generic [ref=e257] [box=299,1421,584,24]:
+                - link "心别贪" [ref=e258] [cursor=pointer] [box=299,1424,45,18]:
+                  - /url: /6136701273
+                - link "昨天 11:06· 来自雪球" [ref=e259] [cursor=pointer] [box=352,1423,131,22]:
+                  - /url: /6136701273/396355688
+              - generic [ref=e262] [box=299,1449,584,72]:
+                - generic [ref=e263] [box=299,1452,579,42]: $晶瑞电材(SZ300655)$ 内存生产：先进制程用 DUV 多重曝光替代 EUV 时，光刻胶用量显著增加（2-4 倍），且对高分辨率 / 高灵敏度胶种需求更苛刻；成熟制程用量相...
+                - link "展开" [ref=e264] [cursor=pointer] [box=301,1501,46,16]:
+                  - /url: ""
+              - generic [ref=e265] [box=299,1531,584,27]:
+                - link " 转发" [ref=e266] [cursor=pointer] [box=299,1531,80,22]:
+                  - /url: ""
+                  - generic [ref=e267] [box=299,1531,18,22]: 
+                  - generic [ref=e268] [box=321,1534,28,17]: 转发
+                - link " 1" [ref=e269] [cursor=pointer] [box=379,1531,80,22]:
+                  - /url: ""
+                  - generic [ref=e270] [box=379,1531,18,22]: 
+                  - generic [ref=e271] [box=401,1534,8,17]: "1"
+                - link " 2" [ref=e272] [cursor=pointer] [box=459,1531,80,22]:
+                  - /url: ""
+                  - generic [ref=e273] [box=459,1531,18,22]: 
+                  - generic [ref=e274] [box=481,1534,8,17]: "2"
+                - link " 收藏" [ref=e275] [cursor=pointer] [box=539,1531,68,22]:
+                  - /url: ""
+                  - generic [ref=e276] [box=539,1531,18,22]: 
+                  - generic [ref=e277] [box=561,1534,28,17]: 收藏
+          - article [ref=e278] [box=243,1563,640,133]:
+            - link [ref=e279] [cursor=pointer] [box=243,1578,40,40]:
+              - /url: /1201962004
+              - img [ref=e280] [box=243,1578,40,40]
+            - generic [ref=e281] [box=299,1578,584,113]:
+              - generic [ref=e283] [box=299,1578,584,24]:
+                - link "龙马福金999" [ref=e284] [cursor=pointer] [box=299,1581,85,18]:
+                  - /url: /1201962004
+                - link "06-23 23:40· 来自Android" [ref=e285] [cursor=pointer] [box=392,1580,160,22]:
+                  - /url: /1201962004/396271105
+              - generic [ref=e288] [box=299,1606,584,48]:
+                - generic [ref=e289] [box=299,1609,579,42]: $晶瑞电材(SZ300655)$ 业务含光刻胶、超净高纯试剂及锂电材料。i线与KrF光，光刻胶/湿电子化，晶瑞电材，刻胶具备量产销售记录;电子级硫酸等湿化学品达高纯学...
+                - link "展开" [ref=e290] [cursor=pointer] [box=827,1634,46,16]:
+                  - /url: ""
+              - generic [ref=e291] [box=299,1664,584,27]:
+                - link " 转发" [ref=e292] [cursor=pointer] [box=299,1664,80,22]:
+                  - /url: ""
+                  - generic [ref=e293] [box=299,1664,18,22]: 
+                  - generic [ref=e294] [box=321,1666,28,17]: 转发
+                - link " 1" [ref=e295] [cursor=pointer] [box=379,1664,80,22]:
+                  - /url: ""
+                  - generic [ref=e296] [box=379,1664,18,22]: 
+                  - generic [ref=e297] [box=401,1666,8,17]: "1"
+                - link " 1" [ref=e298] [cursor=pointer] [box=459,1664,80,22]:
+                  - /url: ""
+                  - generic [ref=e299] [box=459,1664,18,22]: 
+                  - generic [ref=e300] [box=481,1666,8,17]: "1"
+                - link " 收藏" [ref=e301] [cursor=pointer] [box=539,1664,68,22]:
+                  - /url: ""
+                  - generic [ref=e302] [box=539,1664,18,22]: 
+                  - generic [ref=e303] [box=561,1666,28,17]: 收藏
+          - article [ref=e304] [box=243,1696,640,133]:
+            - link [ref=e305] [cursor=pointer] [box=243,1711,40,40]:
+              - /url: /2996125879
+              - img [ref=e306] [box=243,1711,40,40]
+            - generic [ref=e307] [box=299,1711,584,113]:
+              - generic [ref=e309] [box=299,1711,584,24]:
+                - link "无花果陈隽" [ref=e310] [cursor=pointer] [box=299,1714,75,18]:
+                  - /url: /2996125879
+                - link "06-21 08:51· 来自Android" [ref=e311] [cursor=pointer] [box=382,1712,160,22]:
+                  - /url: /2996125879/395759572
+              - generic [ref=e314] [box=299,1739,584,48]:
+                - generic [ref=e315] [box=299,1742,574,42]: 晶瑞电材（300655）：它到底"特别"在哪里？ 一句话定性 晶瑞电材不是那种讲故事的半导体概念股，而是 国内极少数真正把"卡脖子材料"做到量产...
+                - link "展开" [ref=e316] [cursor=pointer] [box=705,1767,46,16]:
+                  - /url: ""
+              - generic [ref=e317] [box=299,1797,584,27]:
+                - link " 转发" [ref=e318] [cursor=pointer] [box=299,1797,80,22]:
+                  - /url: ""
+                  - generic [ref=e319] [box=299,1797,18,22]: 
+                  - generic [ref=e320] [box=321,1799,28,17]: 转发
+                - link " 4" [ref=e321] [cursor=pointer] [box=379,1797,80,22]:
+                  - /url: ""
+                  - generic [ref=e322] [box=379,1797,18,22]: 
+                  - generic [ref=e323] [box=401,1799,8,17]: "4"
+                - link " 2" [ref=e324] [cursor=pointer] [box=459,1797,80,22]:
+                  - /url: ""
+                  - generic [ref=e325] [box=459,1797,18,22]: 
+                  - generic [ref=e326] [box=481,1799,8,17]: "2"
+                - link " 收藏" [ref=e327] [cursor=pointer] [box=539,1797,68,22]:
+                  - /url: ""
+                  - generic [ref=e328] [box=539,1797,18,22]: 
+                  - generic [ref=e329] [box=561,1799,28,17]: 收藏
+          - article [ref=e330] [box=243,1828,640,133]:
+            - link [ref=e331] [cursor=pointer] [box=243,1843,40,40]:
+              - /url: /2996125879
+              - img [ref=e332] [box=243,1843,40,40]
+            - generic [ref=e333] [box=299,1843,584,113]:
+              - generic [ref=e335] [box=299,1843,584,24]:
+                - link "无花果陈隽" [ref=e336] [cursor=pointer] [box=299,1846,75,18]:
+                  - /url: /2996125879
+                - link "06-13 14:46· 来自Android" [ref=e337] [cursor=pointer] [box=382,1845,160,22]:
+                  - /url: /2996125879/394585451
+              - generic [ref=e340] [box=299,1871,584,48]:
+                - generic [ref=e341] [box=299,1874,572,42]: ...导体材料公司"？ ① 晶瑞电材（300655）——六家里唯一真正站稳脚跟的半导体材料一线玩家 它是这批里面最名副...
+                - link "展开" [ref=e342] [cursor=pointer] [box=512,1899,46,16]:
+                  - /url: ""
+              - generic [ref=e343] [box=299,1929,584,27]:
+                - link " 转发" [ref=e344] [cursor=pointer] [box=299,1929,80,22]:
+                  - /url: ""
+                  - generic [ref=e345] [box=299,1929,18,22]: 
+                  - generic [ref=e346] [box=321,1932,28,17]: 转发
+                - link " 1" [ref=e347] [cursor=pointer] [box=379,1929,80,22]:
+                  - /url: ""
+                  - generic [ref=e348] [box=379,1929,18,22]: 
+                  - generic [ref=e349] [box=401,1932,8,17]: "1"
+                - link " 13" [ref=e350] [cursor=pointer] [box=459,1929,80,22]:
+                  - /url: ""
+                  - generic [ref=e351] [box=459,1929,18,22]: 
+                  - generic [ref=e352] [box=481,1932,16,17]: "13"
+                - link " 收藏" [ref=e353] [cursor=pointer] [box=539,1929,68,22]:
+                  - /url: ""
+                  - generic [ref=e354] [box=539,1929,18,22]: 
+                  - generic [ref=e355] [box=561,1932,28,17]: 收藏
+          - article [ref=e356] [box=243,1961,640,187]:
+            - link [ref=e357] [cursor=pointer] [box=243,1976,40,40]:
+              - /url: /6242089317
+              - img [ref=e358] [box=243,1976,40,40]
+            - generic [ref=e359] [box=299,1976,584,167]:
+              - generic [ref=e361] [box=299,1976,584,24]:
+                - link "王昭煦" [ref=e362] [cursor=pointer] [box=299,1979,45,18]:
+                  - /url: /6242089317
+                - link "06-17 00:25· 来自Android" [ref=e363] [cursor=pointer] [box=352,1977,160,22]:
+                  - /url: /6242089317/395104676
+              - generic [ref=e365] [cursor=pointer] [box=299,2004,584,102]:
+                - heading "专栏丨 【化工行业40】电子化学品（湿电子化学品/电子特气）：半导体国产替代的核心瓶颈" [level=3] [ref=e366] [box=299,2004,584,50]:
+                  - strong [ref=e367] [box=299,2004,74,25]: 专栏丨
+                  - text: 【化工行业40】电子化学品（湿电子化学品/电子特气）：半导体国产替代的核心瓶颈
+                - generic [ref=e369] [box=299,2061,556,42]: ...同比提升1.82个百分点。 晶瑞电材则在湿电子化学品与光刻胶配套领域双轮驱动。2025年公司实现营业收入16.10亿元，同比增长...
+              - generic [ref=e370] [box=299,2116,584,27]:
+                - link " 1" [ref=e371] [cursor=pointer] [box=299,2116,80,22]:
+                  - /url: ""
+                  - generic [ref=e372] [box=299,2116,18,22]: 
+                  - generic [ref=e373] [box=321,2119,8,17]: "1"
+                - link " 2" [ref=e374] [cursor=pointer] [box=379,2116,80,22]:
+                  - /url: ""
+                  - generic [ref=e375] [box=379,2116,18,22]: 
+                  - generic [ref=e376] [box=401,2119,8,17]: "2"
+                - link " 3" [ref=e377] [cursor=pointer] [box=459,2116,80,22]:
+                  - /url: ""
+                  - generic [ref=e378] [box=459,2116,18,22]: 
+                  - generic [ref=e379] [box=481,2119,8,17]: "3"
+                - link " 收藏" [ref=e380] [cursor=pointer] [box=539,2116,68,22]:
+                  - /url: ""
+                  - generic [ref=e381] [box=539,2116,18,22]: 
+                  - generic [ref=e382] [box=561,2119,28,17]: 收藏
+  - contentinfo [ref=e42] [box=0,2198,1185,250]:
+    - generic [ref=e43] [box=0,2214,1185,218]:
+      - generic [ref=e44] [box=532,2214,122,30]:
+        - link "微信" [ref=e45] [cursor=pointer] [box=537,2214,30,30]:
+          - /url: javascript:;
+          - img "微信" [ref=e46] [box=544,2221,15,15]
+        - link "微博" [ref=e47] [cursor=pointer] [box=577,2214,30,30]:
+          - /url: https://weibo.com/xueqiucom
+          - img "微博" [ref=e48] [box=585,2221,15,15]
+        - link "邮箱" [ref=e49] [cursor=pointer] [box=618,2214,30,30]:
+          - /url: mailto:snowball@xueqiu.com
+          - img "邮箱" [ref=e50] [box=625,2223,16,12]
+      - generic [ref=e51] [box=0,2252,1185,20]:
+        - link "A股开户｜" [ref=e52] [cursor=pointer] [box=455,2253,65,17]:
+          - /url: https://broker.xueqiu.com/open/pingan
+        - link "雪球基金｜" [ref=e53] [cursor=pointer] [box=520,2253,70,17]:
+          - /url: https://danjuanfunds.com/
+        - link "投资者教育｜" [ref=e54] [cursor=pointer] [box=590,2253,84,17]:
+          - /url: https://xueqiu.com/edu/invest-edu
+        - link "风险提示" [ref=e55] [cursor=pointer] [box=674,2253,56,17]:
+          - /url: https://xueqiu.com/about/faq#6_0
+      - generic [ref=e56] [box=0,2280,1185,20]: 风险提示：雪球里任何用户或者嘉宾的发言，都有其特定立场，投资决策需要建立在独立思考之上
+      - generic [ref=e57] [box=0,2300,1185,112]:
+        - generic [ref=e58] [box=0,2306,1185,20]:
+          - text: 其他建议反馈欢迎点击
+          - link "#我给雪球提建议#" [ref=e60] [cursor=pointer] [box=486,2309,97,14]:
+            - /url: https://xueqiu.com/hashtag/I-aIkee7membqueQg-aPkOW7uuiuriM=
+          - text: 如受到欺诈信息骚扰请至
+          - link "#防诈骗举报专区#" [ref=e62] [cursor=pointer] [box=722,2309,97,14]:
+            - /url: https://xueqiu.com/hashtag/I-mYsuiviOmql-S4vuaKpeS4k-WMuiM=
+        - generic [ref=e63] [box=0,2326,1185,80]:
+          - text: 互联网违法和不良信息投诉：01061840634 / tousu@xueqiu.com
+          - generic [ref=e64] [box=623,2326,55,20]: 举报中心
+          - link "侵权投诉指引" [ref=e65] [cursor=pointer] [box=678,2329,75,14]:
+            - /url: https://xueqiu.com/law/tortreport
+          - link "雪球服务协议" [ref=e66] [cursor=pointer] [box=753,2329,75,14]:
+            - /url: https://xueqiu.com/about/terms
+          - link "雪球隐私政策" [ref=e67] [cursor=pointer] [box=829,2329,75,14]:
+            - /url: https://xueqiu.com/law/privacy
+          - text: © 2026 XUEQIU.COM 北京雪球信息科技有限公司
+          - link "京公网安备 11010502040379号" [ref=e68] [cursor=pointer] [box=456,2349,172,14]:
+            - /url: https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502040379
+          - link "京ICP证100666号" [ref=e69] [cursor=pointer] [box=628,2349,99,14]:
+            - /url: https://xqdoc.imedao.com/198bc1b4fb41d6523feaace4.jpg
+          - link "京ICP备10040543" [ref=e70] [cursor=pointer] [box=727,2349,100,14]:
+            - /url: https://beian.miit.gov.cn/
+          - link "京金信备〔2022〕3号" [ref=e71] [cursor=pointer] [box=827,2349,121,14]:
+            - /url: https://fisbaobei.ifcert.cn/Home/homeIindex
+          - link "营业执照" [ref=e72] [cursor=pointer] [box=948,2349,51,14]:
+            - /url: https://xqimg.imedao.com/1798dc30dead0453fd6075d8.png
+          - generic [ref=e73] [box=0,2366,1185,20]:
+            - link "证券业协会会员单位（代码817027）" [ref=e74] [cursor=pointer] [box=316,2369,199,14]:
+              - /url: https://xqimg.imedao.com/14d52aefd15e8f3fc0ce1fbd.png
+            - 'link "广播电视节目制作经营许可证: (京)字第08638号" [ref=e75] [cursor=pointer] [box=516,2369,254,14]':
+              - /url: https://xqdoc.imedao.com/198c1a776442061d3fe4efd5.pdf
+            - link "出版物经营许可证" [ref=e76] [cursor=pointer] [box=769,2369,99,14]:
+              - /url: https://xqimg.imedao.com/181b337b7742caf83fee6640.png
+          - link "人工智能服务登记编号：Beijing-XueQiuHuiJian-2S0033" [ref=e78] [box=442,2389,301,14]:
+            - /url: javascript:;
+      - generic [ref=e79] [box=0,2412,1185,20]:
+        - link "常见问题｜" [ref=e80] [cursor=pointer] [box=495,2413,70,17]:
+          - /url: https://xueqiu.com/about/faq
+        - link "加入我们｜" [ref=e81] [cursor=pointer] [box=565,2413,70,17]:
+          - /url: https://xueqiu.com/about/jobs
+        - link "关于雪球" [ref=e82] [cursor=pointer] [box=635,2413,56,17]:
+          - /url: https://xueqiu.com/about/what-is-xueqiu
+  - generic [ref=e84] [box=905,728,260,184]:
+    - img [ref=e85] [box=905,728,260,108]
+    - link "" [ref=e86] [cursor=pointer] [box=1141,740,12,12]:
+      - /url: ""
+    - generic [ref=e88] [cursor=pointer] [box=921,852,228,44]: 立即登录/注册

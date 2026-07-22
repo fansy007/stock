@@ -13,6 +13,12 @@ from pathlib import Path
 
 # 回测页面组件
 from code.backtest.web import render_backtest_page
+from core.code.predictions.web import render_predictions
+from core.code.portfolio.web import render_portfolio
+from core.code.candidates.db import (
+    create_candidate, get_candidate_by_code, list_candidates,
+    update_candidate, delete_candidate, list_tags,
+)
 
 # JSON 编辑器
 from streamlit_ace import st_ace
@@ -302,7 +308,7 @@ if "selected_code" not in st.session_state:
 
 # ── Tabs ───────────────────────────────────────────
 
-_tabs = st.tabs(["📊 概念板块", "📋 选股列表", "📊 详情", "📈 走势", "📡 跟踪雷达"])
+_tabs = st.tabs(["⭐ 自选股", "🔮 预判复盘", "📊 概念板块", "📋 选股列表", "📊 详情", "📈 走势", "📡 跟踪雷达", "📊 投资组合"])
 
 def render_concept_page(df):
     """概念板块排行页面"""
@@ -434,10 +440,57 @@ def render_concept_page(df):
             "text/csv",
         )
 
+        # ── 添加到自选股 ──
+        with st.expander("⭐ 添加到自选股", expanded=False):
+            _all_tags = {t["_id"]: t["name"] for t in list_tags()}
+            _add_code = st.selectbox(
+                "选择股票",
+                options=range(len(stocks)),
+                format_func=lambda i: f"{stocks.iloc[i]['stock_code']} {stocks.iloc[i]['name']}",
+                placeholder="选择要添加到自选股的股票...",
+                key=f"concept_add_{selected_concept}",
+            )
+            if _add_code is not None:
+                _s = stocks.iloc[_add_code]
+                existing = get_candidate_by_code(_s["stock_code"])
+                if existing:
+                    st.info(f"已在自选股中")
+                else:
+                    c1, c2 = st.columns([1, 1])
+                    with c1:
+                        _add_score = st.number_input("推荐分 (0-255)", value=160, min_value=0, max_value=255, key="add_score")
+                    with c2:
+                        _add_name = _s["name"]
+                        _add_price = st.number_input("参考价（可选）", value=0.0, step=0.01, key="add_price")
+                    _add_note = st.text_area("备注", placeholder="选股理由...", key="add_note")
+                    _add_tag = st.selectbox(
+                        "标签",
+                        options=list(_all_tags.keys()),
+                        format_func=lambda x: _all_tags[x],
+                        index=None,
+                        placeholder="选择标签...",
+                        key="add_tag",
+                    )
+                    if st.button("✅ 确认添加", type="primary", use_container_width=True, key="concept_add_confirm"):
+                        try:
+                            _pid = create_candidate(
+                                stock_code=_s["stock_code"],
+                                name=_add_name,
+                                note=_add_note,
+                                score=_add_score,
+                                tags=[_add_tag] if _add_tag else [],
+                                price_when_added=_add_price if _add_price > 0 else None,
+                                concept=selected_concept,
+                            )
+                            st.success(f"已添加到自选股 (id={_pid})")
+                            st.rerun()
+                        except Exception as _e:
+                            st.error(f"添加失败: {_e}")
 
-with _tabs[0]:
+
+with _tabs[2]:
     render_concept_page(df)
-with _tabs[1]:
+with _tabs[3]:
     # 概念板块过滤（从板块tab同步过来）
     _cf = st.session_state.get("concept_filter")
     _show_clear = False
@@ -457,6 +510,27 @@ with _tabs[1]:
             st.caption(f"📊 {_cf}")
         with _c3:
             st.caption(f"筛选后 {len(filtered)} 只")
+
+    # ── 只看自选股 & 搜索（一行） ──
+    _col_check, _col_search = st.columns([1, 5])
+    with _col_check:
+        _cand_only = st.checkbox("⭐ 只看自选股", key="cand_only_filter")
+    with _col_search:
+        _search_text = st.text_input("", placeholder="🔍 搜索股票（代码/名称，模糊搜索）",
+                                     key="stocklist_search", label_visibility="collapsed")
+    if _cand_only:
+        _cand_codes = [c["stock_code"] for c in list_candidates(limit=500)]
+        filtered = filtered[filtered["stock_code"].isin(_cand_codes)]
+        st.caption(f"⭐ 只看自选股 · {len(filtered)} 只匹配")
+    if _search_text:
+        _digits = "".join(filter(str.isdigit, _search_text))
+        if _digits:
+            _code_mask = filtered["stock_code"].str.replace(r"\D", "", regex=True).str.contains(_digits, na=False)
+        else:
+            _code_mask = pd.Series(False, index=filtered.index)
+        _name_mask = filtered["name"].str.contains(_search_text, na=False)
+        filtered = filtered[_code_mask | _name_mask]
+        st.caption(f"搜索匹配 {len(filtered)} 只")
 
     # ── 表格（带单选行选） ──
     _display = filtered[available].copy()
@@ -514,7 +588,50 @@ with _tabs[1]:
         "text/csv",
     )
 
-with _tabs[2]:
+    # ── 从选股列表添加到自选股 ──
+    with st.expander("⭐ 添加到自选股", expanded=False):
+        _all_tags = {t["_id"]: t["name"] for t in list_tags()}
+        _sel_idx = st.selectbox(
+            "选择股票",
+            options=range(len(filtered)),
+            format_func=lambda i: f"{filtered.iloc[i]['stock_code']} {filtered.iloc[i]['name']}",
+            index=None,
+            placeholder="从过滤结果中选择...",
+            key="stocklist_add_sel",
+        )
+        if _sel_idx is not None:
+            _s = filtered.iloc[_sel_idx]
+            _s_concept = (_s.get("concepts") or "")[:60]
+            _cf_for_add = st.session_state.get("concept_filter", "") or _s_concept
+            if get_candidate_by_code(_s["stock_code"]):
+                st.info("已在自选股中")
+            else:
+                c1, c2 = st.columns([1, 1])
+                with c1:
+                    _add_score = st.number_input("推荐分 (0-255)", value=160, min_value=0,
+                                                  max_value=255, key="sl_add_score")
+                with c2:
+                    _add_price = st.number_input("参考价", value=0.0, step=0.01, key="sl_add_price")
+                _add_note = st.text_area("备注", placeholder="选股理由...", key="sl_add_note")
+                _add_tag = st.selectbox(
+                    "标签", options=list(_all_tags.keys()),
+                    format_func=lambda x: _all_tags[x], index=None,
+                    placeholder="选择标签...", key="sl_add_tag",
+                )
+                if st.button("✅ 确认添加", type="primary", use_container_width=True, key="stocklist_add_confirm"):
+                    try:
+                        _pid = create_candidate(
+                            stock_code=_s["stock_code"], name=_s["name"],
+                            note=_add_note, score=_add_score, tags=[_add_tag] if _add_tag else [],
+                            price_when_added=_add_price if _add_price > 0 else None,
+                            concept=_cf_for_add or "",
+                        )
+                        st.success(f"已添加到自选股 (id={_pid})")
+                        st.rerun()
+                    except Exception as _e:
+                        st.error(f"添加失败: {_e}")
+
+with _tabs[4]:
     _search = st.text_input(
         "搜索股票（代码或名称）",
         placeholder="输入股票代码或名称，如 300395 或 菲利华",
@@ -925,9 +1042,104 @@ def render_tracking_radar(df):
             if is_readonly and edited != text:
                 st.caption("⚠️ 系统模板为只读。如需修改请「新建组合」从模板复制。")
 
+# ── 自选股 Tab ─────────────────────────────────
+
+def render_candidates_page(df):
+    """⭐ 自选股 — 候选股浏览和管理"""
+    cand_list = list_candidates(limit=100)
+
+    if not cand_list:
+        st.info("暂无自选股。在「概念板块」中浏览股票时，点击「添加到自选股」按钮添加。")
+        return
+
+    # ── 标签名映射 ──
+    _tag_map = {t["_id"]: t["name"] for t in list_tags()}
+
+    # ── 展示表 ──
+    rows = []
+    for c in cand_list:
+        tag_names = ", ".join(_tag_map.get(tid, str(tid)[:8]) for tid in (c.get("tags") or []))
+        rows.append({
+            "代码": c["stock_code"],
+            "名称": c["name"],
+            "推荐分": c.get("score", "-"),
+            "标签": tag_names,
+            "概念板块": c.get("concept", ""),
+            "备注": c.get("note") or "",
+            "添加时间": c.get("created_at").strftime("%m-%d") if c.get("created_at") else "",
+        })
+
+    display = pd.DataFrame(rows)
+
+    _sel_state = st.dataframe(
+        display,
+        column_config={
+            "代码": st.column_config.TextColumn("代码", width=20),
+            "名称": st.column_config.TextColumn("名称", width=20),
+            "推荐分": st.column_config.TextColumn("推荐分", width=1),
+            "标签": st.column_config.TextColumn("标签", width=10),
+            "概念板块": st.column_config.TextColumn("概念板块", width=100),
+            "备注": st.column_config.TextColumn("备注", width=300),
+            "添加时间": st.column_config.TextColumn("添加", width=20),
+        },
+        use_container_width=True,
+        hide_index=True,
+        on_select="rerun",
+        selection_mode="single-row",
+        height=400,
+        key="candidates_grid",
+    )
+
+    # ── 选中 → 联动详情/走势 ──
+    if _sel_state and _sel_state.selection.rows:
+        idx = _sel_state.selection.rows[0]
+        if idx < len(cand_list):
+            st.session_state.selected_code = cand_list[idx]["stock_code"]
+
+    # ── 操作区 ──
+    with st.expander("✏️ 编辑自选股", expanded=False):
+        select_opts = {c["_id"]: f"{c['stock_code']} {c['name']} ({c.get('score', '-')}分)"
+                       for c in cand_list}
+        if select_opts:
+            sel_id = st.selectbox(
+                "选择要编辑的自选股",
+                options=list(select_opts.keys()),
+                format_func=lambda x: select_opts[x],
+                key="cand_edit_select",
+            )
+            cand = next(c for c in cand_list if c["_id"] == sel_id)
+
+            new_note = st.text_area("备注", value=cand.get("note", ""), key=f"cand_note_{sel_id}")
+            new_score = st.number_input("推荐分 (0-255)", value=int(cand.get("score", 128)),
+                                        min_value=0, max_value=255, key=f"cand_score_{sel_id}")
+
+            all_tags = {t["_id"]: t["name"] for t in list_tags()}
+            current_tag = (cand.get("tags") or [None])[0]
+            new_tag = st.selectbox(
+                "标签",
+                options=list(all_tags.keys()),
+                index=list(all_tags.keys()).index(current_tag) if current_tag and current_tag in all_tags else 0,
+                format_func=lambda x: all_tags.get(x, x),
+                key=f"cand_tag_{sel_id}",
+            )
+
+            col_a, col_b = st.columns(2)
+            with col_a:
+                if st.button("💾 保存修改", type="primary", use_container_width=True):
+                    update_candidate(sel_id, {"note": new_note, "score": new_score, "tags": [new_tag]})
+                    st.success("已更新")
+                    st.rerun()
+            with col_b:
+                if st.button("🗑️ 删除", use_container_width=True):
+                    delete_candidate(sel_id)
+                    st.session_state.selected_code = None
+                    st.success("已删除")
+                    st.rerun()
+
+
 # ── 走势 Tab ───────────────────────────────────────
 
-with _tabs[3]:
+with _tabs[5]:
     st.markdown("#### 📈 走势 & 形态匹配")
 
     # 当前选中的股票
@@ -1096,7 +1308,7 @@ with _tabs[3]:
 
 # ── 跟踪雷达 Tab ──────────────────────────────────
 
-with _tabs[4]:
+with _tabs[6]:
     try:
         render_tracking_radar(df)
     except Exception as e:
@@ -1104,3 +1316,18 @@ with _tabs[4]:
         st.error(f"跟踪雷达错误: {e}")
         with st.expander("错误详情"):
             st.code(traceback.format_exc())
+
+# ── 预判复盘 Tab ──────────────────────────────────
+
+with _tabs[1]:
+    render_predictions()
+
+# ── 投资组合 Tab ──────────────────────────────────
+
+with _tabs[7]:
+    render_portfolio()
+
+# ── 自选股 Tab ────────────────────────────────────
+
+with _tabs[0]:
+    render_candidates_page(df)

@@ -1,0 +1,929 @@
+- generic [ref=e2] [box=0,0,1185,4191]:
+  - navigation [ref=e4] [box=0,0,1185,56]:
+    - generic [ref=e5] [box=18,0,1150,56]:
+      - generic [ref=e6] [box=18,10,190,33]:
+        - link [ref=e8] [cursor=pointer] [box=18,13,90,30]:
+          - /url: /
+        - link "雪球 首页" [ref=e10] [cursor=pointer] [box=154,18,48,20]:
+          - /url: /
+          - img "雪球" [ref=e11] [box=154,20,16,16]
+          - generic [ref=e12] [box=174,18,28,20]: 首页
+      - generic [ref=e13] [box=725,10,442,36]:
+        - generic [ref=e14] [box=725,10,240,36]:
+          - textbox "搜索" [ref=e15] [box=743,16,176,24]
+          - button "" [ref=e17] [cursor=pointer] [box=923,16,24,24]
+        - list [ref=e18] [box=965,10,202,36]:
+          - listitem [ref=e19] [box=989,16,24,24]:
+            - link "" [ref=e20] [cursor=pointer] [box=989,16,24,24]:
+              - /url: /snb/web/cs?from=xq
+          - listitem [ref=e21] [box=1037,16,54,24]:
+            - link "下载App" [ref=e22] [cursor=pointer] [box=1037,16,54,24]:
+              - /url: "javascript:"
+          - listitem [ref=e23] [box=1116,12,52,32]:
+            - generic [ref=e24] [cursor=pointer] [box=1116,12,52,32]: 登录
+  - generic [ref=e25] [box=18,56,1150,3865]:
+    - generic [ref=e26] [box=58,56,150,1402]:
+      - strong [ref=e27] [box=58,87,110,33]: 公司概况
+      - list [ref=e28] [box=58,130,150,45]:
+        - listitem [ref=e29] [box=58,130,150,20]:
+          - link "公司简介" [ref=e30] [cursor=pointer] [box=58,132,56,17]:
+            - /url: /S/SH688019/detail/#/GSJJ
+        - listitem [ref=e31] [box=58,155,150,20]:
+          - link "公司高管" [ref=e32] [cursor=pointer] [box=58,157,56,17]:
+            - /url: /S/SH688019/detail/#/GSGG
+      - strong [ref=e33] [box=58,196,110,33]: 股权信息
+      - list [ref=e34] [box=58,239,150,170]:
+        - listitem [ref=e35] [box=58,239,150,20]:
+          - link "股本结构" [ref=e36] [cursor=pointer] [box=58,241,56,17]:
+            - /url: /S/SH688019/detail/#/GBJG
+        - listitem [ref=e37] [box=58,264,150,20]:
+          - link "十大股东" [ref=e38] [cursor=pointer] [box=58,266,56,17]:
+            - /url: /S/SH688019/detail/#/SDGD
+        - listitem [ref=e39] [box=58,289,150,20]:
+          - link "十大流通股东" [ref=e40] [cursor=pointer] [box=58,291,84,17]:
+            - /url: /S/SH688019/detail/#/LTGD
+        - listitem [ref=e41] [box=58,314,150,20]:
+          - link "基金持股" [ref=e42] [cursor=pointer] [box=58,316,56,17]:
+            - /url: /S/SH688019/detail/#/JJCG
+        - listitem [ref=e43] [box=58,339,150,20]:
+          - link "高管增减持" [ref=e44] [cursor=pointer] [box=58,341,70,17]:
+            - /url: /S/SH688019/detail/#/GGZJC
+        - listitem [ref=e45] [box=58,364,150,20]:
+          - link "股东人数" [ref=e46] [cursor=pointer] [box=58,366,56,17]:
+            - /url: /S/SH688019/detail/#/GDRS
+        - listitem [ref=e47] [box=58,389,150,20]:
+          - link "限售解禁" [ref=e48] [cursor=pointer] [box=58,391,56,17]:
+            - /url: /S/SH688019/detail/#/XSJJ
+      - strong [ref=e49] [box=58,430,110,33]: 股票交易
+      - list [ref=e50] [box=58,473,150,145]:
+        - listitem [ref=e51] [box=58,473,150,20]:
+          - link "成交明细" [ref=e52] [cursor=pointer] [box=58,475,56,17]:
+            - /url: http://stockhtm.finance.qq.com/sstock/quotpage/q/688019.htm#detail
+        - listitem [ref=e53] [box=58,498,150,20]:
+          - link "分价表" [ref=e54] [cursor=pointer] [box=58,500,42,17]:
+            - /url: http://stockhtm.finance.qq.com/sstock/quotpage/q/688019.htm#price
+        - listitem [ref=e55] [box=58,523,150,20]:
+          - link "大单统计" [ref=e56] [cursor=pointer] [box=58,525,56,17]:
+            - /url: http://stockhtm.finance.qq.com/sstock/quotpage/q/688019.htm#dadan
+        - listitem [ref=e57] [box=58,548,150,20]:
+          - link "大宗交易" [ref=e58] [cursor=pointer] [box=58,550,56,17]:
+            - /url: http://data.eastmoney.com/dzjy/detail/688019.html
+        - listitem [ref=e59] [box=58,573,150,20]:
+          - link "龙虎榜数据" [ref=e60] [cursor=pointer] [box=58,575,70,17]:
+            - /url: /S/SH688019/detail/#/LHB
+        - listitem [ref=e61] [box=58,598,150,20]:
+          - link "融资融券" [ref=e62] [cursor=pointer] [box=58,600,56,17]:
+            - /url: http://stockdata.stock.hexun.com/rzrq/s688019.shtml
+      - strong [ref=e63] [box=58,639,110,33]: 公司公告
+      - list [ref=e64] [box=58,682,150,45]:
+        - listitem [ref=e65] [box=58,682,150,20]:
+          - link "最新公告" [ref=e66] [cursor=pointer] [box=58,684,56,17]:
+            - /url: http://www.sse.com.cn/assortment/stock/list/info/announcement/index.shtml?productId=688019
+        - listitem [ref=e67] [box=58,707,150,20]:
+          - link "年度报告" [ref=e68] [cursor=pointer] [box=58,709,56,17]:
+            - /url: http://money.finance.sina.com.cn/corp/go.php/vCB_Bulletin/stockid/688019/page_type/ndbg.phtml
+      - strong [ref=e69] [box=58,748,110,33]: 公司运作
+      - list [ref=e70] [box=58,791,150,145]:
+        - listitem [ref=e71] [box=58,791,150,20]:
+          - link "股东大会" [ref=e72] [cursor=pointer] [box=58,793,56,17]:
+            - /url: http://money.finance.sina.com.cn/corp/go.php/vGP_StockHolderMeeting/stockid/688019.phtml
+        - listitem [ref=e73] [box=58,816,150,20]:
+          - link "收入构成" [ref=e74] [cursor=pointer] [box=58,818,56,17]:
+            - /url: http://stockpage.10jqka.com.cn/688019/operate/#analysis
+        - listitem [ref=e75] [box=58,841,150,20]:
+          - link "重大事项" [ref=e76] [cursor=pointer] [box=58,843,56,17]:
+            - /url: http://q.stock.sohu.com/cn/688019/bw.shtml
+        - listitem [ref=e77] [box=58,866,150,20]:
+          - link "分红送配" [ref=e78] [cursor=pointer] [box=58,868,56,17]:
+            - /url: /S/SH688019/detail/#/FHPS
+        - listitem [ref=e79] [box=58,891,150,20]:
+          - link "增发一览" [ref=e80] [cursor=pointer] [box=58,893,56,17]:
+            - /url: /S/SH688019/detail/#/ZFYLB
+        - listitem [ref=e81] [box=58,916,150,20]:
+          - link "内部交易" [ref=e82] [cursor=pointer] [box=58,918,56,17]:
+            - /url: /S/SH688019/detail/#/INSIDER
+      - strong [ref=e83] [box=58,957,110,33]: 财务数据
+      - list [ref=e84] [box=58,1000,150,170]:
+        - listitem [ref=e85] [box=58,1000,150,20]:
+          - link "业绩预告" [ref=e86] [cursor=pointer] [box=58,1002,56,17]:
+            - /url: http://stockhtm.finance.qq.com/sstock/quotpage/q/688019.htm#10
+        - listitem [ref=e87] [box=58,1025,150,20]:
+          - link "主要指标" [ref=e88] [cursor=pointer] [box=58,1027,56,17]:
+            - /url: /S/SH688019/detail/#/ZYCWZB
+        - listitem [ref=e89] [box=58,1050,150,20]:
+          - link "利润表" [ref=e90] [cursor=pointer] [box=58,1052,42,17]:
+            - /url: /S/SH688019/detail/#/GSLRB
+        - listitem [ref=e91] [box=58,1075,150,20]:
+          - link "资产负债表" [ref=e92] [cursor=pointer] [box=58,1077,70,17]:
+            - /url: /S/SH688019/detail/#/ZCFZB
+        - listitem [ref=e93] [box=58,1100,150,20]:
+          - link "现金流量表" [ref=e94] [cursor=pointer] [box=58,1102,70,17]:
+            - /url: /S/SH688019/detail/#/XJLLB
+        - listitem [ref=e95] [box=58,1125,150,20]:
+          - link "所有者权益变动" [ref=e96] [cursor=pointer] [box=58,1127,98,17]:
+            - /url: http://vip.stock.finance.sina.com.cn/corp/go.php/vFD_BenifitChange/stockid/688019/displaytype/4.phtml
+        - listitem [ref=e97] [box=58,1150,150,20]:
+          - link "雪球选股器" [ref=e98] [cursor=pointer] [box=58,1152,70,17]:
+            - /url: /stock/screener
+      - strong [ref=e99] [box=58,1191,110,33]: 研究分析
+      - list [ref=e100] [box=58,1234,150,45]:
+        - listitem [ref=e101] [box=58,1234,150,20]:
+          - link "杜邦分析" [ref=e102] [cursor=pointer] [box=58,1236,56,17]:
+            - /url: https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_DupontAnalysis/stockid/688019/displaytype/10.phtml
+        - listitem [ref=e103] [box=58,1259,150,20]:
+          - link "研究报告" [ref=e104] [cursor=pointer] [box=58,1261,56,17]:
+            - /url: http://vip.stock.finance.sina.com.cn/q/go.php/vReport_List/kind/search/index.phtml?t1=2&symbol=688019
+      - strong [ref=e105] [box=58,1300,110,33]: APP专享
+      - list [ref=e106] [box=58,1343,150,95]:
+        - listitem [ref=e107] [cursor=pointer] [box=58,1343,150,20]: 大盘异动
+        - listitem [ref=e108] [cursor=pointer] [box=58,1368,150,20]: 股价提醒
+        - listitem [ref=e109] [cursor=pointer] [box=58,1393,150,20]: 购买指数
+        - listitem [ref=e110] [cursor=pointer] [box=58,1418,150,20]: 相关ETF
+    - generic [ref=e111] [box=208,56,640,3865]:
+      - heading "安集科技(SH:688019)" [level=1] [ref=e112] [box=208,86,195,28]
+      - generic [ref=e113] [box=402,86,204,26]:
+        - generic [ref=e114] [box=407,90,46,22]: 沪股通
+        - generic [ref=e115] [box=458,90,46,22]: 可融资
+        - generic [ref=e116] [box=509,90,46,22]: 可卖空
+        - generic [ref=e117] [box=560,90,46,22]: 科创板
+      - generic [ref=e118] [box=702,86,146,32]:
+        - img "微信分享" [ref=e121] [cursor=pointer] [box=702,94,15,16]
+        - link "" [ref=e123] [cursor=pointer] [box=735,92,16,20]:
+          - /url: "#"
+        - link "加自选" [ref=e124] [cursor=pointer] [box=774,86,74,32]:
+          - /url: "#"
+      - generic [ref=e126] [box=208,119,640,228]:
+        - generic [ref=e127] [box=208,119,640,47]:
+          - generic [ref=e128] [box=208,119,261,47]:
+            - strong [ref=e130] [box=208,126,116,38]: ¥268.55
+            - generic [ref=e131] [box=331,119,127,47]: +4.25 +1.61%
+          - generic [ref=e132] [box=668,135,179,30]:
+            - generic [ref=e133] [box=668,135,179,14]: 4.09 万球友关注
+            - generic [ref=e134] [box=668,149,179,16]: 已收盘 06-25 15:00:00 北京时间
+        - table [ref=e135] [box=208,171,640,176]:
+          - rowgroup [ref=e136] [box=208,171,640,176]:
+            - row "最高：272.80 今开：270.00 涨停：317.16 成交量：1140.61万" [ref=e137] [box=208,171,640,22]:
+              - cell "最高：272.80" [ref=e138] [box=208,171,149,22]
+              - cell "今开：270.00" [ref=e139] [box=356,171,164,22]
+              - cell "涨停：317.16" [ref=e140] [box=521,171,155,22]
+              - cell "成交量：1140.61万" [ref=e141] [box=675,171,172,22]
+            - row "最低：257.57 昨收：264.30 跌停：211.44 成交额：30.32亿" [ref=e142] [box=208,193,640,22]:
+              - cell "最低：257.57" [ref=e143] [box=208,193,149,22]
+              - cell "昨收：264.30" [ref=e144] [box=356,193,164,22]
+              - cell "跌停：211.44" [ref=e145] [box=521,193,155,22]
+              - cell "成交额：30.32亿" [ref=e146] [box=675,193,172,22]
+            - row "换手：5.01% 盘后量：200 量比：1.06 总市值：610.93亿" [ref=e147] [box=208,215,640,22]:
+              - cell "换手：5.01%" [ref=e148] [box=208,215,149,22]
+              - cell "盘后量：200" [ref=e149] [box=356,215,164,22]
+              - cell "量比：1.06" [ref=e150] [box=521,215,155,22]
+              - cell "总市值：610.93亿" [ref=e151] [box=675,215,172,22]
+            - row "振幅：5.76% 盘后额：5.37万 委比：69.68% 流通值：610.93亿" [ref=e152] [box=208,237,640,22]:
+              - cell "振幅：5.76%" [ref=e153] [box=208,237,149,22]
+              - cell "盘后额：5.37万" [ref=e154] [box=356,237,164,22]
+              - cell "委比：69.68%" [ref=e155] [box=521,237,155,22]
+              - cell "流通值：610.93亿" [ref=e156] [box=675,237,172,22]
+            - row "市盈率(动)：73.55 市盈率(TTM)：74.28 每股收益：3.62 股息(TTM)：0.39" [ref=e157] [box=208,259,640,22]:
+              - cell "市盈率(动)：73.55" [ref=e158] [box=208,259,149,22]
+              - cell "市盈率(TTM)：74.28" [ref=e159] [box=356,259,164,22]
+              - cell "每股收益：3.62" [ref=e160] [box=521,259,155,22]
+              - cell "股息(TTM)：0.39" [ref=e161] [box=675,259,172,22]
+            - row "市盈率(静)：77.96 市净率：13.31 每股净资产：20.17 股息率(TTM)：0.14%" [ref=e162] [box=208,281,640,22]:
+              - cell "市盈率(静)：77.96" [ref=e163] [box=208,281,149,22]
+              - cell "市净率：13.31" [ref=e164] [box=356,281,164,22]
+              - cell "每股净资产：20.17" [ref=e165] [box=521,281,155,22]
+              - cell "股息率(TTM)：0.14%" [ref=e166] [box=675,281,172,22]
+            - row "52周最高：272.80 总股本：2.27亿 表决权：无差异 注册制：是" [ref=e167] [box=208,303,640,22]:
+              - cell "52周最高：272.80" [ref=e168] [box=208,303,149,22]
+              - cell "总股本：2.27亿" [ref=e169] [box=356,303,164,22]
+              - cell "表决权：无差异" [ref=e170] [box=521,303,155,22]
+              - cell "注册制：是" [ref=e171] [box=675,303,172,22]
+            - row "52周最低：105.49 流通股：2.27亿 盈利情况：-- 货币单位：CNY" [ref=e172] [box=208,325,640,22]:
+              - cell "52周最低：105.49" [ref=e173] [box=208,325,149,22]
+              - cell "流通股：2.27亿" [ref=e174] [box=356,325,164,22]
+              - cell "盈利情况：--" [ref=e175] [box=521,325,155,22]
+              - cell "货币单位：CNY" [ref=e176] [box=675,325,172,22]
+      - generic [ref=e179] [cursor=pointer] [box=208,357,640,30]:
+        - generic [ref=e180] [box=209,358,474,30]:
+          - generic [ref=e181] [box=209,358,38,30]: 分时
+          - generic [ref=e182] [box=247,358,38,30]: 五日
+          - generic [ref=e183] [box=285,358,34,30]: 日K
+          - generic [ref=e184] [box=318,358,34,30]: 周K
+          - generic [ref=e185] [box=352,358,34,30]: 月K
+          - generic [ref=e186] [box=386,358,34,30]: 季K
+          - generic [ref=e187] [box=419,358,34,30]: 年K
+          - generic [ref=e188] [box=453,358,47,30]: 120分
+          - generic [ref=e189] [box=500,358,39,30]: 60分
+          - generic [ref=e190] [box=539,358,39,30]: 30分
+          - generic [ref=e191] [box=578,358,39,30]: 15分
+          - generic [ref=e192] [box=618,358,32,30]: 5分
+          - generic [ref=e193] [box=650,358,32,30]: 1分
+        - list [ref=e194] [box=719,358,128,30]:
+          - listitem [ref=e195] [box=719,358,64,30]: 区间统计
+          - listitem [ref=e196] [box=783,358,64,30]: 全屏显示
+      - generic [ref=e200] [box=208,799,640,144]:
+        - img [ref=e201] [box=225,816,40,40]
+        - generic [ref=e202] [box=281,816,550,110]:
+          - generic [ref=e204] [box=281,816,550,68]: $安集科技(SH688019)$
+          - generic [ref=e205] [box=281,894,550,32]:
+            - generic [ref=e206] [box=281,894,236,32]:
+              - link "" [ref=e208] [cursor=pointer] [box=281,894,20,32]:
+                - /url: ""
+                - generic [ref=e209] [box=281,894,20,32]: 
+              - link "" [ref=e210] [cursor=pointer] [box=313,894,20,32]:
+                - /url: javascript:;
+                - generic [ref=e211] [box=313,894,20,32]: 
+              - link "" [ref=e212] [cursor=pointer] [box=345,894,20,32]:
+                - /url: ""
+                - generic [ref=e213] [box=345,894,20,32]: 
+              - link "" [ref=e214] [cursor=pointer] [box=377,894,20,32]:
+                - /url: ""
+                - generic [ref=e215] [box=377,894,20,32]: 
+              - link "" [ref=e216] [cursor=pointer] [box=409,894,20,32]:
+                - /url: ""
+                - generic [ref=e217] [box=409,894,20,32]: 
+              - link " 长文" [ref=e219] [cursor=pointer] [box=454,894,51,32]:
+                - /url: https://mp.xueqiu.com/write/?position=pc_stock_post
+                - generic [ref=e220] [box=454,894,20,32]: 
+                - text: 长文
+            - link "发布" [ref=e222] [box=757,894,74,32]:
+              - /url: ""
+      - generic [ref=e223] [box=208,943,640,2938]:
+        - generic [ref=e224] [box=208,973,640,34]:
+          - link "全部" [ref=e225] [cursor=pointer] [box=208,975,32,31]:
+            - /url: ""
+          - link "讨论" [ref=e226] [cursor=pointer] [box=264,975,32,31]:
+            - /url: ""
+          - link "交易" [ref=e227] [cursor=pointer] [box=320,975,32,31]:
+            - /url: ""
+          - link "资讯" [ref=e228] [cursor=pointer] [box=376,975,32,31]:
+            - /url: ""
+          - link "公告" [ref=e229] [cursor=pointer] [box=432,975,32,31]:
+            - /url: ""
+        - generic [ref=e230] [box=208,1007,640,50]:
+          - generic [ref=e232] [box=208,1017,124,40]:
+            - link "新帖" [ref=e233] [cursor=pointer] [box=208,1017,52,32]:
+              - /url: ""
+            - link "热帖" [ref=e234] [cursor=pointer] [box=270,1017,52,32]:
+              - /url: ""
+          - generic [ref=e236] [box=688,1017,160,30]:
+            - textbox "搜索该股票相关信息" [ref=e237] [box=688,1017,160,30]
+            - generic [ref=e238] [box=822,1020,16,26]: 
+        - generic [ref=e239] [box=208,1057,640,2788]:
+          - article [ref=e240] [box=208,1057,640,101]:
+            - link [ref=e241] [cursor=pointer] [box=208,1063,40,40]:
+              - /url: /S/SH688019
+              - img [ref=e242] [box=208,1063,40,40]
+            - generic [ref=e243] [box=264,1063,584,90]:
+              - generic [ref=e245] [box=264,1063,584,24]:
+                - link "安集科技(SH688019)" [ref=e246] [cursor=pointer] [box=264,1066,140,18]:
+                  - /url: /S/SH688019
+                - link "2小时前· 来自公告" [ref=e247] [cursor=pointer] [box=411,1065,114,22]:
+                  - /url: /S/SH688019/396707071
+              - generic [ref=e251] [box=264,1095,375,18]:
+                - text: 安集科技：投资者关系活动记录表2026-010
+                - link "网页链接" [ref=e252] [cursor=pointer] [box=559,1095,78,18]:
+                  - /url: https://sns.sseinfo.com/resources/images/upload/202606/202606251407024720327751.docx
+              - generic [ref=e253] [box=264,1127,584,27]:
+                - link " 转发" [ref=e254] [cursor=pointer] [box=264,1127,80,22]:
+                  - /url: ""
+                  - generic [ref=e255] [box=264,1127,18,22]: 
+                  - generic [ref=e256] [box=286,1129,28,17]: 转发
+                - link " 讨论" [ref=e257] [cursor=pointer] [box=344,1127,80,22]:
+                  - /url: ""
+                  - generic [ref=e258] [box=344,1127,18,22]: 
+                  - generic [ref=e259] [box=366,1129,28,17]: 讨论
+                - link " 2" [ref=e260] [cursor=pointer] [box=424,1127,80,22]:
+                  - /url: ""
+                  - generic [ref=e261] [box=424,1127,18,22]: 
+                  - generic [ref=e262] [box=446,1129,8,17]: "2"
+                - link " 收藏" [ref=e263] [cursor=pointer] [box=504,1127,68,22]:
+                  - /url: ""
+                  - generic [ref=e264] [box=504,1127,18,22]: 
+                  - generic [ref=e265] [box=526,1129,28,17]: 收藏
+          - article [ref=e266] [box=208,1158,640,109]:
+            - link [ref=e267] [cursor=pointer] [box=208,1173,40,40]:
+              - /url: /6856464301
+              - img [ref=e268] [box=208,1173,40,40]
+            - generic [ref=e269] [box=264,1173,584,89]:
+              - generic [ref=e271] [box=264,1173,584,24]:
+                - link "Jay红色保温杯" [ref=e272] [cursor=pointer] [box=264,1176,100,18]:
+                  - /url: /6856464301
+                - link "3小时前· 来自雪球" [ref=e273] [cursor=pointer] [box=371,1175,114,22]:
+                  - /url: /6856464301/396679907
+              - generic [ref=e277] [box=264,1204,429,18]:
+                - link "$安集科技(SH688019)$" [ref=e278] [cursor=pointer] [box=266,1204,155,18]:
+                  - /url: https://xueqiu.com/S/SH688019
+                - text: 这是主升浪开始了吗
+                - img "[大笑]" [ref=e279] [box=564,1203,22,22]
+                - text: 能不能翻个倍？
+              - generic [ref=e280] [box=264,1235,584,27]:
+                - link " 转发" [ref=e281] [cursor=pointer] [box=264,1235,80,22]:
+                  - /url: ""
+                  - generic [ref=e282] [box=264,1235,18,22]: 
+                  - generic [ref=e283] [box=286,1238,28,17]: 转发
+                - link " 3" [ref=e284] [cursor=pointer] [box=344,1235,80,22]:
+                  - /url: ""
+                  - generic [ref=e285] [box=344,1235,18,22]: 
+                  - generic [ref=e286] [box=366,1238,8,17]: "3"
+                - link " 赞" [ref=e287] [cursor=pointer] [box=424,1235,80,22]:
+                  - /url: ""
+                  - generic [ref=e288] [box=424,1235,18,22]: 
+                  - generic [ref=e289] [box=446,1238,14,17]: 赞
+                - link " 收藏" [ref=e290] [cursor=pointer] [box=504,1235,68,22]:
+                  - /url: ""
+                  - generic [ref=e291] [box=504,1235,18,22]: 
+                  - generic [ref=e292] [box=526,1238,28,17]: 收藏
+          - article [ref=e293] [box=208,1267,640,205]:
+            - link [ref=e294] [cursor=pointer] [box=208,1282,40,40]:
+              - /url: /6185024260
+              - img [ref=e295] [box=208,1282,40,40]
+            - generic [ref=e296] [box=264,1282,584,185]:
+              - generic [ref=e298] [box=264,1282,584,24]:
+                - link "务虚的小学生" [ref=e299] [cursor=pointer] [box=264,1285,90,18]:
+                  - /url: /6185024260
+                - link "3小时前· 来自Android" [ref=e300] [cursor=pointer] [box=362,1283,135,22]:
+                  - /url: /6185024260/396666840
+              - generic [ref=e303] [box=264,1310,584,120]:
+                - generic [ref=e304] [box=264,1313,584,114]:
+                  - text: 当前AI作为全球投资主线，正驱动半导体、新材料等上游核心环节迎来超级周期，行情有望延续3到5年。这一判断基于下游需求爆发、国产替代加速及技术迭代三重逻辑共振，相关上市公司将直接受益于资本开支扩张与供应链重构。
+                  - text: 一、半导体材料与设备：国产替代主战场
+                  - text: "- 安集科技：CMP抛光液龙头..."
+                - link "展开" [ref=e305] [cursor=pointer] [box=472,1410,46,16]:
+                  - /url: ""
+              - generic [ref=e306] [box=264,1440,584,27]:
+                - link " 转发" [ref=e307] [cursor=pointer] [box=264,1440,80,22]:
+                  - /url: ""
+                  - generic [ref=e308] [box=264,1440,18,22]: 
+                  - generic [ref=e309] [box=286,1442,28,17]: 转发
+                - link " 讨论" [ref=e310] [cursor=pointer] [box=344,1440,80,22]:
+                  - /url: ""
+                  - generic [ref=e311] [box=344,1440,18,22]: 
+                  - generic [ref=e312] [box=366,1442,28,17]: 讨论
+                - link " 2" [ref=e313] [cursor=pointer] [box=424,1440,80,22]:
+                  - /url: ""
+                  - generic [ref=e314] [box=424,1440,18,22]: 
+                  - generic [ref=e315] [box=446,1442,8,17]: "2"
+                - link " 收藏" [ref=e316] [cursor=pointer] [box=504,1440,68,22]:
+                  - /url: ""
+                  - generic [ref=e317] [box=504,1440,18,22]: 
+                  - generic [ref=e318] [box=526,1442,28,17]: 收藏
+          - article [ref=e319] [box=208,1471,640,235]:
+            - link [ref=e320] [cursor=pointer] [box=208,1486,40,40]:
+              - /url: /1578376429
+              - img [ref=e321] [box=208,1486,40,40]
+            - generic [ref=e322] [box=264,1486,584,215]:
+              - generic [ref=e324] [box=264,1486,584,24]:
+                - link "斗罗投研" [ref=e325] [cursor=pointer] [box=264,1489,60,18]:
+                  - /url: /1578376429
+                - img "身份认证" [ref=e326] [box=328,1491,15,15]
+                - link "6小时前· 来自Android" [ref=e327] [cursor=pointer] [box=351,1488,135,22]:
+                  - /url: /1578376429/396620806
+              - generic [ref=e329] [cursor=pointer] [box=264,1514,584,150]:
+                - heading "专栏丨 半导体材料产业链深度研究报告——政策驱动下国产替代进入可验证、可融资、可投资黄金周期（一）" [level=3] [ref=e330] [box=264,1514,584,50]:
+                  - strong [ref=e331] [box=264,1514,74,25]: 专栏丨
+                  - text: 半导体材料产业链深度研究报告——政策驱动下国产替代进入可验证、可融资、可投资黄金周期（一）
+                - generic [ref=e332] [box=264,1569,584,96]: 半导体材料是集成电路产业的底层基础，贯穿晶圆制造、先进封装全流程，被誉为芯片产业的“粮食”，全球供给长期由美、日、欧企业垄断，国内高端环节进口依赖度超80%，是产业链自主可控的核心短板。本轮产业周期核心变量在于顶层政策体系完成从“产业鼓励”到“自主可控攻坚”的全面升级，通过战略...
+              - generic [ref=e333] [box=264,1675,584,27]:
+                - link " 转发" [ref=e334] [cursor=pointer] [box=264,1675,80,22]:
+                  - /url: ""
+                  - generic [ref=e335] [box=264,1675,18,22]: 
+                  - generic [ref=e336] [box=286,1677,28,17]: 转发
+                - link " 讨论" [ref=e337] [cursor=pointer] [box=344,1675,80,22]:
+                  - /url: ""
+                  - generic [ref=e338] [box=344,1675,18,22]: 
+                  - generic [ref=e339] [box=366,1677,28,17]: 讨论
+                - link " 1" [ref=e340] [cursor=pointer] [box=424,1675,80,22]:
+                  - /url: ""
+                  - generic [ref=e341] [box=424,1675,18,22]: 
+                  - generic [ref=e342] [box=446,1677,8,17]: "1"
+                - link " 收藏" [ref=e343] [cursor=pointer] [box=504,1675,68,22]:
+                  - /url: ""
+                  - generic [ref=e344] [box=504,1675,18,22]: 
+                  - generic [ref=e345] [box=526,1677,28,17]: 收藏
+          - article [ref=e346] [box=208,1706,640,666]:
+            - link [ref=e347] [cursor=pointer] [box=208,1721,40,40]:
+              - /url: /8180626140
+              - img [ref=e348] [box=208,1721,40,40]
+            - generic [ref=e349] [box=264,1721,584,646]:
+              - generic [ref=e351] [box=264,1721,584,24]:
+                - link "温文的红利怒火" [ref=e352] [cursor=pointer] [box=264,1724,105,18]:
+                  - /url: /8180626140
+                - link "6小时前· 来自Android" [ref=e353] [cursor=pointer] [box=377,1723,135,22]:
+                  - /url: /8180626140/396611268
+              - generic [ref=e354] [box=264,1749,584,581]:
+                - generic [ref=e356] [box=264,1749,584,48]: 安集科技，你确定你不是来搞笑的？所有芯片半导体相关核心股都创出历史新高，唯独你还没睡醒？！！！🙈🙈🙈😭
+                - blockquote [ref=e357] [cursor=pointer] [box=264,1807,584,523]:
+                  - link "@桑浦山 ：" [ref=e359] [box=280,1820,68,24]:
+                    - /url: /3996450089
+                    - generic [ref=e360] [box=280,1821,53,22]: "@桑浦山"
+                    - generic [ref=e361] [box=333,1820,15,24]: ：
+                  - generic [ref=e363] [box=280,1848,552,269]:
+                    - generic [ref=e364] [box=280,1851,267,263]:
+                      - text: 硬科技真硬！
+                      - text: 事实证明硬科技每一次调整，
+                      - text: 都是很好的上车机会。
+                      - text: 只是我怕高，
+                      - text: 每次一涨就拿不住。
+                      - text: 长电科技拿不住，
+                      - text: 安集科技拿不住，
+                      - text: 追了麦格米特，
+                      - text: 居然绿了
+                      - img "[捂脸]" [ref=e365] [box=338,2029,20,20]
+                      - text: 创新药最近貌似有所好转，
+                      - text: 不充当老登了？
+                      - link "$安集科技(SH688019)$" [ref=e366] [box=282,2097,145,17]:
+                        - /url: https://xueqiu.com/S/SH688019
+                      - text: $创新药ETF银华...
+                    - link "展开" [ref=e367] [box=548,2098,44,15]:
+                      - /url: ""
+                  - img [ref=e369] [box=280,2127,66,150]
+                  - generic [ref=e370] [box=280,2303,552,15]:
+                    - text: 昨天 15:04
+                    - link "· 讨论 12" [ref=e371] [box=351,2303,59,17]:
+                      - /url: /3996450089/396426259#comment
+                    - text: · 赞 10
+              - generic [ref=e372] [box=264,2341,584,27]:
+                - link " 转发" [ref=e373] [cursor=pointer] [box=264,2341,80,22]:
+                  - /url: ""
+                  - generic [ref=e374] [box=264,2341,18,22]: 
+                  - generic [ref=e375] [box=286,2343,28,17]: 转发
+                - link " 1" [ref=e376] [cursor=pointer] [box=344,2341,80,22]:
+                  - /url: ""
+                  - generic [ref=e377] [box=344,2341,18,22]: 
+                  - generic [ref=e378] [box=366,2343,8,17]: "1"
+                - link " 1" [ref=e379] [cursor=pointer] [box=424,2341,80,22]:
+                  - /url: ""
+                  - generic [ref=e380] [box=424,2341,18,22]: 
+                  - generic [ref=e381] [box=446,2343,8,17]: "1"
+                - link " 收藏" [ref=e382] [cursor=pointer] [box=504,2341,68,22]:
+                  - /url: ""
+                  - generic [ref=e383] [box=504,2341,18,22]: 
+                  - generic [ref=e384] [box=526,2343,28,17]: 收藏
+          - article [ref=e385] [box=208,2372,640,337]:
+            - link [ref=e386] [cursor=pointer] [box=208,2387,40,40]:
+              - /url: /8180626140
+              - img [ref=e387] [box=208,2387,40,40]
+            - generic [ref=e388] [box=264,2387,584,317]:
+              - generic [ref=e390] [box=264,2387,584,24]:
+                - link "温文的红利怒火" [ref=e391] [cursor=pointer] [box=264,2390,105,18]:
+                  - /url: /8180626140
+                - link "7小时前· 来自Android" [ref=e392] [cursor=pointer] [box=377,2389,135,22]:
+                  - /url: /8180626140/396607335
+              - generic [ref=e393] [box=264,2415,584,252]:
+                - generic [ref=e395] [box=264,2415,584,48]: 安集科技，你确定你不是来搞笑的？所有芯片半导体相关核心股都创出历史新高，唯独你还没睡醒？！！！🙈🙈🙈😭
+                - blockquote [ref=e396] [cursor=pointer] [box=264,2473,584,194]:
+                  - link "@老三的韭菜院子 ：" [ref=e398] [box=280,2486,124,24]:
+                    - /url: /1803938602
+                    - generic [ref=e399] [box=280,2487,109,22]: "@老三的韭菜院子"
+                    - generic [ref=e400] [box=389,2486,15,24]: ：
+                  - generic [ref=e401] [box=280,2514,552,116]:
+                    - heading "半导体材料国产替代空间" [level=5] [ref=e402] [box=280,2514,552,22]:
+                      - link "半导体材料国产替代空间" [ref=e403] [box=280,2516,176,19]:
+                        - /url: /1803938602/396515790
+                    - generic [ref=e405] [box=280,2543,541,106]:
+                      - text: 一、光刻胶及配套试剂：难度最高，攻坚战打响
+                      - text: 光刻胶被誉为半导体材料“皇冠上的明珠”，目前国内企业正加速从g线/i线向KrF、ArF迈进，并在配套材料上进行全产业链协同。
+                      - text: 彤程新材 (603650) * 核心地位：旗下北京科华是国内KrF光刻胶的绝对龙头，实现了大批量稳定供货；同时在ArF光刻胶的...
+                  - generic [ref=e406] [box=280,2640,552,15]:
+                    - text: 昨天 22:28 · 转发 1
+                    - link "· 讨论 8" [ref=e407] [box=403,2640,51,17]:
+                      - /url: /1803938602/396515790#comment
+                    - text: · 赞 12
+              - generic [ref=e408] [box=264,2677,584,27]:
+                - link " 转发" [ref=e409] [cursor=pointer] [box=264,2677,80,22]:
+                  - /url: ""
+                  - generic [ref=e410] [box=264,2677,18,22]: 
+                  - generic [ref=e411] [box=286,2680,28,17]: 转发
+                - link " 讨论" [ref=e412] [cursor=pointer] [box=344,2677,80,22]:
+                  - /url: ""
+                  - generic [ref=e413] [box=344,2677,18,22]: 
+                  - generic [ref=e414] [box=366,2680,28,17]: 讨论
+                - link " 2" [ref=e415] [cursor=pointer] [box=424,2677,80,22]:
+                  - /url: ""
+                  - generic [ref=e416] [box=424,2677,18,22]: 
+                  - generic [ref=e417] [box=446,2680,8,17]: "2"
+                - link " 收藏" [ref=e418] [cursor=pointer] [box=504,2677,68,22]:
+                  - /url: ""
+                  - generic [ref=e419] [box=504,2677,18,22]: 
+                  - generic [ref=e420] [box=526,2680,28,17]: 收藏
+          - article [ref=e421] [box=208,2709,640,385]:
+            - link [ref=e422] [cursor=pointer] [box=208,2724,40,40]:
+              - /url: /8180626140
+              - img [ref=e423] [box=208,2724,40,40]
+            - generic [ref=e424] [box=264,2724,584,365]:
+              - generic [ref=e426] [box=264,2724,584,24]:
+                - link "温文的红利怒火" [ref=e427] [cursor=pointer] [box=264,2727,105,18]:
+                  - /url: /8180626140
+                - link "7小时前· 来自Android" [ref=e428] [cursor=pointer] [box=377,2726,135,22]:
+                  - /url: /8180626140/396603873
+              - generic [ref=e429] [box=264,2752,584,300]:
+                - generic [ref=e431] [box=264,2752,584,96]:
+                  - generic [ref=e432] [box=264,2755,579,90]:
+                    - text: 回复
+                    - link "@大柏蜘蛛" [ref=e433] [cursor=pointer] [box=296,2755,72,18]:
+                      - /url: https://xueqiu.com/n/大柏蜘蛛
+                    - text: ": 安集科技，你确定你不是来搞笑的？所有芯片半导体相关核心股都创出历史新高，唯独你还没睡醒？！！！🙈🙈🙈😭//"
+                    - link "@大柏蜘蛛" [ref=e434] [cursor=pointer] [box=575,2779,72,18]:
+                      - /url: https://xueqiu.com/n/大柏蜘蛛
+                    - text: :回复
+                    - link "@老三的韭菜院子" [ref=e435] [cursor=pointer] [box=686,2779,117,18]:
+                      - /url: https://xueqiu.com/n/老三的韭菜院子
+                    - text: :对了。看好安集科技、鼎龙股份，竞争格局好，海外突破就在眼前，同时极度受益先进封装、存储芯片3...
+                  - link "展开" [ref=e436] [cursor=pointer] [box=376,2828,46,16]:
+                    - /url: ""
+                - blockquote [ref=e437] [cursor=pointer] [box=264,2858,584,194]:
+                  - link "@老三的韭菜院子 ：" [ref=e439] [box=280,2871,124,24]:
+                    - /url: /1803938602
+                    - generic [ref=e440] [box=280,2872,109,22]: "@老三的韭菜院子"
+                    - generic [ref=e441] [box=389,2871,15,24]: ：
+                  - generic [ref=e442] [box=280,2899,552,116]:
+                    - heading "半导体材料国产替代空间" [level=5] [ref=e443] [box=280,2899,552,22]:
+                      - link "半导体材料国产替代空间" [ref=e444] [box=280,2900,176,19]:
+                        - /url: /1803938602/396515790
+                    - generic [ref=e446] [box=280,2928,541,106]:
+                      - text: 一、光刻胶及配套试剂：难度最高，攻坚战打响
+                      - text: 光刻胶被誉为半导体材料“皇冠上的明珠”，目前国内企业正加速从g线/i线向KrF、ArF迈进，并在配套材料上进行全产业链协同。
+                      - text: 彤程新材 (603650) * 核心地位：旗下北京科华是国内KrF光刻胶的绝对龙头，实现了大批量稳定供货；同时在ArF光刻胶的...
+                  - generic [ref=e447] [box=280,3025,552,15]:
+                    - text: 昨天 22:28 · 转发 1
+                    - link "· 讨论 8" [ref=e448] [box=403,3025,51,17]:
+                      - /url: /1803938602/396515790#comment
+                    - text: · 赞 12
+              - generic [ref=e449] [box=264,3062,584,27]:
+                - link " 转发" [ref=e450] [cursor=pointer] [box=264,3062,80,22]:
+                  - /url: ""
+                  - generic [ref=e451] [box=264,3062,18,22]: 
+                  - generic [ref=e452] [box=286,3065,28,17]: 转发
+                - link " 1" [ref=e453] [cursor=pointer] [box=344,3062,80,22]:
+                  - /url: ""
+                  - generic [ref=e454] [box=344,3062,18,22]: 
+                  - generic [ref=e455] [box=366,3065,8,17]: "1"
+                - link " 2" [ref=e456] [cursor=pointer] [box=424,3062,80,22]:
+                  - /url: ""
+                  - generic [ref=e457] [box=424,3062,18,22]: 
+                  - generic [ref=e458] [box=446,3065,8,17]: "2"
+                - link " 收藏" [ref=e459] [cursor=pointer] [box=504,3062,68,22]:
+                  - /url: ""
+                  - generic [ref=e460] [box=504,3062,18,22]: 
+                  - generic [ref=e461] [box=526,3065,28,17]: 收藏
+          - article [ref=e462] [box=208,3094,640,157]:
+            - link [ref=e463] [cursor=pointer] [box=208,3109,40,40]:
+              - /url: /8180626140
+              - img [ref=e464] [box=208,3109,40,40]
+            - generic [ref=e465] [box=264,3109,584,137]:
+              - generic [ref=e467] [box=264,3109,584,24]:
+                - link "温文的红利怒火" [ref=e468] [cursor=pointer] [box=264,3112,105,18]:
+                  - /url: /8180626140
+                - link "7小时前· 来自Android" [ref=e469] [cursor=pointer] [box=377,3110,135,22]:
+                  - /url: /8180626140/396603424
+              - generic [ref=e473] [box=264,3140,570,66]:
+                - link "$安集科技(SH688019)$" [ref=e474] [cursor=pointer] [box=266,3140,155,18]:
+                  - /url: https://xueqiu.com/S/SH688019
+                - text: 安集科技，你确定你不是来搞笑的？所有芯片半导体相关核心股都创出历史新高，唯独你还没睡醒？！！！🙈🙈🙈😭
+              - generic [ref=e475] [box=264,3219,584,27]:
+                - link " 转发" [ref=e476] [cursor=pointer] [box=264,3219,80,22]:
+                  - /url: ""
+                  - generic [ref=e477] [box=264,3219,18,22]: 
+                  - generic [ref=e478] [box=286,3221,28,17]: 转发
+                - link " 讨论" [ref=e479] [cursor=pointer] [box=344,3219,80,22]:
+                  - /url: ""
+                  - generic [ref=e480] [box=344,3219,18,22]: 
+                  - generic [ref=e481] [box=366,3221,28,17]: 讨论
+                - link " 2" [ref=e482] [cursor=pointer] [box=424,3219,80,22]:
+                  - /url: ""
+                  - generic [ref=e483] [box=424,3219,18,22]: 
+                  - generic [ref=e484] [box=446,3221,8,17]: "2"
+                - link " 收藏" [ref=e485] [cursor=pointer] [box=504,3219,68,22]:
+                  - /url: ""
+                  - generic [ref=e486] [box=504,3219,18,22]: 
+                  - generic [ref=e487] [box=526,3221,28,17]: 收藏
+          - article [ref=e488] [box=208,3250,640,385]:
+            - link [ref=e489] [cursor=pointer] [box=208,3265,40,40]:
+              - /url: /8722724475
+              - img [ref=e490] [box=208,3265,40,40]
+            - generic [ref=e491] [box=264,3265,584,365]:
+              - generic [ref=e493] [box=264,3265,584,24]:
+                - link "大柏蜘蛛" [ref=e494] [cursor=pointer] [box=264,3268,60,18]:
+                  - /url: /8722724475
+                - link "修改于15小时前· 来自iPhone" [ref=e495] [cursor=pointer] [box=332,3267,179,22]:
+                  - /url: /8722724475/396534721
+              - generic [ref=e496] [box=264,3293,584,300]:
+                - generic [ref=e498] [box=264,3293,584,96]: 对了。看好安集科技、鼎龙股份，竞争格局好，海外突破就在眼前，同时极度受益先进封装、存储芯片3D堆叠和TSV工艺，对CMP的指数级增量。也属于量价齐升的范畴。 同时，对雅克科技保持关注，也是好卡位。但是不明白，为什么在这么好的行情里面，25年年报和26年一季度报的营收和利润那么难看。保持关...
+                - blockquote [ref=e499] [cursor=pointer] [box=264,3399,584,194]:
+                  - link "@老三的韭菜院子 ：" [ref=e501] [box=280,3412,124,24]:
+                    - /url: /1803938602
+                    - generic [ref=e502] [box=280,3413,109,22]: "@老三的韭菜院子"
+                    - generic [ref=e503] [box=389,3412,15,24]: ：
+                  - generic [ref=e504] [box=280,3440,552,116]:
+                    - heading "半导体材料国产替代空间" [level=5] [ref=e505] [box=280,3440,552,22]:
+                      - link "半导体材料国产替代空间" [ref=e506] [box=280,3442,176,19]:
+                        - /url: /1803938602/396515790
+                    - generic [ref=e508] [box=280,3469,541,106]:
+                      - text: 一、光刻胶及配套试剂：难度最高，攻坚战打响
+                      - text: 光刻胶被誉为半导体材料“皇冠上的明珠”，目前国内企业正加速从g线/i线向KrF、ArF迈进，并在配套材料上进行全产业链协同。
+                      - text: 彤程新材 (603650) * 核心地位：旗下北京科华是国内KrF光刻胶的绝对龙头，实现了大批量稳定供货；同时在ArF光刻胶的...
+                  - generic [ref=e509] [box=280,3566,552,15]:
+                    - text: 昨天 22:28 · 转发 1
+                    - link "· 讨论 8" [ref=e510] [box=403,3566,51,17]:
+                      - /url: /1803938602/396515790#comment
+                    - text: · 赞 12
+              - generic [ref=e511] [box=264,3603,584,27]:
+                - link " 1" [ref=e512] [cursor=pointer] [box=264,3603,80,22]:
+                  - /url: ""
+                  - generic [ref=e513] [box=264,3603,18,22]: 
+                  - generic [ref=e514] [box=286,3606,8,17]: "1"
+                - link " 4" [ref=e515] [cursor=pointer] [box=344,3603,80,22]:
+                  - /url: ""
+                  - generic [ref=e516] [box=344,3603,18,22]: 
+                  - generic [ref=e517] [box=366,3606,8,17]: "4"
+                - link " 3" [ref=e518] [cursor=pointer] [box=424,3603,80,22]:
+                  - /url: ""
+                  - generic [ref=e519] [box=424,3603,18,22]: 
+                  - generic [ref=e520] [box=446,3606,8,17]: "3"
+                - link " 收藏" [ref=e521] [cursor=pointer] [box=504,3603,68,22]:
+                  - /url: ""
+                  - generic [ref=e522] [box=504,3603,18,22]: 
+                  - generic [ref=e523] [box=526,3606,28,17]: 收藏
+          - article [ref=e524] [box=208,3635,640,210]:
+            - link [ref=e525] [cursor=pointer] [box=208,3650,40,40]:
+              - /url: /1803938602
+              - img [ref=e526] [box=208,3650,40,40]
+            - generic [ref=e527] [box=264,3650,584,190]:
+              - generic [ref=e529] [box=264,3650,584,24]:
+                - link "老三的韭菜院子" [ref=e530] [cursor=pointer] [box=264,3653,105,18]:
+                  - /url: /1803938602
+                - link "昨天 22:28· 来自雪球" [ref=e531] [cursor=pointer] [box=377,3652,131,22]:
+                  - /url: /1803938602/396515790
+              - generic [ref=e533] [cursor=pointer] [box=264,3678,584,125]:
+                - heading "半导体材料国产替代空间" [level=3] [ref=e534] [box=264,3678,584,25]
+                - generic [ref=e536] [box=264,3710,579,114]:
+                  - text: 一、光刻胶及配套试剂：难度最高，攻坚战打响
+                  - text: 光刻胶被誉为半导体材料“皇冠上的明珠”，目前国内企业正加速从g线/i线向KrF、ArF迈进，并在配套材料上进行全产业链协同。
+                  - text: 彤程新材 (603650) * 核心地位：旗下北京科华是国内KrF光刻胶的绝对龙头，实现了大批量稳定供货；同时在ArF光刻胶的...
+              - generic [ref=e537] [box=264,3813,584,27]:
+                - link " 1" [ref=e538] [cursor=pointer] [box=264,3813,80,22]:
+                  - /url: ""
+                  - generic [ref=e539] [box=264,3813,18,22]: 
+                  - generic [ref=e540] [box=286,3816,8,17]: "1"
+                - link " 8" [ref=e541] [cursor=pointer] [box=344,3813,80,22]:
+                  - /url: ""
+                  - generic [ref=e542] [box=344,3813,18,22]: 
+                  - generic [ref=e543] [box=366,3816,8,17]: "8"
+                - link " 12" [ref=e544] [cursor=pointer] [box=424,3813,80,22]:
+                  - /url: ""
+                  - generic [ref=e545] [box=424,3813,18,22]: 
+                  - generic [ref=e546] [box=446,3816,16,17]: "12"
+                - link " 收藏" [ref=e547] [cursor=pointer] [box=504,3813,68,22]:
+                  - /url: ""
+                  - generic [ref=e548] [box=504,3813,18,22]: 
+                  - generic [ref=e549] [box=526,3816,28,17]: 收藏
+        - generic [ref=e550] [box=208,3855,640,26]:
+          - link "1" [ref=e551] [cursor=pointer] [box=379,3858,25,22]:
+            - /url: ""
+          - link "2" [ref=e552] [cursor=pointer] [box=409,3858,25,22]:
+            - /url: ""
+          - link "3" [ref=e553] [cursor=pointer] [box=439,3858,25,22]:
+            - /url: ""
+          - link "4" [ref=e554] [cursor=pointer] [box=469,3858,25,22]:
+            - /url: ""
+          - link "5" [ref=e555] [cursor=pointer] [box=499,3858,25,22]:
+            - /url: ""
+          - text: ...
+          - link "100" [ref=e556] [cursor=pointer] [box=548,3858,25,22]:
+            - /url: ""
+          - link "下一页" [ref=e557] [cursor=pointer] [box=588,3858,39,22]:
+            - /url: ""
+          - textbox [ref=e558] [box=632,3856,39,25]
+    - generic [ref=e559] [box=888,56,280,1094]:
+      - generic [ref=e560] [box=888,86,280,134]:
+        - generic [ref=e562] [box=888,86,32,26]: 简介
+        - generic [ref=e564] [box=888,135,280,85]:
+          - text: 安集微电子科技(上海)股份有限公司的主营业务是高端半导体材料的研发和产业化。公司的主要产品是化学机械抛光液、功能性湿电子化学品、电...
+          - link "展开" [ref=e565] [cursor=pointer] [box=965,201,44,17]:
+            - /url: "#"
+      - generic [ref=e566] [box=888,250,280,70]:
+        - generic [ref=e568] [box=888,250,32,26]: 业务
+        - generic [ref=e569] [box=888,298,280,21]: 高端半导体材料的研发和产业化。
+      - generic [ref=e570] [box=888,349,280,124]:
+        - generic [ref=e572] [box=888,349,156,26]: 40923人关注了该股票
+        - list [ref=e574] [box=888,398,280,75]:
+          - listitem [ref=e575] [box=888,398,32,32]:
+            - link [ref=e576] [cursor=pointer] [box=888,416,32,17]:
+              - /url: /1426917715
+              - img [ref=e577] [box=888,398,32,32]
+          - listitem [ref=e578] [box=929,398,32,32]:
+            - link [ref=e579] [cursor=pointer] [box=929,416,32,17]:
+              - /url: /3727313602
+              - img [ref=e580] [box=929,398,32,32]
+          - listitem [ref=e581] [box=970,398,32,32]:
+            - link [ref=e582] [cursor=pointer] [box=970,416,32,17]:
+              - /url: /7213978167
+              - img [ref=e583] [box=970,398,32,32]
+          - listitem [ref=e584] [box=1011,398,32,32]:
+            - link [ref=e585] [cursor=pointer] [box=1011,416,32,17]:
+              - /url: /5237858899
+              - img [ref=e586] [box=1011,398,32,32]
+          - listitem [ref=e587] [box=1052,398,32,32]:
+            - link [ref=e588] [cursor=pointer] [box=1052,416,32,17]:
+              - /url: /8602154167
+              - img [ref=e589] [box=1052,398,32,32]
+          - listitem [ref=e590] [box=1093,398,32,32]:
+            - link [ref=e591] [cursor=pointer] [box=1093,416,32,17]:
+              - /url: /7967694093
+              - img [ref=e592] [box=1093,398,32,32]
+          - listitem [ref=e593] [box=1134,398,32,32]:
+            - link [ref=e594] [cursor=pointer] [box=1134,416,32,17]:
+              - /url: /7407703141
+              - img [ref=e595] [box=1134,398,32,32]
+          - listitem [ref=e596] [box=888,435,32,32]:
+            - link [ref=e597] [cursor=pointer] [box=888,454,32,17]:
+              - /url: /2092653357
+              - img [ref=e598] [box=888,435,32,32]
+          - listitem [ref=e599] [box=929,435,32,32]:
+            - link [ref=e600] [cursor=pointer] [box=929,454,32,17]:
+              - /url: /6379226890
+              - img [ref=e601] [box=929,435,32,32]
+          - listitem [ref=e602] [box=970,435,32,32]:
+            - link [ref=e603] [cursor=pointer] [box=970,454,32,17]:
+              - /url: /7054157030
+              - img [ref=e604] [box=970,435,32,32]
+          - listitem [ref=e605] [box=1011,435,32,32]:
+            - link [ref=e606] [cursor=pointer] [box=1011,454,32,17]:
+              - /url: /6023395045
+              - img [ref=e607] [box=1011,435,32,32]
+          - listitem [ref=e608] [box=1052,435,32,32]:
+            - link [ref=e609] [cursor=pointer] [box=1052,454,32,17]:
+              - /url: /1004217323
+              - img [ref=e610] [box=1052,435,32,32]
+          - listitem [ref=e611] [box=1093,435,32,32]:
+            - link [ref=e612] [cursor=pointer] [box=1093,454,32,17]:
+              - /url: /8666749729
+              - img [ref=e613] [box=1093,435,32,32]
+          - listitem [ref=e614] [box=1134,435,32,32]:
+            - link [ref=e615] [cursor=pointer] [box=1134,454,32,17]:
+              - /url: /6598069082
+              - img [ref=e616] [box=1134,435,32,32]
+      - generic [ref=e617] [box=888,503,280,225]:
+        - generic [ref=e619] [box=888,503,64,26]: 相关股票
+        - list [ref=e621] [box=888,551,280,176]:
+          - generic [ref=e622] [box=888,551,280,32]:
+            - generic [ref=e623] [box=888,551,56,32]:
+              - link "美光科技" [ref=e624] [cursor=pointer] [box=888,551,56,14]:
+                - /url: /S/MU
+              - generic [ref=e625] [box=888,569,56,12]: MU
+            - generic [ref=e626] [box=1117,551,51,32]:
+              - generic [ref=e627] [box=1117,551,51,14]: "1048.51"
+              - generic [ref=e628] [box=1117,569,51,14]: "-0.31%"
+          - generic [ref=e629] [box=888,599,280,32]:
+            - generic [ref=e630] [box=888,599,64,32]:
+              - link "麦格米特" [ref=e631] [cursor=pointer] [box=888,599,64,14]:
+                - /url: /S/SZ002851
+              - generic [ref=e632] [box=888,617,64,12]: SZ002851
+            - generic [ref=e633] [box=1125,599,43,32]:
+              - generic [ref=e634] [box=1125,599,43,14]: "171.98"
+              - generic [ref=e635] [box=1125,617,43,14]: +0.98%
+          - generic [ref=e636] [box=888,647,280,32]:
+            - generic [ref=e637] [box=888,647,31,32]:
+              - link "康宁" [ref=e638] [cursor=pointer] [box=888,647,31,14]:
+                - /url: /S/GLW
+              - generic [ref=e639] [box=888,665,31,12]: GLW
+            - generic [ref=e640] [box=1125,647,43,32]:
+              - generic [ref=e641] [box=1125,647,43,14]: "205.83"
+              - generic [ref=e642] [box=1125,665,43,14]: +6.06%
+          - generic [ref=e643] [box=888,695,280,32]:
+            - generic [ref=e644] [box=888,695,64,32]:
+              - link "沪电股份" [ref=e645] [cursor=pointer] [box=888,695,64,14]:
+                - /url: /S/SZ002463
+              - generic [ref=e646] [box=888,713,64,12]: SZ002463
+            - generic [ref=e647] [box=1125,695,43,32]:
+              - generic [ref=e648] [box=1125,695,43,14]: "154.99"
+              - generic [ref=e649] [box=1125,713,43,14]: +8.12%
+      - generic [ref=e650] [box=888,757,280,363]:
+        - generic [ref=e652] [box=888,757,64,26]: 相关基金
+        - list [ref=e654] [box=888,806,280,314]:
+          - generic [ref=e655] [box=888,806,280,50]:
+            - generic [ref=e656] [box=888,806,172,50]:
+              - link "宏利领先中小盘混合" [ref=e657] [cursor=pointer] [box=888,806,172,14]:
+                - /url: /S/F162214
+              - generic [ref=e658] [box=888,824,172,12]: 安集科技占比9.89%
+              - generic [ref=e659] [box=888,838,252,18]:
+                - generic [ref=e660] [box=888,840,119,14]: 近3年业绩同类排名前3%
+                - generic [ref=e661] [box=1011,840,125,14]: 近4年业绩同类排名前12%
+            - generic [ref=e662] [box=1102,806,65,50]:
+              - generic [ref=e663] [box=1102,806,65,14]: +203.34%
+              - generic [ref=e664] [box=1102,824,65,14]: 近1年
+          - generic [ref=e665] [box=888,872,280,50]:
+            - generic [ref=e666] [box=888,872,177,50]:
+              - link "宏利高研发6个月持有混合A" [ref=e667] [cursor=pointer] [box=888,872,177,14]:
+                - /url: /S/F010135
+              - generic [ref=e668] [box=888,890,177,12]: 安集科技占比9.85%
+              - generic [ref=e669] [box=888,904,257,18]:
+                - generic [ref=e670] [box=888,906,125,14]: 近3年业绩同类排名前13%
+                - generic [ref=e671] [box=1016,906,125,14]: 近1年业绩同类排名前15%
+            - generic [ref=e672] [box=1102,872,65,50]:
+              - generic [ref=e673] [box=1102,872,65,14]: +117.38%
+              - generic [ref=e674] [box=1102,890,65,14]: 近1年
+          - generic [ref=e675] [box=888,938,280,50]:
+            - generic [ref=e676] [box=888,938,172,50]:
+              - link "宏利高研发6个月持有混合C" [ref=e677] [cursor=pointer] [box=888,938,172,14]:
+                - /url: /S/F010136
+              - generic [ref=e678] [box=888,956,172,12]: 安集科技占比9.85%
+              - generic [ref=e679] [box=888,970,252,18]:
+                - generic [ref=e680] [box=888,972,64,14]: 买入费率为0
+                - generic [ref=e681] [box=955,972,125,14]: 近1年业绩同类排名前15%
+            - generic [ref=e682] [box=1102,938,65,50]:
+              - generic [ref=e683] [box=1102,938,65,14]: +116.71%
+              - generic [ref=e684] [box=1102,956,65,14]: 近1年
+          - generic [ref=e685] [box=888,1004,280,50]:
+            - generic [ref=e686] [box=888,1004,178,50]:
+              - link "华夏半导体龙头混合发起式C" [ref=e687] [cursor=pointer] [box=888,1004,178,14]:
+                - /url: /S/F016501
+              - generic [ref=e688] [box=888,1022,178,12]: 安集科技占比9.75%
+              - generic [ref=e689] [box=888,1036,258,18]:
+                - generic [ref=e690] [box=888,1038,64,14]: 买入费率为0
+                - generic [ref=e691] [box=955,1038,119,14]: 近1年业绩同类排名前6%
+            - generic [ref=e692] [box=1102,1004,65,50]:
+              - generic [ref=e693] [box=1102,1004,65,14]: +187.97%
+              - generic [ref=e694] [box=1102,1022,65,14]: 近1年
+          - generic [ref=e695] [box=888,1070,280,50]:
+            - generic [ref=e696] [box=888,1070,177,50]:
+              - link "华夏半导体龙头混合发起式A" [ref=e697] [cursor=pointer] [box=888,1070,177,14]:
+                - /url: /S/F016500
+              - generic [ref=e698] [box=888,1088,177,12]: 安集科技占比9.75%
+              - generic [ref=e699] [box=888,1102,257,18]:
+                - generic [ref=e700] [box=888,1104,119,14]: 近1年业绩同类排名前5%
+                - generic [ref=e701] [box=1011,1104,119,14]: 近3年业绩同类排名前3%
+            - generic [ref=e702] [box=1102,1070,65,50]:
+              - generic [ref=e703] [box=1102,1070,65,14]: +189.13%
+              - generic [ref=e704] [box=1102,1088,65,14]: 近1年
+  - contentinfo [ref=e705] [box=0,3941,1185,250]:
+    - generic [ref=e706] [box=0,3957,1185,218]:
+      - generic [ref=e707] [box=532,3957,122,30]:
+        - link "微信" [ref=e708] [cursor=pointer] [box=537,3957,30,30]:
+          - /url: javascript:;
+          - img "微信" [ref=e709] [box=544,3965,15,15]
+        - link "微博" [ref=e710] [cursor=pointer] [box=577,3957,30,30]:
+          - /url: https://weibo.com/xueqiucom
+          - img "微博" [ref=e711] [box=585,3965,15,15]
+        - link "邮箱" [ref=e712] [cursor=pointer] [box=618,3957,30,30]:
+          - /url: mailto:snowball@xueqiu.com
+          - img "邮箱" [ref=e713] [box=625,3966,16,12]
+      - generic [ref=e714] [box=0,3995,1185,20]:
+        - link "A股开户｜" [ref=e715] [cursor=pointer] [box=455,3997,65,17]:
+          - /url: https://broker.xueqiu.com/open/pingan
+        - link "雪球基金｜" [ref=e716] [cursor=pointer] [box=520,3997,70,17]:
+          - /url: https://danjuanfunds.com/
+        - link "投资者教育｜" [ref=e717] [cursor=pointer] [box=590,3997,84,17]:
+          - /url: https://xueqiu.com/edu/invest-edu
+        - link "风险提示" [ref=e718] [cursor=pointer] [box=674,3997,56,17]:
+          - /url: https://xueqiu.com/about/faq#6_0
+      - generic [ref=e719] [box=0,4023,1185,20]: 风险提示：雪球里任何用户或者嘉宾的发言，都有其特定立场，投资决策需要建立在独立思考之上
+      - generic [ref=e720] [box=0,4043,1185,112]:
+        - generic [ref=e721] [box=0,4049,1185,20]:
+          - text: 其他建议反馈欢迎点击
+          - link "#我给雪球提建议#" [ref=e723] [cursor=pointer] [box=486,4052,97,14]:
+            - /url: https://xueqiu.com/hashtag/I-aIkee7membqueQg-aPkOW7uuiuriM=
+          - text: 如受到欺诈信息骚扰请至
+          - link "#防诈骗举报专区#" [ref=e725] [cursor=pointer] [box=722,4052,97,14]:
+            - /url: https://xueqiu.com/hashtag/I-mYsuiviOmql-S4vuaKpeS4k-WMuiM=
+        - generic [ref=e726] [box=0,4069,1185,80]:
+          - text: 互联网违法和不良信息投诉：01061840634 / tousu@xueqiu.com
+          - generic [ref=e727] [box=623,4069,55,20]: 举报中心
+          - link "侵权投诉指引" [ref=e728] [cursor=pointer] [box=678,4072,75,14]:
+            - /url: https://xueqiu.com/law/tortreport
+          - link "雪球服务协议" [ref=e729] [cursor=pointer] [box=753,4072,75,14]:
+            - /url: https://xueqiu.com/about/terms
+          - link "雪球隐私政策" [ref=e730] [cursor=pointer] [box=829,4072,75,14]:
+            - /url: https://xueqiu.com/law/privacy
+          - text: © 2026 XUEQIU.COM 北京雪球信息科技有限公司
+          - link "京公网安备 11010502040379号" [ref=e731] [cursor=pointer] [box=456,4092,172,14]:
+            - /url: https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502040379
+          - link "京ICP证100666号" [ref=e732] [cursor=pointer] [box=628,4092,99,14]:
+            - /url: https://xqdoc.imedao.com/198bc1b4fb41d6523feaace4.jpg
+          - link "京ICP备10040543" [ref=e733] [cursor=pointer] [box=727,4092,100,14]:
+            - /url: https://beian.miit.gov.cn/
+          - link "京金信备〔2022〕3号" [ref=e734] [cursor=pointer] [box=827,4092,121,14]:
+            - /url: https://fisbaobei.ifcert.cn/Home/homeIindex
+          - link "营业执照" [ref=e735] [cursor=pointer] [box=948,4092,51,14]:
+            - /url: https://xqimg.imedao.com/1798dc30dead0453fd6075d8.png
+          - generic [ref=e736] [box=0,4109,1185,20]:
+            - link "证券业协会会员单位（代码817027）" [ref=e737] [cursor=pointer] [box=316,4112,199,14]:
+              - /url: https://xqimg.imedao.com/14d52aefd15e8f3fc0ce1fbd.png
+            - 'link "广播电视节目制作经营许可证: (京)字第08638号" [ref=e738] [cursor=pointer] [box=516,4112,254,14]':
+              - /url: https://xqdoc.imedao.com/198c1a776442061d3fe4efd5.pdf
+            - link "出版物经营许可证" [ref=e739] [cursor=pointer] [box=769,4112,99,14]:
+              - /url: https://xqimg.imedao.com/181b337b7742caf83fee6640.png
+          - link "人工智能服务登记编号：Beijing-XueQiuHuiJian-2S0033" [ref=e741] [box=442,4132,301,14]:
+            - /url: javascript:;
+      - generic [ref=e742] [box=0,4155,1185,20]:
+        - link "常见问题｜" [ref=e743] [cursor=pointer] [box=495,4157,70,17]:
+          - /url: https://xueqiu.com/about/faq
+        - link "加入我们｜" [ref=e744] [cursor=pointer] [box=565,4157,70,17]:
+          - /url: https://xueqiu.com/about/jobs
+        - link "关于雪球" [ref=e745] [cursor=pointer] [box=635,4157,56,17]:
+          - /url: https://xueqiu.com/about/what-is-xueqiu
+  - generic [ref=e747] [box=1295,728,260,184]:
+    - img [ref=e748] [box=1295,728,260,108]
+    - link "" [ref=e749] [cursor=pointer] [box=1531,740,12,12]:
+      - /url: ""
+    - generic [ref=e751] [cursor=pointer] [box=1311,852,228,44]: 立即登录/注册

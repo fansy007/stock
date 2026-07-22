@@ -1,0 +1,34 @@
+- generic [ref=e2]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "雪球 首页" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img "雪球" [ref=e11]
+          - generic [ref=e12]: 首页
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - textbox "搜索" [ref=e15]
+          - button "" [ref=e17] [cursor=pointer]
+        - list [ref=e18]:
+          - listitem [ref=e19]:
+            - link "" [ref=e20] [cursor=pointer]:
+              - /url: /snb/web/cs?from=xq
+          - listitem [ref=e21]:
+            - link "下载App" [ref=e22] [cursor=pointer]:
+              - /url: "javascript:"
+          - listitem [ref=e23]:
+            - generic [ref=e24] [cursor=pointer]: 登录
+  - generic [ref=e26]:
+    - heading "哎呀！出错了！" [level=3] [ref=e28]:
+      - generic [ref=e29]: 哎呀！出错了！
+    - paragraph [ref=e31]: 你访问的页面不存在，过会儿再来尝试嘛！
+    - link "返回首页" [ref=e32] [cursor=pointer]:
+      - /url: /
+  - generic [ref=e34]:
+    - img [ref=e35]
+    - link "" [ref=e36] [cursor=pointer]:
+      - /url: ""
+    - generic [ref=e38] [cursor=pointer]: 立即登录/注册

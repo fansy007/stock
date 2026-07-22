@@ -73,6 +73,7 @@ def render_backtest_page():
                     st.session_state.bt_current_set = (name, kind)
                     st.session_state.bt_configs = load_set(name, kind)
                     st.session_state.bt_result = None
+                    st.session_state.bt_editor_tab = 0
                     st.rerun()
 
         # 用户自定义
@@ -89,6 +90,7 @@ def render_backtest_page():
                     st.session_state.bt_current_set = (name, kind)
                     st.session_state.bt_configs = load_set(name, kind)
                     st.session_state.bt_result = None
+                    st.session_state.bt_editor_tab = 0
                     st.rerun()
 
         # ── 新建 ──
@@ -199,7 +201,7 @@ def render_backtest_page():
             index=tab_idx,
             horizontal=True,
             label_visibility="collapsed",
-            key="bt_editor_radio",
+            key=f"bt_editor_radio_{current_set[0]}",
         )
         st.session_state.bt_editor_tab = tab_names.index(chosen_tab)
 
@@ -224,7 +226,7 @@ def render_backtest_page():
             f"{chosen_tab} {'（只读预览）' if is_readonly else ''}",
             value=text,
             height=400,
-            key=f"bt_editor_{key}",
+            key=f"bt_editor_{set_name}_{key}",
             disabled=is_readonly,
         )
 
